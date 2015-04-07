@@ -5,92 +5,57 @@ primaryExpression
     |   StringLiteral+
     |   '(' expression ')'
     |   '(' compoundStatement ')' // Blocks (GCC extension)
+    |   primaryExpression '[' expression ']'
+    |   primaryExpression '(' expression? ')'
+    |   primaryExpression '.' Identifier
+    |   primaryExpression '++'
+    |   primaryExpression '--'
     ;
 
-postfixExpression
-    :   primaryExpression
-    |   postfixExpression '[' expression ']'
-    |   postfixExpression '(' argumentExpressionList? ')'
-    |   postfixExpression '.' Identifier
-    |   postfixExpression '++'
-    |   postfixExpression '--'
-    |   '(' typeName ')' '{' initializerList '}'
-    |   '(' typeName ')' '{' initializerList ',' '}'
-    ;
-
-argumentExpressionList
-    :   assignmentExpression
-    |   argumentExpressionList ',' assignmentExpression
-    ;
-
-unaryExpression
-    :   postfixExpression
-    |   '++' unaryExpression
-    |   '--' unaryExpression
-    ;
 
 unaryOperator
     :   '+' | '-' | '!'
     ;
 
-multiplicativeExpression
-    :   unaryExpression
-    |   multiplicativeExpression '*' unaryExpression
-    |   multiplicativeExpression '/' unaryExpression
-    |   multiplicativeExpression '%' unaryExpression
+arithmeticExpression
+	:   primaryExpression
+	|   '++' arithmeticExpression
+	|   '--' arithmeticExpression
+    |   arithmeticExpression '*' arithmeticExpression
+    |   arithmeticExpression '/' arithmeticExpression
+    |   arithmeticExpression '%' arithmeticExpression
+    |   arithmeticExpression '+' arithmeticExpression
+    |   arithmeticExpression '-' arithmeticExpression
     ;
 	
-additiveExpression
-    :   multiplicativeExpression
-    |   additiveExpression '+' multiplicativeExpression
-    |   additiveExpression '-' multiplicativeExpression
-    ;
 	
-relationalExpression
-    :   additiveExpression
-    |   relationalExpression '<' additiveExpression
-    |   relationalExpression '>' additiveExpression
-    |   relationalExpression '<=' additiveExpression
-    |   relationalExpression '>=' additiveExpression
-    ;
+logicalExpression
+	:   arithmeticExpression
+	|   logicalExpression '<' arithmeticExpression
+	|   logicalExpression '>' arithmeticExpression
+	|   logicalExpression '<=' arithmeticExpression
+	|   logicalExpression '>=' arithmeticExpression
+	|   logicalExpression '==' logicalExpression
+	|   logicalExpression '!=' logicalExpression
+	|   logicalExpression '&&' logicalExpression
+    |   logicalExpression '||' logicalExpression
+	;
 
-equalityExpression
-    :   relationalExpression
-    |   equalityExpression '==' relationalExpression
-    |   equalityExpression '!=' relationalExpression
-    ;
-
-andExpression
-    :   equalityExpression
-    |   andExpression '&' equalityExpression
-    ;
-	
-logicalAndExpression
-    :   andExpression
-    |   logicalAndExpression '&&' andExpression
-    ;
-
-logicalOrExpression
-    :   logicalAndExpression
-    |   logicalOrExpression '||' logicalAndExpression
-    ;
-
-conditionalExpression
-    :   logicalOrExpression ('?' expression ':' conditionalExpression)?
-    ;
-	
-assignmentExpression
-    :   conditionalExpression
-    |   unaryExpression assignmentOperator assignmentExpression
-    ;
+// we are moving everything into expression
+// 
 	
 assignmentOperator
     :   '=' | '*=' | '/=' | '%=' | '+=' | '-='
     ;
 	
 expression
-    :   assignmentExpression
-    |   expression ',' assignmentExpression
+	:   logicalExpression
+	|   expression '||' logicalExpression
+	|   logicalExpression ('?' expression ':' expression)?
+	// arithmeticExpression below might be best left with only 
+	// the original unaryExpression contents
+	|   arithmeticExpression assignmentOperator expression
+    |   expression ',' expression
     ;
 	
 expressionStatement
@@ -109,13 +74,9 @@ iterationStatement
     ;
 
 blockItemList
-    :   blockItem
-    |   blockItemList blockItem
-    ;
-
-blockItem
-    :   declaration
-    |   statement
+	:   declaration
+	|   statement
+    |   blockItemList blockItemList
     ;
 	
 typeName
@@ -162,13 +123,13 @@ structDeclaratorList
 
 structDeclarator
     :   directDeclarator
-    |   directDeclarator? ':' conditionalExpression
+    |   directDeclarator? ':' expression
     ;
 	
 directDeclarator
     :   Identifier
     |   '(' directDeclarator ')'
-    |   directDeclarator '[' assignmentExpression? ']'
+    |   directDeclarator '[' expression? ']'
     |   directDeclarator '(' parameterTypeList ')'
     |   directDeclarator '(' identifierList? ')'
     ;
@@ -183,7 +144,7 @@ typedefName
     ;
 
 initializer
-    :   assignmentExpression
+    :   expression
     |   '{' initializerList '}'
     |   '{' initializerList ',' '}'
     ;
@@ -203,7 +164,7 @@ designatorList
     ;
 
 designator
-    :   '[' conditionalExpression ']'
+    :   '[' expression ']'
     |   '.' Identifier
     ;
 	
@@ -218,18 +179,9 @@ declaration
     ;
 
 declarationSpecifiers
-    :   declarationSpecifier+
-    ;
-
-declarationSpecifiers2
-    :   declarationSpecifier+
+    :   typeSpecifier+
     ;
 	
-declarationSpecifier
-    :	typeSpecifier
-    |   functionSpecifier
-    ;
-
 initDeclaratorList
     :   initDeclarator
     |   initDeclaratorList ',' initDeclarator
@@ -252,11 +204,7 @@ parameterList
 
 parameterDeclaration
     :   declarationSpecifiers directDeclarator
-    |   declarationSpecifiers2
-    ;
-	
-functionSpecifier
-    :   ('inline')
+    |   declarationSpecifiers
     ;
 	
 functionDefinition

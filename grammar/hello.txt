@@ -1,4 +1,4 @@
 void main() {
-  int a = 1 + 2;
+  // int a = 1 + 2;
   print("hello world");
 }
