@@ -3,6 +3,7 @@ grammar Calphy;
 primaryExpression
     :   Identifier
     |   StringLiteral+
+	|	Number
     |   '(' expression ')'
     |   '(' compoundStatement ')' // Blocks (GCC extension)
     |   primaryExpression '[' expression ']'
@@ -282,6 +283,10 @@ Identifier
         |   Digit
         )*
     ;
+
+Number
+	:	Digit+ (Dot Digit+)?
+	;
 
 fragment
 IdentifierNondigit
