@@ -1,16 +1,36 @@
 grammar Calphy;
 
-primaryExpression
+
+expression
     :   Identifier
     |   StringLiteral+
 	|	Number
     |   '(' expression ')'
     |   '(' compoundStatement ')' // Blocks (GCC extension)
-    |   primaryExpression '[' expression ']'
-    |   primaryExpression '(' expression? ')'
-    |   primaryExpression '.' Identifier
-    |   primaryExpression '++'
-    |   primaryExpression '--'
+    |   expression '[' expression ']'
+    |   expression '(' expression? ')'
+    |   expression '.' Identifier
+    |   expression '++'
+    |   expression '--'
+	|   '++' expression
+	|   '--' expression
+    |   expression '*' expression
+    |   expression '/' expression
+    |   expression '%' expression
+    |   expression '+' expression
+    |   expression '-' expression
+	|   expression '<' expression
+	|   expression '>' expression
+	|   expression '<=' expression
+	|   expression '>=' expression
+	|   expression '==' expression
+	|   expression '!=' expression
+	|   expression '&&' expression
+    |   expression '||' expression
+	// expression below might be best left with only 
+	// the original unaryExpression contents
+	|   expression assignmentOperator expression
+    |   expression ',' expression
     ;
 
 
@@ -18,46 +38,11 @@ unaryOperator
     :   '+' | '-' | '!'
     ;
 
-arithmeticExpression
-	:   primaryExpression
-	|   '++' arithmeticExpression
-	|   '--' arithmeticExpression
-    |   arithmeticExpression '*' arithmeticExpression
-    |   arithmeticExpression '/' arithmeticExpression
-    |   arithmeticExpression '%' arithmeticExpression
-    |   arithmeticExpression '+' arithmeticExpression
-    |   arithmeticExpression '-' arithmeticExpression
-    ;
-	
-	
-logicalExpression
-	:   arithmeticExpression
-	|   logicalExpression '<' arithmeticExpression
-	|   logicalExpression '>' arithmeticExpression
-	|   logicalExpression '<=' arithmeticExpression
-	|   logicalExpression '>=' arithmeticExpression
-	|   logicalExpression '==' logicalExpression
-	|   logicalExpression '!=' logicalExpression
-	|   logicalExpression '&&' logicalExpression
-    |   logicalExpression '||' logicalExpression
-	;
-
-// we are moving everything into expression
-// 
 	
 assignmentOperator
     :   '=' | '*=' | '/=' | '%=' | '+=' | '-='
     ;
 	
-expression
-	:   logicalExpression
-	|   expression '||' logicalExpression
-	|   logicalExpression ('?' expression ':' expression)?
-	// arithmeticExpression below might be best left with only 
-	// the original unaryExpression contents
-	|   arithmeticExpression assignmentOperator expression
-    |   expression ',' expression
-    ;
 	
 expressionStatement
     :   expression? ';'
@@ -226,7 +211,6 @@ Else : 'else';
 Float : 'float';
 For : 'for';
 If : 'if';
-Inline : 'inline';
 Int : 'int';
 Return : 'return';
 Struct : 'struct';
@@ -322,7 +306,8 @@ HexadecimalDigit
     ;
 
 StringLiteral
-    :   '"' SCharSequence? '"'
+	:   '"' SCharSequence? '"'
+	|   '\'' SCharSequence? '\''
     ;
 
 fragment
