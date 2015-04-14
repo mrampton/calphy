@@ -6,7 +6,6 @@ expression
     |   StringLiteral+
 	|	Number
     |   '(' expression ')'
-    |   '(' compoundStatement ')' // Blocks (GCC extension)
     |   expression '[' expression ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
@@ -43,15 +42,6 @@ assignmentOperator
     :   '=' | '*=' | '/=' | '%=' | '+=' | '-='
     ;
 	
-	
-expressionStatement
-    :   expression? ';'
-    ;
-	
-compoundStatement
-    :   '{' blockItemList? '}'
-    ;
-
 iterationStatement
     :   'while' '(' expression ')' statement
     |   'do' statement 'while' '(' expression ')' ';'
@@ -60,8 +50,8 @@ iterationStatement
     ;
 
 blockItemList
-	:   declaration
-	|   statement
+    :   declaration
+    |   statement
     |   blockItemList blockItemList
     ;
 	
@@ -155,18 +145,20 @@ designator
     ;
 	
 statement
-    :   compoundStatement
-    |   expressionStatement
+    :   '{' blockItemList? '}'
+    |   expression? ';'
     |   iterationStatement
     ;
 
 declaration
-    :   declarationSpecifiers initDeclaratorList? ';'
+    :   typeSpecifier+ initDeclaratorList? ';'
     ;
 
+/*
 declarationSpecifiers
     :   typeSpecifier+
     ;
+*/
 	
 initDeclaratorList
     :   initDeclarator
@@ -189,12 +181,11 @@ parameterList
     ;
 
 parameterDeclaration
-    :   declarationSpecifiers directDeclarator
-    |   declarationSpecifiers
+    :   typeSpecifier+ directDeclarator
     ;
 	
 functionDefinition
-    :   declarationSpecifiers? directDeclarator declarationList? compoundStatement
+    :   typeSpecifier+? directDeclarator declarationList? '{' blockItemList? '}'
     ;
 
 declarationList

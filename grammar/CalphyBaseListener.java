@@ -16,9 +16,7 @@ public class CalphyBaseListener implements CalphyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(CalphyParser.ExpressionContext ctx) {
-		System.out.println("hello qi; hello surashree.");
-	 }
+	@Override public void enterExpression(CalphyParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -49,30 +47,6 @@ public class CalphyBaseListener implements CalphyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignmentOperator(CalphyParser.AssignmentOperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpressionStatement(CalphyParser.ExpressionStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpressionStatement(CalphyParser.ExpressionStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCompoundStatement(CalphyParser.CompoundStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCompoundStatement(CalphyParser.CompoundStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -325,18 +299,6 @@ public class CalphyBaseListener implements CalphyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDeclarationSpecifiers(CalphyParser.DeclarationSpecifiersContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDeclarationSpecifiers(CalphyParser.DeclarationSpecifiersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
