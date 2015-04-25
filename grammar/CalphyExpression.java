@@ -17,6 +17,8 @@ public class CalphyExpression {
 			
 		}
 		if (print) {
+			if (printString.contains("'") && printString.contains("'"))
+				printString = printString.substring(1,printString.length() - 1);
 			System.out.println(printString);
 		}
 		
