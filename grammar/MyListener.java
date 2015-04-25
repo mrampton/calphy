@@ -17,8 +17,11 @@ public class MyListener extends CalphyBaseListener {
 			
 		}
 		if (print) {
+			if (printString.contains("'") && printString.contains("'"))
+				printString = printString.substring(1,printString.length() - 1);
 			System.out.println(printString);
 		}
+		System.out.println("Child count: "+childCount);
 	}
 	
 	
