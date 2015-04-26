@@ -1,6 +1,11 @@
 grammar Calphy;
 
+program
+	:	functionDefinition
+	|	functionDefinition+ functionDefinition
+	;
 
+	
 expression
     :   Identifier
     |   StringLiteral+
