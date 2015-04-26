@@ -1,27 +1,24 @@
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
 public class CalphyExpression {
-	
-	public CalphyExpression(CalphyParser.ExpressionContext ctx) {
+	public String storage = "";
+
+	public CalphyExpression(CalphyParser.ExpressionContext ctx, ParseTreeProperty<String> values) {
+		
 		int childCount = ctx.getChildCount();
-		boolean print = false;
-		String printString = "";
-		
 		if (childCount > 1) {
-			for(int i = 0; i < childCount; i++) {
-				String text = ctx.getChild(i).getText();
-				if (text.equals("print")) {
-					print = true;
-				} else if (!(text.equals(")") || text.equals("("))) {
-					printString += text;
-				}
+			for (int i = 0; i < childCount; i++) {
+				storage += ctx.getChild(i).getText();
 			}
-			
+		} else {
+			storage += ctx.getText();
 		}
-		if (print) {
-			if (printString.contains("'") && printString.contains("'"))
-				printString = printString.substring(1,printString.length() - 1);
-			System.out.println(printString);
-		}
+		values.put(ctx, storage);
+	}
+	
+	public String getStorage() {
 		
+		return storage;
 	}
 	
 }
