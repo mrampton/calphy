@@ -78,6 +78,18 @@ public class CalphyBaseListener implements CalphyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSelectionStatement(CalphyParser.SelectionStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSelectionStatement(CalphyParser.SelectionStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlockItemList(CalphyParser.BlockItemListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -210,6 +222,18 @@ public class CalphyBaseListener implements CalphyListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIdentifierList(CalphyParser.IdentifierListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -313,18 +337,6 @@ public class CalphyBaseListener implements CalphyListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInitDeclaratorList(CalphyParser.InitDeclaratorListContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInitDeclaratorList(CalphyParser.InitDeclaratorListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

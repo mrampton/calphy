@@ -1,40 +1,41 @@
 grammar Calphy;
 
 program
-	:	functionDefinition
-	|	functionDefinition+ functionDefinition
-	;
+    :	functionDefinition
+    |	functionDefinition+ functionDefinition
+    ;
 
 	
 expression
     :   Identifier
     |   StringLiteral+
-	|	Number
+    |	Number
     |   '(' expression ')'
     |   expression '[' expression ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
     |   expression '++'
     |   expression '--'
-	|   '++' expression
-	|   '--' expression
+    |   '++' expression
+    |   '--' expression
     |   expression '*' expression
     |   expression '/' expression
     |   expression '%' expression
     |   expression '+' expression
     |   expression '-' expression
-	|   expression '<' expression
-	|   expression '>' expression
-	|   expression '<=' expression
-	|   expression '>=' expression
-	|   expression '==' expression
-	|   expression '!=' expression
-	|   expression '&&' expression
+    |   expression '<' expression
+    |   expression '>' expression
+    |   expression '<=' expression
+    |   expression '>=' expression
+    |   expression '==' expression
+    |   expression '!=' expression
+    |   expression '&&' expression
     |   expression '||' expression
-	// expression below might be best left with only 
+        // expression below might be best left with only 
 	// the original unaryExpression contents
-	|   expression assignmentOperator expression
+    |   expression assignmentOperator expression
     |   expression ',' expression
+    |   Return expression
     ;
 
 
@@ -53,6 +54,11 @@ iterationStatement
     |   'for' '(' expression? ';' expression? ';' expression? ')' statement
     |   'for' '(' declaration expression? ';' expression? ')' statement
     ;
+
+selectionStatement
+    :   'if' '(' expression ')' statement ('else' statement)?
+    ;
+
 
 blockItemList
     :   declaration
@@ -111,8 +117,10 @@ directDeclarator
     :   Identifier
     |   '(' directDeclarator ')'
     |   directDeclarator '[' expression? ']'
-    |   directDeclarator '(' parameterTypeList ')'
-    |   directDeclarator '(' identifierList? ')'
+    ;
+
+functionDeclarator
+    :   directDeclarator '(' parameterTypeList? ')'
     ;
 
 identifierList
@@ -124,6 +132,7 @@ typedefName
     :   Identifier
     ;
 
+//TODO change this to Calphy grammar
 initializer
     :   expression
     |   '{' initializerList '}'
@@ -153,21 +162,11 @@ statement
     :   '{' blockItemList? '}'
     |   expression? ';'
     |   iterationStatement
+    |   selectionStatement
     ;
 
 declaration
-    :   typeSpecifier+ initDeclaratorList? ';'
-    ;
-
-/*
-declarationSpecifiers
-    :   typeSpecifier+
-    ;
-*/
-	
-initDeclaratorList
-    :   initDeclarator
-    |   initDeclaratorList ',' initDeclarator
+    :   typeSpecifier initDeclarator ';'
     ;
 
 initDeclarator
@@ -177,7 +176,6 @@ initDeclarator
 
 parameterTypeList
     :   parameterList
-    |   parameterList ',' '...'
     ;
 
 parameterList
@@ -186,11 +184,11 @@ parameterList
     ;
 
 parameterDeclaration
-    :   typeSpecifier+ directDeclarator
+    :   typeSpecifier? directDeclarator
     ;
 	
 functionDefinition
-    :   typeSpecifier+? directDeclarator declarationList? '{' blockItemList? '}'
+    :   typeSpecifier functionDeclarator '{' blockItemList? '}'
     ;
 
 declarationList
