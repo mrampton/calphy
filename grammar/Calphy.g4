@@ -9,34 +9,59 @@ program
 expression
     :   Identifier
     |   StringLiteral+
-	|	Number
+    |	Number
     |   '(' expression ')'
+    |   '<' physicsVector '>' physicsUnit?
+    |   expression physicsUnit
     |   expression '[' expression ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
     |   expression '++'
     |   expression '--'
-	|   '++' expression
-	|   '--' expression
+    |   '++' expression
+    |   '--' expression
     |   expression '*' expression
     |   expression '/' expression
     |   expression '%' expression
     |   expression '+' expression
     |   expression '-' expression
-	|   expression '<' expression
-	|   expression '>' expression
-	|   expression '<=' expression
-	|   expression '>=' expression
-	|   expression '==' expression
-	|   expression '!=' expression
-	|   expression '&&' expression
+    |   expression '<' expression
+    |   expression '>' expression
+    |   expression '<=' expression
+    |   expression '>=' expression
+    |   expression '==' expression
+    |   expression '!=' expression
+    |   expression '&&' expression
     |   expression '||' expression
 	// expression below might be best left with only 
 	// the original unaryExpression contents
-	|   expression assignmentOperator expression
+    |   expression assignmentOperator expression
     |   expression ',' expression
     ;
 
+physicsVector
+    :   expression ',' expression
+    ;
+
+physicsUnit
+    :   ('[' Whitespace? unitPrefix? 'g' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 's' Whitespace? ']'
+    |   '[' Whitespace? 'm/s' Whitespace? ']'
+    |   '[' Whitespace? 'm/s^2' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix?'N' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'm' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'W' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'J' Whitespace? ']')
+    ;
+
+unitPrefix
+    :   ('n'
+    |   'u'
+    |   'm'
+    |   'k'
+    |   'M'
+    |   'G')
+    ;
 
 unaryOperator
     :   '+' | '-' | '!'
@@ -74,11 +99,32 @@ typeSpecifier
     |   'char'
     |   'int'
     |   'float'
+    |   'double'
     |   '_Bool')
+    |   physicsSpecifier
     |   structSpecifier
     |   typedefName
     ;
-	
+
+physicsSpecifier
+    :   ('mass'
+    |   'velocity'
+    |   'acceleration'
+    |   'displacement'
+    |   'distance'
+    |   'time')
+    |   physicsList
+    ;
+
+physicsList
+    :   ('massList'
+    |   'velocityList'
+    |   'accelerationList'
+    |   'displacementList'
+    |   'distanceList'
+    |   'timeList')
+    ;
+
 structSpecifier
     :   struct Identifier? '{' structDeclarationList '}'
     |   struct Identifier
@@ -172,7 +218,11 @@ initDeclaratorList
 
 initDeclarator
     :   directDeclarator
-    |   directDeclarator '=' initializer
+    |   directDeclarator '=' typeCast? initializer
+    ;
+
+typeCast
+    :   '(' typeSpecifier ')'
     ;
 
 parameterTypeList
