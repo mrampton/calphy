@@ -11,6 +11,8 @@ expression
     |   StringLiteral+
     |	Number
     |   '(' expression ')'
+    |   '<' physicsVector '>' physicsUnit?
+    |   expression physicsUnit
     |   expression '[' expression ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
@@ -38,6 +40,29 @@ expression
     |   Return expression
     ;
 
+physicsVector
+    :   expression ',' expression
+    ;
+
+physicsUnit
+    :   ('[' Whitespace? unitPrefix? 'g' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 's' Whitespace? ']'
+    |   '[' Whitespace? 'm/s' Whitespace? ']'
+    |   '[' Whitespace? 'm/s^2' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix?'N' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'm' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'W' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'J' Whitespace? ']')
+    ;
+
+unitPrefix
+    :   ('n'
+    |   'u'
+    |   'm'
+    |   'k'
+    |   'M'
+    |   'G')
+    ;
 
 unaryOperator
     :   '+' | '-' | '!'
@@ -80,11 +105,32 @@ typeSpecifier
     |   'char'
     |   'int'
     |   'float'
+    |   'double'
     |   '_Bool')
+    |   physicsSpecifier
     |   structSpecifier
     |   typedefName
     ;
-	
+
+physicsSpecifier
+    :   ('mass'
+    |   'velocity'
+    |   'acceleration'
+    |   'displacement'
+    |   'distance'
+    |   'time')
+    |   physicsList
+    ;
+
+physicsList
+    :   ('massList'
+    |   'velocityList'
+    |   'accelerationList'
+    |   'displacementList'
+    |   'distanceList'
+    |   'timeList')
+    ;
+
 structSpecifier
     :   struct Identifier? '{' structDeclarationList '}'
     |   struct Identifier
@@ -171,7 +217,11 @@ declaration
 
 initDeclarator
     :   directDeclarator
-    |   directDeclarator '=' initializer
+    |   directDeclarator '=' typeCast? initializer
+    ;
+
+typeCast
+    :   '(' typeSpecifier ')'
     ;
 
 parameterTypeList
