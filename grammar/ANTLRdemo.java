@@ -6,8 +6,9 @@ public class ANTLRDemo {
 		String s = 	"void main(){ print('hello world'); }";
 		// String s = 	"void main(){ print(2 + 3); }";
 
-        ANTLRInputStream in = new ANTLRInputStream(s);
-        CalphyLexer lexer = new CalphyLexer(in);
+        // ANTLRInputStream in = new ANTLRInputStream(s);
+		CalphyLexer lexer = new CalphyLexer( new ANTLRFileStream(args[0]));
+        // CalphyLexer lexer = new CalphyLexer(in);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CalphyParser parser = new CalphyParser(tokens);
 		

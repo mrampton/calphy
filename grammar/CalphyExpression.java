@@ -1,5 +1,6 @@
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
+
 public class CalphyExpression {
 	public String storage = "";
 
@@ -17,7 +18,6 @@ public class CalphyExpression {
 	}
 	
 	public String getStorage() {
-		
 		return storage;
 	}
 	
