@@ -45,10 +45,6 @@ physicsVector
     ;
 
 physicsUnit
-	:	'[' '_' unitPrefix? 'g' ']'
-	;
-
-/*physicsUnit
     :   ('[' Whitespace? unitPrefix? 'g' Whitespace? ']'
     |   '[' Whitespace? unitPrefix? 's' Whitespace? ']'
     |   '[' Whitespace? 'm/s' Whitespace? ']'
@@ -58,14 +54,14 @@ physicsUnit
     |   '[' Whitespace? unitPrefix? 'W' Whitespace? ']'
     |   '[' Whitespace? unitPrefix? 'J' Whitespace? ']')
     ;
-*/
+
 unitPrefix
-    :   'n'
+    :   ('n'
     |   'u'
     |   'm'
     |   'k'
     |   'M'
-    |   'G'
+    |   'G')
     ;
 
 unaryOperator
