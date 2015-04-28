@@ -45,23 +45,44 @@ physicsVector
 
 physicsUnit
     :   Whitespace? 'g' Whitespace?
-    |   Whitespace? unitPrefix? 's' Whitespace? 
+    |   Whitespace? 'ug' Whitespace?
+    |   Whitespace? 'ng' Whitespace?
+    |   Whitespace? 'mg' Whitespace?
+    |   Whitespace? 'kg' Whitespace?
+    |   Whitespace? 's' Whitespace? 
+    |   Whitespace? 'us' Whitespace? 
+    |   Whitespace? 'ns' Whitespace? 
+    |   Whitespace? 'ms' Whitespace? 
     |   Whitespace? 'm/s' Whitespace?
     |   Whitespace? 'm/s^2' Whitespace?
-    |   Whitespace? unitPrefix?'N' Whitespace?
-    |   Whitespace? unitPrefix? 'm' Whitespace?
-    |   Whitespace? unitPrefix? 'W' Whitespace?
-    |   Whitespace? unitPrefix? 'J' Whitespace?
+    |   Whitespace? 'N' Whitespace?
+    |   Whitespace? 'uN' Whitespace?
+    |   Whitespace? 'nN' Whitespace?
+    |   Whitespace? 'mN' Whitespace?
+    |   Whitespace? 'kN' Whitespace?
+    |   Whitespace? 'MN' Whitespace?
+    |   Whitespace? 'GN' Whitespace?
+    |   Whitespace? 'm' Whitespace?
+    |   Whitespace? 'um' Whitespace?
+    |   Whitespace? 'nm' Whitespace?
+    |   Whitespace? 'mm' Whitespace?
+    |   Whitespace? 'km' Whitespace?
+    |   Whitespace? 'W' Whitespace?
+    |   Whitespace? 'uW' Whitespace?
+    |   Whitespace? 'nW' Whitespace?
+    |   Whitespace? 'mW' Whitespace?
+    |   Whitespace? 'kW' Whitespace?
+    |   Whitespace? 'MW' Whitespace?
+    |   Whitespace? 'GW' Whitespace?
+    |   Whitespace? 'J' Whitespace?
+    |   Whitespace? 'uJ' Whitespace?
+    |   Whitespace? 'nJ' Whitespace?
+    |   Whitespace? 'mJ' Whitespace?
+    |   Whitespace? 'kJ' Whitespace?
+    |   Whitespace? 'MJ' Whitespace?
+    |   Whitespace? 'GJ' Whitespace?
     ;
 
-unitPrefix
-    :   ('n'
-    |   'u'
-    |   'm'
-    |   'k'
-    |   'M'
-    |   'G')
-    ;
 
 unaryOperator
     :   '+' | '-' | '!'
