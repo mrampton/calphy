@@ -44,6 +44,7 @@ physicsVector
     ;
 
 physicsUnit
+<<<<<<< HEAD
     :   Whitespace? 'g' Whitespace?
     |   Whitespace? unitPrefix? 's' Whitespace? 
     |   Whitespace? 'm/s' Whitespace?
@@ -52,6 +53,16 @@ physicsUnit
     |   Whitespace? unitPrefix? 'm' Whitespace?
     |   Whitespace? unitPrefix? 'W' Whitespace?
     |   Whitespace? unitPrefix? 'J' Whitespace?
+=======
+    :   ('[' Whitespace? unitPrefix? 'g' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 's' Whitespace? ']'
+    |   '[' Whitespace? 'm/s' Whitespace? ']'
+    |   '[' Whitespace? 'm/s^2' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix?'N' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'm' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'W' Whitespace? ']'
+    |   '[' Whitespace? unitPrefix? 'J' Whitespace? ']')
+>>>>>>> 3ac6736a73b4ae23daef5da4da18a0cbdd252d21
     ;
 
 unitPrefix
