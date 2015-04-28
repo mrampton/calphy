@@ -12,8 +12,7 @@ expression
     |	Number
     |   '(' expression ')'
     |   '<' physicsVector '>' physicsUnit?
-    |   expression physicsUnit
-    |   expression '[' expression ']'
+    |   expression '[' physicsUnit ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
     |   expression '++'
@@ -45,14 +44,14 @@ physicsVector
     ;
 
 physicsUnit
-    :   ('[' Whitespace? unitPrefix? 'g' Whitespace? ']'
-    |   '[' Whitespace? unitPrefix? 's' Whitespace? ']'
-    |   '[' Whitespace? 'm/s' Whitespace? ']'
-    |   '[' Whitespace? 'm/s^2' Whitespace? ']'
-    |   '[' Whitespace? unitPrefix?'N' Whitespace? ']'
-    |   '[' Whitespace? unitPrefix? 'm' Whitespace? ']'
-    |   '[' Whitespace? unitPrefix? 'W' Whitespace? ']'
-    |   '[' Whitespace? unitPrefix? 'J' Whitespace? ']')
+    :   Whitespace? 'kg' Whitespace?
+    |   Whitespace? unitPrefix? 's' Whitespace? 
+    |   Whitespace? 'm/s' Whitespace?
+    |   Whitespace? 'm/s^2' Whitespace?
+    |   Whitespace? unitPrefix?'N' Whitespace?
+    |   Whitespace? unitPrefix? 'm' Whitespace?
+    |   Whitespace? unitPrefix? 'W' Whitespace?
+    |   Whitespace? unitPrefix? 'J' Whitespace?
     ;
 
 unitPrefix
