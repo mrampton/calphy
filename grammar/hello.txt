@@ -1,5 +1,5 @@
 void main() {
-	mass a = (float)2[kg];
+	mass a = (float)2[_kg];
 	acceleration b = <1.0,1.0>;
 	print("hello world");
 		

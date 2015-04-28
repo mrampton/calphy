@@ -44,7 +44,7 @@ physicsVector
     ;
 
 physicsUnit
-    :   Whitespace? 'kg' Whitespace?
+    :   Whitespace? 'g' Whitespace?
     |   Whitespace? unitPrefix? 's' Whitespace? 
     |   Whitespace? 'm/s' Whitespace?
     |   Whitespace? 'm/s^2' Whitespace?
