@@ -13,7 +13,7 @@ antlr:
 	$(antlr4) Calphy.g4
 
 .PHONY: gui
-gui: antlr
+gui: antlr all
 	$(grun) Calphy program hello.txt -gui
 
 .PHONY: demo
