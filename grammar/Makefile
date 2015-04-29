@@ -14,11 +14,10 @@ antlr:
 
 .PHONY: gui
 gui: antlr all
-	$(grun) Calphy program hello.txt -gui
+	$(grun) Calphy program test-code.calphy -gui
 
-.PHONY: demo
-demo: all
-	java ANTLRDemo hello.txt
+compiler: all
+	java Compiler test-code.calphy
 
 .PHONY: clean
 clean :
