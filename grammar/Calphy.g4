@@ -120,7 +120,7 @@ directDeclarator
     ;
 
 functionDeclarator
-    :   directDeclarator '(' parameterTypeList? ')'
+    :   Identifier '(' parameterTypeList? ')'
     ;
 
 identifierList
