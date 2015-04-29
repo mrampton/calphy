@@ -11,7 +11,8 @@ expression
     |   StringLiteral+
     |	Number
     |   '(' expression ')'
-    |   expression '[' expression ']'
+    |   '<' physicsVector '>' physicsUnit?
+    |   expression '[' physicsUnit ']'
     |   expression '(' expression? ')'
     |   expression '.' Identifier
     |   expression '++'
@@ -36,6 +37,50 @@ expression
     |   expression assignmentOperator expression
     |   expression ',' expression
     |   Return expression
+    ;
+
+physicsVector
+    :   expression ',' expression
+    ;
+
+physicsUnit
+    :   Whitespace? 'g' Whitespace?
+    |   Whitespace? 'ug' Whitespace?
+    |   Whitespace? 'ng' Whitespace?
+    |   Whitespace? 'mg' Whitespace?
+    |   Whitespace? 'kg' Whitespace?
+    |   Whitespace? 's' Whitespace? 
+    |   Whitespace? 'us' Whitespace? 
+    |   Whitespace? 'ns' Whitespace? 
+    |   Whitespace? 'ms' Whitespace? 
+    |   Whitespace? 'm/s' Whitespace?
+    |   Whitespace? 'm/s^2' Whitespace?
+    |   Whitespace? 'N' Whitespace?
+    |   Whitespace? 'uN' Whitespace?
+    |   Whitespace? 'nN' Whitespace?
+    |   Whitespace? 'mN' Whitespace?
+    |   Whitespace? 'kN' Whitespace?
+    |   Whitespace? 'MN' Whitespace?
+    |   Whitespace? 'GN' Whitespace?
+    |   Whitespace? 'm' Whitespace?
+    |   Whitespace? 'um' Whitespace?
+    |   Whitespace? 'nm' Whitespace?
+    |   Whitespace? 'mm' Whitespace?
+    |   Whitespace? 'km' Whitespace?
+    |   Whitespace? 'W' Whitespace?
+    |   Whitespace? 'uW' Whitespace?
+    |   Whitespace? 'nW' Whitespace?
+    |   Whitespace? 'mW' Whitespace?
+    |   Whitespace? 'kW' Whitespace?
+    |   Whitespace? 'MW' Whitespace?
+    |   Whitespace? 'GW' Whitespace?
+    |   Whitespace? 'J' Whitespace?
+    |   Whitespace? 'uJ' Whitespace?
+    |   Whitespace? 'nJ' Whitespace?
+    |   Whitespace? 'mJ' Whitespace?
+    |   Whitespace? 'kJ' Whitespace?
+    |   Whitespace? 'MJ' Whitespace?
+    |   Whitespace? 'GJ' Whitespace?
     ;
 
 
@@ -80,11 +125,32 @@ typeSpecifier
     |   'char'
     |   'int'
     |   'float'
+    |   'double'
     |   '_Bool')
+    |   physicsSpecifier
     |   structSpecifier
     |   typedefName
     ;
-	
+
+physicsSpecifier
+    :   ('mass'
+    |   'velocity'
+    |   'acceleration'
+    |   'displacement'
+    |   'distance'
+    |   'time')
+    |   physicsList
+    ;
+
+physicsList
+    :   ('massList'
+    |   'velocityList'
+    |   'accelerationList'
+    |   'displacementList'
+    |   'distanceList'
+    |   'timeList')
+    ;
+
 structSpecifier
     :   struct Identifier? '{' structDeclarationList '}'
     |   struct Identifier
@@ -171,7 +237,11 @@ declaration
 
 initDeclarator
     :   directDeclarator
-    |   directDeclarator '=' initializer
+    |   directDeclarator '=' typeCast? initializer
+    ;
+
+typeCast
+    :   '(' typeSpecifier ')'
     ;
 
 parameterTypeList

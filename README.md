@@ -15,5 +15,5 @@ grun Calphy functionDefinition hello.txt -gui
 
 to run our ParseTree walker:
 ```
-javac -cp .:antlr-4.5-complete.jar ANTLRDemo.java && java ANTLRDemo
+javac -cp .:antlr-4.5-complete.jar ANTLRDemo.java && java ANTLRDemo hello.txt
 ```

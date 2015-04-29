@@ -1,0 +1,8 @@
+void main() {
+	print("hello world");
+}
+
+void someotherfunction() {
+	print ("do you see me");
+}
+
