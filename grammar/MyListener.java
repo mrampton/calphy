@@ -4,24 +4,27 @@ import org.antlr.v4.runtime.ParserRuleContext;
 public class MyListener extends CalphyBaseListener {
 	ParseTreeProperty<String> values = new ParseTreeProperty<String>();
 	
-	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
-		// CalphyExpression exp = new CalphyExpression(ctx, values);
-		// System.out.println(values.get(ctx));
-	}
-
 	@Override public void exitEveryRule(ParserRuleContext ctx) {
 		String storage = "";
+		String childVal = "";
+		StringBuilder sb = new StringBuilder(storage);
 		int childCount = ctx.getChildCount();
+
 		if (childCount > 1) {
 			for (int i = 0; i < childCount; i++) {
-				storage += ctx.getChild(i).getText();
+				childVal = values.get(ctx.getChild(i));
+				
+				// exitEveryRule is not called for terminals and results in childVal = null
+				// in this case, we seek only the text representation of the terminal
+				if ( childVal == null )
+					sb.append(ctx.getChild(i).getText() + " ");
+				else
+					sb.append(childVal + " ");
 			}
 		} else {
-			storage += ctx.getText();
+			sb.append(ctx.getText() + " ");
 		}
-		values.put(ctx, storage);
-		System.out.println(values.get(ctx));
-		
+		values.put(ctx, sb.toString());
 	}
 	
 	
