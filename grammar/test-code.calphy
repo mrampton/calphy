@@ -2,6 +2,7 @@ void main() {
   mass m = 7 [kg];
   acceleration a = <10,10> [m/s^2];
   force f = 0;
+  print("Hello world");
   while(f <= 100) {
     f = calc_force(m, a);
     m = m*2;
