@@ -12,22 +12,15 @@ class readTranslateTable {
 
 	public static void main(String args[]) throws FileNotFoundException {
 		String filename = "TranslateTable.txt";
-		int cnt = 1;
 		String[] lines;
-		String line, translate;
+		String line;
     
         	Scanner scan = new Scanner(new File(filename));
 
         	while (scan.hasNextLine()){
-			translate = "";
             		line = scan.nextLine();
-            		lines = line.split(" ");
-           
-	 		for (int i = 1; i < lines.length; i++)
-				translate += lines[i] + " ";
-			translate = translate.trim();
-            		
-			list.put(lines[0], translate);
+            		lines = line.split("\t");
+			list.put(lines[0], lines[1]);
 		}
 
 		Iterator it = list.entrySet().iterator();

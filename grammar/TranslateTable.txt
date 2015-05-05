@@ -1,5 +1,5 @@
-void public static void
-main main
-mass Mass
-acceleration Acceleration
-force Force
+void	public static void
+main	main
+mass	Mass
+acceleration	Acceleration
+force	Force
