@@ -82,7 +82,7 @@ vector
 physicsUnit
     : 'g' | 'kg' | 
     | 'mg' | 'kg' | 's' | 'us' | 'ns' | 'ms'
-    | 'm/s^2'
+    | 'm/s^2' | 'm/s'
     ;
 
 binaryOperator
