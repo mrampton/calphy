@@ -1,4 +1,4 @@
-grammar Calphy_simp;
+grammar Calphy;
 
 program
     :	(functionDefinition)*
