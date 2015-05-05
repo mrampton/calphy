@@ -8,6 +8,7 @@ class Acceleration {
 	Acceleration(double value_x, double value_y) {
 		this.value_x = value_x;
 		this.value_y = value_y;
+		this.units = "m/s^2";
 	}
 
 	Acceleration(double value_x, double value_y, String units) {
@@ -60,6 +61,6 @@ class Acceleration {
 				System.out.println("error\n");
 		}
 
+		this.units = "m/s^2";
 	}
-
 }
