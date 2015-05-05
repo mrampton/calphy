@@ -1,98 +1,27 @@
-grammar Calphy;
+grammar Calphy_simp;
 
 program
-    :	functionDefinition
-    |	functionDefinition+ functionDefinition
+    :	(functionDefinition)*
     ;
 
-	
-expression
-    :   Identifier
-    |   StringLiteral+
-    |	Number
-    |   '(' expression ')'
-    |   '<' physicsVector '>' physicsUnit?
-    |   expression '[' physicsUnit ']'
-    |   expression '(' expression? ')'
-    |   expression '.' Identifier
-    |   expression '++'
-    |   expression '--'
-    |   '++' expression
-    |   '--' expression
-    |   expression '*' expression
-    |   expression '/' expression
-    |   expression '%' expression
-    |   expression '+' expression
-    |   expression '-' expression
-    |   expression '<' expression
-    |   expression '>' expression
-    |   expression '<=' expression
-    |   expression '>=' expression
-    |   expression '==' expression
-    |   expression '!=' expression
-    |   expression '&&' expression
-    |   expression '||' expression
-        // expression below might be best left with only 
-	// the original unaryExpression contents
-    |   expression assignmentOperator expression
-    |   expression ',' expression
-    |   Return expression
+functionDefinition
+    :   type functionDeclarator '{' statement* '}'
     ;
 
-physicsVector
-    :   expression ',' expression
+functionDeclarator
+    :   Identifier '(' parameterList ')'
     ;
 
-physicsUnit
-    :   Whitespace? 'g' Whitespace?
-    |   Whitespace? 'ug' Whitespace?
-    |   Whitespace? 'ng' Whitespace?
-    |   Whitespace? 'mg' Whitespace?
-    |   Whitespace? 'kg' Whitespace?
-    |   Whitespace? 's' Whitespace? 
-    |   Whitespace? 'us' Whitespace? 
-    |   Whitespace? 'ns' Whitespace? 
-    |   Whitespace? 'ms' Whitespace? 
-    |   Whitespace? 'm/s' Whitespace?
-    |   Whitespace? 'm/s^2' Whitespace?
-    |   Whitespace? 'N' Whitespace?
-    |   Whitespace? 'uN' Whitespace?
-    |   Whitespace? 'nN' Whitespace?
-    |   Whitespace? 'mN' Whitespace?
-    |   Whitespace? 'kN' Whitespace?
-    |   Whitespace? 'MN' Whitespace?
-    |   Whitespace? 'GN' Whitespace?
-    |   Whitespace? 'm' Whitespace?
-    |   Whitespace? 'um' Whitespace?
-    |   Whitespace? 'nm' Whitespace?
-    |   Whitespace? 'mm' Whitespace?
-    |   Whitespace? 'km' Whitespace?
-    |   Whitespace? 'W' Whitespace?
-    |   Whitespace? 'uW' Whitespace?
-    |   Whitespace? 'nW' Whitespace?
-    |   Whitespace? 'mW' Whitespace?
-    |   Whitespace? 'kW' Whitespace?
-    |   Whitespace? 'MW' Whitespace?
-    |   Whitespace? 'GW' Whitespace?
-    |   Whitespace? 'J' Whitespace?
-    |   Whitespace? 'uJ' Whitespace?
-    |   Whitespace? 'nJ' Whitespace?
-    |   Whitespace? 'mJ' Whitespace?
-    |   Whitespace? 'kJ' Whitespace?
-    |   Whitespace? 'MJ' Whitespace?
-    |   Whitespace? 'GJ' Whitespace?
+statement
+    :   '{' statement* '}'
+    |   expression ';'
+    |   iterationStatement
+    |   selectionStatement
+    |   declaration ';'
+    |   assignStatement ';'
+    |   returnStatement
     ;
 
-
-unaryOperator
-    :   '+' | '-' | '!'
-    ;
-
-	
-assignmentOperator
-    :   '=' | '*=' | '/=' | '%=' | '+=' | '-='
-    ;
-	
 iterationStatement
     :   'while' '(' expression ')' statement
     |   'do' statement 'while' '(' expression ')' ';'
@@ -104,44 +33,100 @@ selectionStatement
     :   'if' '(' expression ')' statement ('else' statement)?
     ;
 
+assignStatement
+    :   Identifier '=' expression
+    ;
 
-blockItemList
-    :   declaration
-    |   statement
-    |   blockItemList blockItemList
+returnStatement
+    :   Return expression ';'
+    ;
+
+parameterList
+    :   (parameter ',')* parameter?
+    ;
+
+parameter
+    :   type? expression
+    ;
+
+declaration
+    :   type Identifier
+    |   type Identifier '=' expression
+    ;
+
+// expression is anything that can be assigned as the value of a variable
+expression
+    :   Identifier
+    |   Number
+    |   physicsQuantity
+    |   StringLiteral+
+    |   functionDeclarator
+    |   expression '.' Identifier
+    |   expression unaryOperator
+    |   unaryOperator expression
+    |   expression binaryOperator expression
+    |   expression compareOperator expression
+    |   expression logicOperator expression
+    |   '(' expression ')'
+    ;
+
+physicsQuantity
+    :   (Number | vector) '[' physicsUnit ']' 
+    ;
+
+vector
+    :  '<' expression ',' expression '>'
+    ;
+
+// not complete
+physicsUnit
+    : 'g' | 'kg' | 
+    | 'mg' | 'kg' | 's' | 'us' | 'ns' | 'ms'
+    | 'm/s^2'
+    ;
+
+binaryOperator
+    :   '+' | '-' | '*' | '/' | '%'
+    ;
+
+unaryOperator
+    :   '+' | '-' | '!' | '++' | '--'
+    ;
+
+compareOperator
+    :   '>' | '<' | '==' | '<=' | '>=' | '!='
+    ;
+
+logicOperator
+    :   '&&' | '||'
+    ;
+
+assignmentOperator
+    :   '=' | '*=' | '/=' | '%=' | '+=' | '-='
     ;
 	
-typeName
-    :   specifierQualifierList
-    ;
-	
-specifierQualifierList
-    :   typeSpecifier specifierQualifierList?
-    ;
-	
-	
-typeSpecifier
+type
     :   ('void'
     |   'char'
     |   'int'
     |   'float'
     |   'double'
-    |   '_Bool')
-    |   physicsSpecifier
-    |   structSpecifier
-    |   typedefName
+    |   'boolean')
+    |   physicsType
     ;
 
-physicsSpecifier
+physicsType
     :   ('mass'
     |   'velocity'
     |   'acceleration'
     |   'displacement'
     |   'distance'
-    |   'time')
+    |   'time'
+    |   'force')
     |   physicsList
     ;
 
+//TODO: should we make it a general typed list? 
 physicsList
     :   ('massList'
     |   'velocityList'
@@ -151,122 +136,7 @@ physicsList
     |   'timeList')
     ;
 
-structSpecifier
-    :   struct Identifier? '{' structDeclarationList '}'
-    |   struct Identifier
-    ;
-	
-struct
-    :   'struct'
-    ;
-	
-structDeclarationList
-    :   structDeclaration
-    |   structDeclarationList structDeclaration
-    ;
-
-structDeclaration
-    :   specifierQualifierList structDeclaratorList? ';'
-    ;
-
-structDeclaratorList
-    :   structDeclarator
-    |   structDeclaratorList ',' structDeclarator
-    ;
-
-structDeclarator
-    :   directDeclarator
-    |   directDeclarator? ':' expression
-    ;
-	
-directDeclarator
-    :   Identifier
-    |   '(' directDeclarator ')'
-    |   directDeclarator '[' expression? ']'
-    ;
-
-functionDeclarator
-    :   Identifier '(' parameterTypeList? ')'
-    ;
-
-identifierList
-    :   Identifier
-    |   identifierList ',' Identifier
-    ;
-
-typedefName
-    :   Identifier
-    ;
-
-//TODO change this to Calphy grammar
-initializer
-    :   expression
-    |   '{' initializerList '}'
-    |   '{' initializerList ',' '}'
-    ;
-
-initializerList
-    :   designation? initializer
-    |   initializerList ',' designation? initializer
-    ;
-
-designation
-    :   designatorList '='
-    ;
-
-designatorList
-    :   designator
-    |   designatorList designator
-    ;
-
-designator
-    :   '[' expression ']'
-    |   '.' Identifier
-    ;
-	
-statement
-    :   '{' blockItemList? '}'
-    |   expression? ';'
-    |   iterationStatement
-    |   selectionStatement
-    ;
-
-declaration
-    :   typeSpecifier initDeclarator ';'
-    ;
-
-initDeclarator
-    :   directDeclarator
-    |   directDeclarator '=' typeCast? initializer
-    ;
-
-typeCast
-    :   '(' typeSpecifier ')'
-    ;
-
-parameterTypeList
-    :   parameterList
-    ;
-
-parameterList
-    :   parameterDeclaration
-    |   parameterList ',' parameterDeclaration
-    ;
-
-parameterDeclaration
-    :   typeSpecifier? directDeclarator
-    ;
-	
-functionDefinition
-    :   typeSpecifier functionDeclarator '{' blockItemList? '}'
-    ;
-
-declarationList
-    :   declaration
-    |   declarationList declaration
-    ;
-	
-	
+//////////////////////////////////////////////////////////////
 Break : 'break';
 Char : 'char';
 Continue : 'continue';
@@ -280,49 +150,6 @@ Return : 'return';
 Struct : 'struct';
 Void : 'void';
 While : 'while';
-
-Bool : '_Bool';
-
-LeftParen : '(';
-RightParen : ')';
-LeftBracket : '[';
-RightBracket : ']';
-LeftBrace : '{';
-RightBrace : '}';
-
-Less : '<';
-LessEqual : '<=';
-Greater : '>';
-GreaterEqual : '>=';
-
-Plus : '+';
-PlusPlus : '++';
-Minus : '-';
-MinusMinus : '--';
-Star : '*';
-Div : '/';
-Mod : '%';
-
-AndAnd : '&&';
-OrOr : '||';
-Not : '!';
-
-Question : '?';
-Colon : ':';
-Semi : ';';
-Comma : ',';
-
-Assign : '=';
-// '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|='
-StarAssign : '*=';
-DivAssign : '/=';
-ModAssign : '%=';
-PlusAssign : '+=';
-MinusAssign : '-=';
-
-Equal : '==';
-NotEqual : '!=';
-
 Dot : '.';
 
 Identifier
@@ -333,8 +160,8 @@ Identifier
     ;
 
 Number
-	:	Digit+ (Dot Digit+)?
-	;
+    :	Digit+ (Dot Digit+)?
+    ;
 
 fragment
 IdentifierNondigit
@@ -391,11 +218,6 @@ EscapeSequence
 fragment
 SimpleEscapeSequence
     :   '\\' ['"?abfnrtv\\]
-    ;
-
-LineDirective
-    :   '#' Whitespace? Whitespace? StringLiteral ~[\r\n]*
-        -> skip
     ;
 
 Whitespace
