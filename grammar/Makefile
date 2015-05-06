@@ -9,9 +9,13 @@ grammar=Calphy
 .PHONY: all
 all: antlr $(classes)
 
-.PHONY: antlr
-antlr:
+Calphy.g4: Calphy.tokens
 	$(antlr4) $(grammar).g4
+
+Calphy.tokens:
+
+.PHONY: antlr
+antlr: Calphy.g4
 
 .PHONY: gui
 gui: antlr all
