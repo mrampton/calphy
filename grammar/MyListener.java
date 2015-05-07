@@ -12,6 +12,7 @@ public class MyListener extends CalphyBaseListener {
 	}
 	@Override public void exitFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) {
 		ChildCollection collection = new ChildCollection(ctx, values);
+		collection.prepend(0, "public static ");
 		values.put(ctx, collection.toString());
 	}
 	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
@@ -90,6 +91,7 @@ public class MyListener extends CalphyBaseListener {
 	}
 	@Override public void exitType(CalphyParser.TypeContext ctx) {
 		ChildCollection collection = new ChildCollection(ctx, values);
+		collection.translate(0, translateList);
 		values.put(ctx, collection.toString());
 	}
 	@Override public void exitPhysicsType(CalphyParser.PhysicsTypeContext ctx) {

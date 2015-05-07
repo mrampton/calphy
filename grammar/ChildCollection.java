@@ -24,7 +24,9 @@ public class ChildCollection {
 			if (childVal == null) {
 				values.put(ctx.getChild(i), ctx.getChild(i).getText());
 				childVal = values.get(ctx.getChild(i));
+				
 			}
+			childVal = childVal.equals("null") ? "" : childVal;
 			collection[CHILDREN][i] = childVal;
 		}
 		
@@ -34,6 +36,15 @@ public class ChildCollection {
 		if(table.list.containsKey(collection[CHILDREN][child]))
 			collection[CHILDREN][0] = table.list.get(collection[CHILDREN][child]);
 	}
+
+	public void prepend(int child, String pre) {
+		collection[CHILDREN][child] = pre + collection[CHILDREN][child];
+	}
+
+	public void append(int child, String app) {
+		collection[CHILDREN][child] += app;
+	}
+
 
 	public String toString() {
 		return String.join(" ", collection[CHILDREN]);
