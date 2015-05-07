@@ -1,3 +1,4 @@
+void	static void
 mass	Mass
 acceleration	Acceleration
 force	Force

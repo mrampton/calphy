@@ -12,7 +12,10 @@ public class MyListener extends CalphyBaseListener {
 	}
 	@Override public void exitFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) {
 		ChildCollection collection = new ChildCollection(ctx, values);
-		collection.prepend(0, "public static ");
+		if (collection.getChildren()[0].equals("main")) 
+			collection.prepend(0, "public static");
+		else
+			collection.prepend(0, "public ");
 		values.put(ctx, collection.toString());
 	}
 	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
