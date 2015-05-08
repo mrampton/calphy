@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 class ReadTranslateTable {
     	
-	static HashMap<String,String> list = new HashMap<String,String>();
+	static HashMap<String,String> transList = new HashMap<String,String>();
 
 	ReadTranslateTable() {
 		String filename = "TranslateTable.txt";
@@ -21,9 +21,9 @@ class ReadTranslateTable {
 	    		while (scan.hasNextLine()) {
 	    			line = scan.nextLine();
 	    			lines = line.split("\t");
-				list.put(lines[0], lines[1]);
+				transList.put(lines[0], lines[1]);
 			}
-
+		System.out.println("in translate table....");
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex);
 		}
