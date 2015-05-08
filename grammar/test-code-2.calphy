@@ -1,2 +1,4 @@
-force calc_force() {
+void main() {
+	mass m = 7 [kg];
+	acceleration a = <10,10> [m/s^2];
 }
