@@ -19,7 +19,7 @@ antlr: Calphy.g4
 
 .PHONY: gui
 gui: antlr all
-	$(grun) $(grammar) program test-code.calphy -gui
+	$(grun) $(grammar) program test-code-2.calphy -gui
 
 compiler: all
 	java Compiler test-code.calphy
