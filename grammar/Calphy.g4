@@ -156,7 +156,7 @@ While : 'while';
 Dot : '.';
 
 Identifier
-    :   IdentifierNondigit
+    :   NondigitNonUS
         (   IdentifierNondigit
         |   Digit
         )*
@@ -178,6 +178,11 @@ Nondigit
     :   [a-zA-Z_]
     ;
 
+fragment
+NondigitNonUS
+	:   [a-zA-Z]
+	;
+	
 fragment
 Digit
     :   [0-9]
