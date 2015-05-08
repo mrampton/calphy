@@ -183,6 +183,23 @@ public class MyListener2 extends CalphyBaseListener{
           System.out.println(treeProperty.get(ctx.getChild(1)).value);
           System.out.println(treeProperty.get(ctx.getChild(2)).value);
           System.out.println(treeProperty.get(ctx.getChild(3)).value);
+
+	  boolean primType = false;
+	  String _Java_str = "";
+	  if (treeProperty.get(ctx.getChild(0)).value.equals("int") || treeProperty.get(ctx.getChild(0)).value.equals("float"))	//add more prim types
+		primType = true;
+
+	  if (primType == false) {
+		_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  " 
+		+ "new " + treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(3)).value;   
+		treeProperty.get(ctx).value = _Java_str;
+	  }
+	  else {
+	 	_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  "
+			+ treeProperty.get(ctx.getChild(3)).value;
+		treeProperty.get(ctx).value = _Java_str;	
+	  }
+	  System.out.println(_Java_str);
 	}
 	/**
 	 * {@inheritDoc}
