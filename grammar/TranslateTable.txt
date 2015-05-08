@@ -1,5 +1,9 @@
 void	static void
 mass	Mass
 acceleration	Acceleration
+velocity	Velocity
 force	Force
+energy	Energy
+power	Power
+displacement	Displacement
 print	System.out.println
