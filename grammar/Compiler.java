@@ -10,8 +10,8 @@ public class Compiler {
 		
 		CalphyParser.ProgramContext calphyContext = parser.program();
 		ParseTreeWalker walker = new ParseTreeWalker();
-		MyListener listener = new MyListener();
-		//MyListener2 listener = new MyListener2();
+		//MyListener listener = new MyListener();
+		MyListener2 listener = new MyListener2();
 		walker.walk(listener, calphyContext);
 			
 		// TODO: this print should be writing to a file

@@ -189,11 +189,6 @@ public class MyListener2 extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { 
-	  System.out.println(treeProperty.get(ctx.getChild(0)).value);
-          System.out.println(treeProperty.get(ctx.getChild(1)).value);
-          System.out.println(treeProperty.get(ctx.getChild(2)).value);
-          System.out.println(treeProperty.get(ctx.getChild(3)).value);
-
 	  boolean primType = false;
 	  String _Java_str = "";
 	  if (treeProperty.get(ctx.getChild(0)).value.equals("int") || treeProperty.get(ctx.getChild(0)).value.equals("float"))	//add more prim types
@@ -209,7 +204,6 @@ public class MyListener2 extends CalphyBaseListener{
 			+ treeProperty.get(ctx.getChild(3)).value;
 		treeProperty.get(ctx).value = _Java_str;	
 	  }
-	  System.out.println(_Java_str);
 	}
 	/**
 	 * {@inheritDoc}
@@ -358,7 +352,6 @@ public class MyListener2 extends CalphyBaseListener{
 	@Override public void exitPhysicsType(CalphyParser.PhysicsTypeContext ctx) { 
 	  //String _Java_str = concatAllChildren(ctx);
 	  String _Java_str = transTable.transList.get(ctx.getChild(0).getText());
-	  System.out.println("here: "+_Java_str);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
