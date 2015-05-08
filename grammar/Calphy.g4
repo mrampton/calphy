@@ -78,10 +78,13 @@ vector
     :  '<' expression ',' expression '>'
     ;
 
-// not complete
 physicsUnit
-    : 'g' | 'kg' | 
-    | 'mg' | 'kg' | 's' | 'us' | 'ns' | 'ms'
+    : 'g' | 'kg' | 'mg' | 'ug' | 'ng'
+    | 'km' | 'm' | 'mm' | 'um' | 'nm'
+    | 'nN' | 'uN' | 'mW' | 'N' | 'kN' | 'MN' | 'GN'
+    | 'nW' | 'uW' | 'mW' | 'W' | 'kW' | 'MW' | 'GW'
+    | 'nJ' | 'uJ' | 'mJ' | 'J' | 'kJ' | 'MJ' | 'GJ'
+    | 's' | 'us' | 'ns' | 'ms'
     | 'm/s^2' | 'm/s'
     ;
 
