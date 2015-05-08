@@ -33,8 +33,8 @@ public class ChildCollection {
 	}
 
 	public void translate(int child, ReadTranslateTable table) {
-		if(table.list.containsKey(collection[CHILDREN][child]))
-			collection[CHILDREN][0] = table.list.get(collection[CHILDREN][child]);
+		if(table.transList.containsKey(collection[CHILDREN][child]))
+			collection[CHILDREN][0] = table.transList.get(collection[CHILDREN][child]);
 	}
 
 	public void prepend(int child, String pre) {
