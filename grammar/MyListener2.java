@@ -32,6 +32,16 @@ public class MyListener2 extends CalphyBaseListener{
       name = n; 
 	}
   }
+ 
+  public String getSymbol(String _name) {
+	for (int i = 0; i < symbolTB.size(); i++) {
+	  Symbol s = symbolTB.get(i);
+	  if (s.name == _name) {
+		return s.type;
+	  }
+	} 
+	return null;
+  }
   
   public String concatAllChildren(ParserRuleContext ctx) {
 	int childCount = ctx.getChildCount();
