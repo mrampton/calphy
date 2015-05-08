@@ -125,7 +125,9 @@ physicsType
     |   'displacement'
     |   'distance'
     |   'time'
-    |   'force')
+    |   'force'
+    |   'energy'
+    |   'power')
     |   physicsList
     ;
 
