@@ -9,18 +9,28 @@ import java.util.ArrayList;
 
 public class MyListener2 extends CalphyBaseListener{
   ParseTreeProperty<NodeProperty> treeProperty;
-  ArrayList<Integer> symbolTB;
+  ArrayList<Symbol> symbolTB;
   ReadTranslateTable transTable;
- 
+
   public MyListener2() {
 	transTable = new ReadTranslateTable();
 	treeProperty = new ParseTreeProperty<NodeProperty>();
-	symbolTB = new ArrayList<Integer>();
+	symbolTB = new ArrayList<Symbol>();
   }
 
   public class NodeProperty {
 	public int symbolTBPointer; 
 	public String value;
+  }
+  
+  public class Symbol {
+	public String type;
+	public String name;
+	
+	public Symbol(String t, String n) {
+      type = t;
+      name = n; 
+	}
   }
   
   public String concatAllChildren(ParserRuleContext ctx) {
