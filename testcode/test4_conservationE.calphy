@@ -1,0 +1,10 @@
+void main() {
+	mass m = 0.100;
+	const int k = 250;
+	#initial distance 
+	distance xi = 0.06;
+	mass m_dart = 0.1;
+	energy Ei = calcElasticPotential(k, xi);
+	velocity vf = ((2*Ei)/m)^(1/2);
+	print(vf);
+}

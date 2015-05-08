@@ -1,0 +1,11 @@
+void main() {
+	/* Initialise variables */ 
+	displacement h = <0,0.6>;
+	velocity v = <2.4,0>;
+	acceleration a = <0,gravity_acc>;
+	time t = getTime(h.y, v.y, a.y);
+	print(t);
+	//call standard library; solve in y­direction
+	displacement dispOfBall = getDisp(v.x, t);
+	print(dispOfBall); 
+}

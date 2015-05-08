@@ -1,0 +1,26 @@
+void main() {
+	// given variables
+	velocity v_i;
+	angMagToComp(v_i, degreesToRads(60), 42.0);
+	time t_f = 5.5
+
+	// find
+	displacement d_apex;
+	displacement d_final velocity v_f;
+
+	// first arg is v_f which is zero because
+	// v_f.y = 0 at the apex
+	d_apex = getDisp(0, v_i, gravity_acc);
+	print(“Maximum height is: %.2U \n“, d_apex.y);
+
+	d_final = getDisp(v_i, t_f);
+	print (“Final height is: %.2U \n”, d_final.y);
+
+	v_f = getVel(v_i, gravity_acc, t_f);
+	print (“Final velocity is: %.2U \n”, v_f);
+
+// Output:
+////////////
+// Maximum height is: 67.50 m # Final height is: 27.35 m
+// Final Velocity is: 27.35 m/s
+}
