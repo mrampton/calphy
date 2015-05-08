@@ -47,7 +47,11 @@ public class ChildCollection {
 
 
 	public String toString() {
-		return String.join(" ", collection[CHILDREN]);
+		//return String.join(" ", collection[CHILDREN]);
+		String joinString = "";
+		for (int i = 0; i < collection[CHILDREN].length; i++)
+			joinString += collection[CHILDREN][i] + " ";
+		return joinString;
 	}
 	
 	public String[] getChildren() {

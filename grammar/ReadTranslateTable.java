@@ -23,7 +23,6 @@ class ReadTranslateTable {
 	    			lines = line.split("\t");
 				transList.put(lines[0], lines[1]);
 			}
-		System.out.println("in translate table....");
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex);
 		}
