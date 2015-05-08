@@ -168,7 +168,12 @@ public class MyListener2 extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { }
+	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { 
+	  System.out.println(treeProperty.get(ctx.getChild(0)).value);
+          System.out.println(treeProperty.get(ctx.getChild(1)).value);
+          System.out.println(treeProperty.get(ctx.getChild(2)).value);
+          System.out.println(treeProperty.get(ctx.getChild(3)).value);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -198,7 +203,6 @@ public class MyListener2 extends CalphyBaseListener{
 	@Override public void exitPhysicsQuantity(CalphyParser.PhysicsQuantityContext ctx) { 
 	  //String _Java_str = ctx.getChild(0).getText()+ctx.getChild(2).getText()+")";
 	  String _Java_str = "("+treeProperty.get(ctx.getChild(0)).value + "," + treeProperty.get(ctx.getChild(2)).value + ")";
-	  System.out.println(_Java_str);
           treeProperty.get(ctx).value = _Java_str;	
 	}
 	/**
@@ -316,7 +320,8 @@ public class MyListener2 extends CalphyBaseListener{
 
 	@Override public void exitPhysicsType(CalphyParser.PhysicsTypeContext ctx) { 
 	  //String _Java_str = concatAllChildren(ctx);
-	  String _Java_str = transTable.transList.get(ctx);
+	  String _Java_str = transTable.transList.get(ctx.getChild(0).getText());
+	  System.out.println("here: "+_Java_str);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
