@@ -15,6 +15,8 @@ Calphy.g4: Calphy.tokens
 	$(antlr4) $(grammar).g4
 
 Calphy.tokens:
+	
+MyListener.java:
 
 .PHONY: antlr
 antlr: Calphy.g4
@@ -26,6 +28,9 @@ gui: antlr all
 compiler:
 	java Compiler test-code-2.calphy
 	mv CalphyClass.java $(TARGETCODE)/
+
+calphyc.jar: Calphy.g4 MyListener.java
+	jar cfm calphyc.jar MANIFEST.MF *.class TranslateTable.txt
 
 .PHONY: test
 test: all
