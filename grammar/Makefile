@@ -1,6 +1,7 @@
 CLASSPATH=.:../lib/antlr-4.5-complete.jar:/usr/local/lib/antlr-4.5-complete.jar
 JAVAC=javac
 TESTDIR=../testcode
+TARGETCODE=../target_code
 sources = $(wildcard *.java)
 classes = $(sources:.java=.class)
 antlr4=java -Xmx500M -cp $(CLASSPATH) org.antlr.v4.Tool
@@ -24,6 +25,7 @@ gui: antlr all
 
 compiler:
 	java Compiler test-code-2.calphy
+	mv CalphyClass.java $(TARGETCODE)/
 
 .PHONY: test
 test: all

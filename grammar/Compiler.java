@@ -1,5 +1,6 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+import java.io.PrintWriter;
 
 public class Compiler {
     public static void main(String[] args) throws Exception {
@@ -13,8 +14,9 @@ public class Compiler {
 		MyListener listener = new MyListener();
 		walker.walk(listener, calphyContext);
 			
-		// TODO: this print should be writing to a file
-		//System.out.println(listener.values.get(calphyContext));
+		PrintWriter writer = new PrintWriter("CalphyClass.java", "UTF-8");
+		writer.print(listener.treeProperty.get(calphyContext).value);
+		writer.close();
 			
 	} else {
 		System.out.println("usage: java Compiler source-code.calphy");
