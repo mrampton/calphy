@@ -196,9 +196,10 @@ public class MyListener extends CalphyBaseListener{
 	   
 	   if (type.equals("Mass")) {
 		 System.out.println("bad2");
-		 expression = new String("new " + type + "(" + expression + ")");
+		 expression = new String(var + " " + " = new " + type + "(" + expression + ")");
 		 System.out.println(expression);
-		 treeProperty.get(ctx).value = type + " " + var + " = " + expression;
+		 treeProperty.get(ctx).value = expression;
+		 return;
 	   }
 	   treeProperty.get(ctx).value = concatAllChildren(ctx);
 	}
@@ -262,8 +263,10 @@ public class MyListener extends CalphyBaseListener{
 	  if (type.equals("Mass")) {
 	    expression = "new " + type + "(" + expression + ")";
 	    treeProperty.get(ctx).value = type + " " + var + " = " + expression;
+	    
+	  } else {
+	    treeProperty.get(ctx).value = concatAllChildren(ctx);
 	  }
-	  treeProperty.get(ctx).value = concatAllChildren(ctx);
 	  putSymbol(var, type, false);
 	}
 
