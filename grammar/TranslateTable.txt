@@ -7,3 +7,4 @@ energy	Energy
 power	Power
 displacement	Displacement
 print	System.out.println
+main	main

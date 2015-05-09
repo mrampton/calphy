@@ -64,7 +64,8 @@ expression
     |   expression '.' Identifier
     |   expression unaryOperator
     |   unaryOperator expression
-    |   expression binaryOperator expression
+	|	expression ('*' | '/' | '%') expression
+	|	expression ('+' | '-') expression
     |   expression compareOperator expression
     |   expression logicOperator expression
     |   '(' expression ')'
@@ -86,10 +87,6 @@ physicsUnit
     | '_nJ' | '_uJ' | '_mJ' | '_J' | '_kJ' | '_MJ' | '_GJ'
     | '_s' | '_us' | '_ns' | '_ms'
     | '_m/s^2' | '_m/s'
-    ;
-
-binaryOperator
-    :   '+' | '-' | '*' | '/' | '%'
     ;
 
 unaryOperator

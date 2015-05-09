@@ -1,6 +1,9 @@
 void main() {
-	mass m = 7 [kg];
-	acceleration a = <10,10> [m/s^2];
-	int a = 5;
+	mass m = 7 [_kg];
+	acceleration a = <10,10> [_m/s^2];
+	int a = 5 * 3 + 2;
+	int b = 5 + 3 * 2;
 	print("Hello world!!");
+	
+	
 }
