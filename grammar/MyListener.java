@@ -184,7 +184,7 @@ public class MyListener extends CalphyBaseListener{
           	treeProperty.get(ctx).value = _Java_str;
 	  } 
 	  else if (primType == false) {		//handle assignment for non primitives differently
-		_Java_str = ctx.getChild(0).getText() + " = " + "new " + getSymbolType(ctx.getChild(2)) + treeProperty.get(ctx.getChild(2)).value; 
+		_Java_str = ctx.getChild(0).getText() + " = " + "new " + getSymbolType(getChildValue(ctx, 2)) + treeProperty.get(ctx.getChild(2)).value; 
 		treeProperty.get(ctx).value = _Java_str;
 	  }
 	}
@@ -301,7 +301,7 @@ public class MyListener extends CalphyBaseListener{
 	  }
 	  else {	//non-primitive expression
 		if (ctx.getChildCount() == 1) {	//leaf node expression
-			if (getSymbolIsVec(ctx.getChild(0)) == false)	{	//if not a vector type 
+			if (getSymbolIsVec(getChildValue(ctx, 0)) == false)	{	//if not a vector type 
 				_Java_str = "(" + ctx.getChild(0).getText() + ".value" + ")";
 				treeProperty.get(ctx.getChild(0)).value = _Java_str;
 			}
