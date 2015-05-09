@@ -274,13 +274,13 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
 	  boolean primType = false;
           String _Java_str = "";
           Pattern primitives = Pattern.compile("(int|float|boolean|double)");
           Matcher m = primitives.matcher(getChildValue(ctx, 0));
           // System.out.println("Group Count: " + m.groupCount() + ", " + m.group(1));
-	  String _Java_str;
 	  if (!getChildValue(ctx,1).isEmpty()) {
                 String op = getChildValue(ctx,1);
                 if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUBSTRACT")) {
