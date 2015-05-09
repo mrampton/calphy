@@ -5,7 +5,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
-
+import java.util.regex.*;
 
 public class MyListener2 extends CalphyBaseListener{
   ParseTreeProperty<NodeProperty> treeProperty;
@@ -198,8 +198,13 @@ public class MyListener2 extends CalphyBaseListener{
 	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { 
 	  boolean primType = false;
 	  String _Java_str = "";
-	  if (treeProperty.get(ctx.getChild(0)).value.equals("int") || treeProperty.get(ctx.getChild(0)).value.equals("float"))	//add more prim types
+	  Pattern primitives = Pattern.compile("(int|float|boolean|double)");
+	  Matcher m = primitives.matcher(treeProperty.get(ctx.getChild(0)).value);
+	  // System.out.println("Group Count: " + m.groupCount() + ", " + m.group(1));
+	  if (m.find())
 		primType = true;
+	
+	  //add more prim types
 
 	  if (primType == false) {
 		_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  " 
