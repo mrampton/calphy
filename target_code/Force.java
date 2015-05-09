@@ -1,27 +1,27 @@
 import java.util.*;
 class Force {
 
-	double value_x;
-	double value_y;
+	double x;
+	double y;
 	String units;
 
-	Force(double value_x, double value_y) {
-		this.value_x = value_x;
-		this.value_y = value_y;
-		this.units = "N";
+	Force(double x, double y) {
+		this.x = x;
+		this.y = y;
+		this.units = "_N";
 	}
 
-	Force(double value_x, double value_y, String units) {
+	Force(double x, double y, String units) {
 		switch(units) {
-			case "kN": 
-				this.value_x = value_x/1000;
-				this.value_y = value_y/1000;
+			case "_kN": 
+				this.x = x/1000;
+				this.y = y/1000;
 				break;
-			case "N":
-				this.value_x = value_x;
-				this.value_y = value_y;
+			case "_N":
+				this.x = x;
+				this.y = y;
 				break;
 		}
-		this.units = "N";
+		this.units = "_N";
 	}
 }
