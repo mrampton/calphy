@@ -1,31 +1,27 @@
 public class Displacement {
-	private double value;
+	private double x, y;
 	private String units;
 	
 	public Displacement(double value){
-		this.value = value;
+	  	this.x = x;
+	  	this.y = y;
 		this.units = "_m";
 	}
 	
-	public Displacement(double value, String units){
+	public Displacement(double x, double y, String units){
+		this.units = "_m";
+		this.x = toSI(x);
+		this.y = toSI(y);
+	}
+	
+	private double toSI(double value) {
 		switch(units) {
-			case "_nm": this.value = (double) (value * Math.pow(10, -9));
-			break;
-			
-			case "_um": this.value = (double) (value * Math.pow(10, -6));
-			break;			
-			
-			case "_mm": this.value = (double) (value * Math.pow(10, -3));
-			break;			
-
-			case "_m": this.value = value;
-			break;			
-			
-			case "_km": this.value = (double) (value * Math.pow(10, 3));
-			break;								
+			case "_nm": return (double) (value * Math.pow(10, -9));
+			case "_um": return (double) (value * Math.pow(10, -6));
+			case "_mm": return (double) (value * Math.pow(10, -3));
+			case "_km": return (double) (value * Math.pow(10, 3));
 		}
-		this.units = "_m";
+		return value; //else return value [m]
 	}
-	
 }
 
