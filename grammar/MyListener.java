@@ -259,7 +259,6 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) { 
-<<<<<<< HEAD
 	  String _Java_str;
 	  if (!getChildValue(ctx,1).isEmpty()) {
 		String op = getChildValue(ctx,1);
