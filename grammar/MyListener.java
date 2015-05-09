@@ -67,7 +67,6 @@ public class MyListener extends CalphyBaseListener{
         return;
 	  }
 	}
-	System.out.println("put symboe : " + name + " " + type);
 	symbolTB.add(new Symbol(name, type, isVec));
   }
   
@@ -183,21 +182,13 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignStatement(CalphyParser.AssignStatementContext ctx) { 
-	   System.out.println(treeProperty.get(ctx).value = concatAllChildren(ctx));
 	   String var = getChildValue(ctx,0);
 	   String expression = getChildValue(ctx,2);
 	   
 	   String type = getSymbolType(var);
 	   
-	   System.out.println("bad: " + var + " " + type + " ");
-	   for (Symbol s : symbolTB) {
-		 System.out.println(s);
-	   }
-	   
 	   if (type.equals("Mass")) {
-		 System.out.println("bad2");
 		 expression = new String(var + " " + " = new " + type + "(" + expression + ")");
-		 System.out.println(expression);
 		 treeProperty.get(ctx).value = expression;
 		 return;
 	   }
