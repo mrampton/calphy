@@ -28,17 +28,22 @@ public class MyListener extends CalphyBaseListener{
 	public String name;
 	public boolean vec;
 
-	public Symbol(String t, String n, boolean b) {
-      		type = t;
-      		name = n; 
+	public Symbol(String n, String t, boolean b) {
+      	type = t;
+      	name = n; 
 		vec = b;
+	}
+	
+	@Override
+	public String toString() {
+	  return name + " " + type + " " + Boolean.toString(vec);
 	}
   }
  
   public String getSymbolType(String _name) {
 	for (int i = 0; i < symbolTB.size(); i++) {
 	  Symbol s = symbolTB.get(i);
-	  if (s.name == _name) {
+	  if (s.name.equals(_name)) {
 		return s.type;
 	  }
 	} 
@@ -48,7 +53,7 @@ public class MyListener extends CalphyBaseListener{
   public boolean getSymbolIsVec(String _name) {
 	for (int i = 0; i < symbolTB.size(); i++) {
 	  Symbol s = symbolTB.get(i);
-	  if (s.name == _name) {
+	  if (s.name.equals(_name)) {
 	    return s.vec;
 	  }
     } 
@@ -62,6 +67,7 @@ public class MyListener extends CalphyBaseListener{
         return;
 	  }
 	}
+	System.out.println("put symboe : " + name + " " + type);
 	symbolTB.add(new Symbol(name, type, isVec));
   }
   
@@ -69,6 +75,7 @@ public class MyListener extends CalphyBaseListener{
 	  if (ctx.getChild(id) == null) {
 		return "";
 	  }
+	  //System.out.println("child exist, value = " + treeProperty.get(ctx.getChild(id)).value);
 	  return treeProperty.get(ctx.getChild(id)).value;
   }
   
@@ -108,6 +115,11 @@ public class MyListener extends CalphyBaseListener{
 	@Override public void exitFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) { 
 	  String _Java_str = "public static " + concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_str;
+	  int oldPointer = treeProperty.get(ctx).symbolTBPointer;
+	  // pop the variables that are out of scope
+	  while (symbolTB.size() > oldPointer) {
+		symbolTB.remove(symbolTB.size() - 1);
+	  }
 	}
 
 	@Override public void enterFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
@@ -171,22 +183,24 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignStatement(CalphyParser.AssignStatementContext ctx) { 
-	  boolean primType = false;
-          String _Java_str = "";
-          Pattern primitives = Pattern.compile("(int|float|boolean|double)");
-          Matcher m = primitives.matcher(getChildValue(ctx, 0));
-          // System.out.println("Group Count: " + m.groupCount() + ", " + m.group(1));
-          if (m.find())
-                primType = true;
-	 
-	  if (primType == true) {
-		_Java_str = concatAllChildren(ctx);
-          	treeProperty.get(ctx).value = _Java_str;
-	  } 
-	  else if (primType == false) {		//handle assignment for non primitives differently
-		_Java_str = ctx.getChild(0).getText() + " = " + "new " + getSymbolType(getChildValue(ctx, 2)) + treeProperty.get(ctx.getChild(2)).value; 
-		treeProperty.get(ctx).value = _Java_str;
-	  }
+	   System.out.println(treeProperty.get(ctx).value = concatAllChildren(ctx));
+	   String var = getChildValue(ctx,0);
+	   String expression = getChildValue(ctx,2);
+	   
+	   String type = getSymbolType(var);
+	   
+	   System.out.println("bad: " + var + " " + type + " ");
+	   for (Symbol s : symbolTB) {
+		 System.out.println(s);
+	   }
+	   
+	   if (type.equals("Mass")) {
+		 System.out.println("bad2");
+		 expression = new String("new " + type + "(" + expression + ")");
+		 System.out.println(expression);
+		 treeProperty.get(ctx).value = type + " " + var + " = " + expression;
+	   }
+	   treeProperty.get(ctx).value = concatAllChildren(ctx);
 	}
 	/**
 	 * {@inheritDoc}
@@ -228,7 +242,7 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	@Override public void exitParameter(CalphyParser.ParameterContext ctx) { 
 	  String _Java_str = concatAllChildren(ctx);
-          treeProperty.get(ctx).value = _Java_str;
+      treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
 	 * {@inheritDoc}
@@ -242,32 +256,17 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDeclaration(CalphyParser.DeclarationContext ctx) { 
-	  boolean primType = false;
-	  String _Java_str = "";
-	  Pattern primitives = Pattern.compile("(int|float|boolean|double)");
-	  Matcher m = primitives.matcher(getChildValue(ctx, 0));
-	  // System.out.println("Group Count: " + m.groupCount() + ", " + m.group(1));
-	  if (m.find())
-		primType = true;
-	
-	  //add more prim types
-
-	  if (primType == false) {
-		_Java_str = getChildValue(ctx, 0) + " " + getChildValue(ctx, 1) + " =  " 
-				  + "new " + getChildValue(ctx, 0) + " " + getChildValue(ctx, 3);   
-		treeProperty.get(ctx).value = _Java_str;
+	  String type = getChildValue(ctx,0);
+	  String var = getChildValue(ctx,1);
+	  String expression = getChildValue(ctx,3);
+	  if (type.equals("Mass")) {
+	    expression = "new " + type + "(" + expression + ")";
+	    treeProperty.get(ctx).value = type + " " + var + " = " + expression;
 	  }
-	  else {
-	 	_Java_str = getChildValue(ctx, 0) + " " + getChildValue(ctx, 1) + " =  "
-				  + getChildValue(ctx, 3);
-		treeProperty.get(ctx).value = _Java_str;	
-	  }
+	  treeProperty.get(ctx).value = concatAllChildren(ctx);
+	  putSymbol(var, type, false);
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+
 	@Override public void enterExpression(CalphyParser.ExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -276,45 +275,19 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
-	  boolean primType = false;
-          String _Java_str = "";
-          Pattern primitives = Pattern.compile("(int|float|boolean|double)");
-          Matcher m = primitives.matcher(getChildValue(ctx, 0));
-          // System.out.println("Group Count: " + m.groupCount() + ", " + m.group(1));
+	  // Process binary operation
 	  if (!getChildValue(ctx,1).isEmpty()) {
-                String op = getChildValue(ctx,1);
-                if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUBSTRACT")) {
-                  _Java_str = getChildValue(ctx, 1) + "(" +
-                              getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
-                  checkValidOp(getChildValue(ctx,1), getChildValue(ctx,0), getChildValue(ctx,2));
-                  treeProperty.get(ctx).value = _Java_str;
-                  return;
-                }
-          }
-
-          if (m.find())
-                primType = true;
-
- 	  if (primType == true) {
-	  	_Java_str = "(" + concatAllChildren(ctx) + ")";
-          	treeProperty.get(ctx).value = _Java_str;
+        String op = getChildValue(ctx,1);
+        if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUBSTRACT")) {
+          String _Java_str = getChildValue(ctx, 1) + "(" +
+          getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
+          checkValidOp(getChildValue(ctx,1), getChildValue(ctx,0), getChildValue(ctx,2));
+          treeProperty.get(ctx).value = _Java_str;
+          return;
+        }
 	  }
-	  else {	//non-primitive expression
-		if (ctx.getChildCount() == 1) {	//leaf node expression
-			if (getSymbolIsVec(getChildValue(ctx, 0)) == false)	{	//if not a vector type 
-				_Java_str = "(" + ctx.getChild(0).getText() + ".value" + ")";
-				treeProperty.get(ctx.getChild(0)).value = _Java_str;
-			}
-			else {							//vector type
-				_Java_str = "(" + ctx.getChild(0).getText() + ".x" + "," + ctx.getChild(0).getText() + ".y" + ")";
-                                treeProperty.get(ctx.getChild(0)).value = _Java_str;
-			}
-		}
-		else if (ctx.getChildCount() > 1) {	//not leaf node, so simply concatenate
-			_Java_str = "(" + concatAllChildren(ctx) + ")";
-                	treeProperty.get(ctx).value = _Java_str;
-		}
-	  }
+	  // otherwise, simply pass everything up 
+	  treeProperty.get(ctx).value = concatAllChildren(ctx);
 	}
 	
 	@Override public void exitMultDivMod(CalphyParser.MultDivModContext ctx) { 
@@ -372,7 +345,7 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	@Override public void exitVector(CalphyParser.VectorContext ctx) { 
 	  String _Java_str = ctx.getChild(1).getText() + ctx.getChild(2).getText() + ctx.getChild(3).getText();
-          treeProperty.get(ctx).value = _Java_str;
+      treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
 	 * {@inheritDoc}
@@ -486,11 +459,14 @@ public class MyListener extends CalphyBaseListener{
 	}
 
 	@Override public void exitEveryRule(ParserRuleContext ctx) { 
+	  /*
 	  int oldPointer = treeProperty.get(ctx).symbolTBPointer;
 	  // pop the variables that are out of scope
 	  while (symbolTB.size() > oldPointer) {
-		symbolTB.remove(symbolTB.size());
+		symbolTB.remove(symbolTB.size() - 1);
 	  }
+	  System.out.println("exit rule: gets:" + treeProperty.get(ctx).value);
+	  */
 	}
 
 	@Override public void visitTerminal(TerminalNode node) {
