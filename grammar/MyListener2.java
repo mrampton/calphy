@@ -279,18 +279,6 @@ public class MyListener2 extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBinaryOperator(CalphyParser.BinaryOperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBinaryOperator(CalphyParser.BinaryOperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterUnaryOperator(CalphyParser.UnaryOperatorContext ctx) { }
 	/**
 	 * {@inheritDoc}

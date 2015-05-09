@@ -72,10 +72,10 @@ public class MyListener extends CalphyBaseListener {
 		ChildCollection collection = new ChildCollection(ctx, values);
 		values.put(ctx, collection.toString());
 	}
-	@Override public void exitBinaryOperator(CalphyParser.BinaryOperatorContext ctx) {
-		ChildCollection collection = new ChildCollection(ctx, values);
-		values.put(ctx, collection.toString());
-	}
+	// @Override public void exitBinaryOperator(CalphyParser.BinaryOperatorContext ctx) {
+	// 	ChildCollection collection = new ChildCollection(ctx, values);
+	// 	values.put(ctx, collection.toString());
+	// }
 	@Override public void exitUnaryOperator(CalphyParser.UnaryOperatorContext ctx) {
 		ChildCollection collection = new ChildCollection(ctx, values);
 		values.put(ctx, collection.toString());
