@@ -2,7 +2,7 @@ public class Displacement {
 	public double x, y;
 	public String units;
 	
-	public Displacement(double value){
+	public Displacement(double x, double y){
 	  	this.x = x;
 	  	this.y = y;
 		this.units = "_m";
