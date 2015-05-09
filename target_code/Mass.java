@@ -1,6 +1,6 @@
 public class Mass {
-	private double value;
-	private String units;
+	public double value;
+	public String units;
 	
 	public Mass(double value){
 		this.value = value;

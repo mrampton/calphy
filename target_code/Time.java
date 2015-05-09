@@ -1,7 +1,7 @@
 
 public class Time {
-	private double value;
-	private String units;
+	public double value;
+	public String units;
 	
 	public Time(double value){
 		this.value = value;

@@ -1,7 +1,7 @@
 
 public class Energy {
-	private double value;
-	private String units;
+	public double value;
+	public String units;
 	
 	public Energy(double value){
 		this.value = value;
