@@ -64,7 +64,7 @@ public class MyListener extends CalphyBaseListener{
 	}
 	
 	@Override public void exitProgram(CalphyParser.ProgramContext ctx) {
-	  String _Java_Program = "public class TestClass { \n" + 
+	  String _Java_Program = "public class CalphyClass { \n" + 
 			  			 concatAllChildren(ctx) + 
 			  			 "\n}";
 	  String _Java_str = concatAllChildren(ctx);
