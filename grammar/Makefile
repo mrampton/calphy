@@ -1,4 +1,4 @@
-CLASSPATH=.:/usr/local/lib/antlr-4.5-complete.jar
+CLASSPATH=.:../lib/antlr-4.5-complete.jar:/usr/local/lib/antlr-4.5-complete.jar
 JAVAC=javac
 TESTDIR=../testcode
 sources = $(wildcard *.java)
