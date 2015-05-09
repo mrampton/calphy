@@ -61,7 +61,6 @@ public class MyListener extends CalphyBaseListener{
   }
   
 	@Override public void enterProgram(CalphyParser.ProgramContext ctx) { 
-	  //System.out.println("enter: program");
 	}
 	
 	@Override public void exitProgram(CalphyParser.ProgramContext ctx) {
@@ -87,8 +86,6 @@ public class MyListener extends CalphyBaseListener{
 	}
 
 	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
-	  //if (treeProperty.get(ctx.getChild(0)).value.equals("print"))
-	//	treeProperty.get(ctx.getChild(0)).value = "System.out.println";
 	  treeProperty.get(ctx.getChild(0)).value = transTable.transList.get(ctx.getChild(0).getText());
 	  String _Java_str = concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_str;
