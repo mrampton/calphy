@@ -1,6 +1,6 @@
 public class Displacement {
-	private double x, y;
-	private String units;
+	public double x, y;
+	public String units;
 	
 	public Displacement(double value){
 	  	this.x = x;
