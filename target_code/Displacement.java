@@ -4,27 +4,27 @@ public class Displacement {
 	
 	public Displacement(double value){
 		this.value = value;
-		this.units = "m";
+		this.units = "_m";
 	}
 	
 	public Displacement(double value, String units){
-		switch(units){
-			case "nm": this.value = (double) (value * Math.pow(10, -9));
+		switch(units) {
+			case "_nm": this.value = (double) (value * Math.pow(10, -9));
 			break;
 			
-			case "um": this.value = (double) (value * Math.pow(10, -6));
+			case "_um": this.value = (double) (value * Math.pow(10, -6));
 			break;			
 			
-			case "mm": this.value = (double) (value * Math.pow(10, -3));
+			case "_mm": this.value = (double) (value * Math.pow(10, -3));
 			break;			
 
-			case "m": this.value = value;
+			case "_m": this.value = value;
 			break;			
 			
-			case "km": this.value = (double) (value * Math.pow(10, 3));
+			case "_km": this.value = (double) (value * Math.pow(10, 3));
 			break;								
 		}
-		this.units = "m";
+		this.units = "_m";
 	}
 	
 }
