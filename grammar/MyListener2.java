@@ -102,7 +102,7 @@ public class MyListener2 extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStatement(CalphyParser.StatementContext ctx) {
-	  String _Java_str = concatAllChildren(ctx);
+	  String _Java_str = concatAllChildren(ctx) + "\n";
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
@@ -166,7 +166,6 @@ public class MyListener2 extends CalphyBaseListener{
 	 */
 	@Override public void exitParameterList(CalphyParser.ParameterListContext ctx) { 
 	  String _Java_str = concatAllChildren(ctx);
-	  System.out.println(_Java_str);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
@@ -202,9 +201,15 @@ public class MyListener2 extends CalphyBaseListener{
 		primType = true;
 
 	  if (primType == false) {
-		_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  " 
-		+ "new " + treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(3)).value;   
-		treeProperty.get(ctx).value = _Java_str;
+		if (ctx.getChildCount() == 4) {
+			_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  " 
+				+ "new " + treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(3)).value;   
+			treeProperty.get(ctx).value = _Java_str;
+		}
+		else {
+			_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value;
+                        treeProperty.get(ctx).value = _Java_str;
+		}
 	  }
 	  else {
 	 	_Java_str = treeProperty.get(ctx.getChild(0)).value + " " + treeProperty.get(ctx.getChild(1)).value + " =  "
