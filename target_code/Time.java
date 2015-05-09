@@ -27,4 +27,8 @@ public class Time {
 		this.units = "_s";
 	}
 	
+	public Time(Time t) {
+		this.value = t.value;
+		this.units = t.units;
+	}
 }

@@ -63,5 +63,11 @@ class Acceleration {
 	  	}
 	 
 	  	this.units = "_m/s^2";
-	  }
+	}
+
+	public Acceleration(Acceleration a) {
+		this.x = a.x;
+		this.y = a.y;
+		this.units = a.units;
+	}
 }

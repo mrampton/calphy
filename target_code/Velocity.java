@@ -61,4 +61,10 @@ class Velocity {
 	 
 	  	this.units = "_m/s";
 	  }
+
+	Velocity(Velocity v) {
+		this.x = v.x;
+		this.y = v.y;
+		this.units = v.units;
+	}
 }

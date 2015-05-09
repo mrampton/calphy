@@ -33,4 +33,9 @@ public class Energy {
 		}
 		this.units = "_J";
 	}
+	
+	public Energy(Energy e) {
+		this.value = e.value;
+		this.units = e.units;
+	}
 }

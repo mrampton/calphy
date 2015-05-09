@@ -34,4 +34,8 @@ public class Power {
 		this.units = "_W";
 	}
 	
+	public Power(Power p) {
+		this.value = p.value;
+		this.units = p.units;
+	}	
 }

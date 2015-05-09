@@ -28,6 +28,9 @@ public class Mass {
 		}
 		this.units = "_kg";
 	}
-	
-	
+
+	public Mass(Mass m) {
+		this.value = m.value;
+		this.units = m.units;
+	}	
 }

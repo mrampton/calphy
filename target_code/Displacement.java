@@ -1,5 +1,6 @@
 public class Displacement {
-	public double x, y;
+	public double x
+	public double y;
 	public String units;
 	
 	public Displacement(double x, double y){
@@ -13,7 +14,12 @@ public class Displacement {
 		this.x = toSI(x);
 		this.y = toSI(y);
 	}
-	
+
+	public Displacement(Displacement d) {
+		this.x = d.x;
+		this.y = d.y;
+		this.units = d.units;
+	}	
 	private double toSI(double value) {
 		switch(units) {
 			case "_nm": return (double) (value * Math.pow(10, -9));
