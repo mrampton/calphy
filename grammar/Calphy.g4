@@ -64,13 +64,21 @@ expression
     |   expression '.' Identifier
     |   expression unaryOperator
     |   unaryOperator expression
-	|	expression ('*' | '/' | '%') expression
-	|	expression ('+' | '-') expression
+    |   expression multDivMod expression
+	|	expression plusMinus expression
     |   expression compareOperator expression
     |   expression logicOperator expression
     |   '(' expression ')'
     ;
-
+	
+multDivMod
+    :   '*' | '/' | '%'
+    ;
+    
+plusMinus
+    :   '+' | '-'
+    ;
+	
 physicsQuantity
     :   (Number | vector) '[' physicsUnit ']' 
     ;

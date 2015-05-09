@@ -26,14 +26,16 @@ public class MyListener extends CalphyBaseListener{
   public class Symbol {
 	public String type;
 	public String name;
+	public boolean vec;
 	
-	public Symbol(String t, String n) {
+	public Symbol(String t, String n, boolean b) {
       type = t;
       name = n; 
+      vec = b;
 	}
   }
  
-  public String getSymbol(String _name) {
+  public String getSymbolType(String _name) {
 	for (int i = 0; i < symbolTB.size(); i++) {
 	  Symbol s = symbolTB.get(i);
 	  if (s.name == _name) {
@@ -43,8 +45,31 @@ public class MyListener extends CalphyBaseListener{
 	return null;
   }
   
-  public String getChildValue(ParserRuleContext ctx, int child) {
-	  return treeProperty.get(ctx.getChild(child)).value;
+  public boolean getSymbolIsVec(String _name) {
+	for (int i = 0; i < symbolTB.size(); i++) {
+	  Symbol s = symbolTB.get(i);
+	  if (s.name == _name) {
+	    return s.vec;
+	  }
+    } 
+	return false;
+  }
+  
+  public void putSymbol(String name, String type, boolean isVec){
+	for (Symbol s : symbolTB) {
+	  if (s.name.equals(name)) {
+		System.out.println("Duplicated symbol name: " + name);
+        return;
+	  }
+	}
+	symbolTB.add(new Symbol(name, type, isVec));
+  }
+  
+  public String getChildValue(ParserRuleContext ctx, int id) {
+	  if (ctx.getChild(id) == null) {
+		return "";
+	  }
+	  return treeProperty.get(ctx.getChild(id)).value;
   }
   
   public String concatAllChildren(ParserRuleContext ctx) {
@@ -58,6 +83,10 @@ public class MyListener extends CalphyBaseListener{
 	  }
 	}
 	return sb.toString();
+  }
+  
+  public boolean checkValidOp(String op, String a, String b) {
+	return false;
   }
   
 	@Override public void enterProgram(CalphyParser.ProgramContext ctx) { 
@@ -230,8 +259,47 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) { 
-	  String _Java_str = concatAllChildren(ctx);
-          treeProperty.get(ctx).value = _Java_str;
+	  String _Java_str;
+	  if (!getChildValue(ctx,1).isEmpty()) {
+		String op = getChildValue(ctx,1);
+		if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUBSTRACT")) {
+		  _Java_str = getChildValue(ctx, 1) + "(" + 
+		    	      getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
+		  checkValidOp(getChildValue(ctx,1), getChildValue(ctx,0), getChildValue(ctx,2));
+		  treeProperty.get(ctx).value = _Java_str;
+		  return;
+		}
+	  } 
+	  _Java_str = concatAllChildren(ctx);
+      treeProperty.get(ctx).value = _Java_str;
+	}
+	
+	@Override public void exitMultDivMod(CalphyParser.MultDivModContext ctx) { 
+	  String child = concatAllChildren(ctx);
+	  String op = "";
+	  if (child.equals("*")) {
+		op = "_MULT";
+	  } else if (child.equals("/")) {
+		op = "_DIV";
+	  } else if (child.equals("%")) {
+		op = "_MOD";
+	  } else {
+		;  // should not get here
+	  }
+	  treeProperty.get(ctx).value = op;
+	}
+	
+	@Override public void exitPlusMinus(CalphyParser.PlusMinusContext ctx) { 
+	  String child = concatAllChildren(ctx);
+	  String op = "";
+	  if (child.equals("+")) {
+		op = "_ADD";
+	  } else if (child.equals("-")) {
+		op = "_SUBSTRACT";
+	  } else {
+		;  // should not get here
+	  }
+	  treeProperty.get(ctx).value = op;
 	}
 	/**
 	 * {@inheritDoc}
