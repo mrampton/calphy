@@ -1,5 +1,3 @@
-
-
 public class PhysicsMethods {
 	
 	public Displacement getDisp(Acceleration a, Time t, Velocity v){
@@ -245,7 +243,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Mass getMass(Force f, Acceleration a){
+	public static Mass getMass(Force f, Acceleration a){
 		double force = Math.sqrt((f.x * f.x) + (f.y * f.y));
 		double accel = Math.sqrt((a.x * a.x) + (a.y * a.y));
 		double mass = force / accel;
