@@ -20,6 +20,12 @@ public class Time {
 			case "_ms": this.value = (double) (value * Math.pow(10, -3));
 			break;			
 			
+			case "_min": this.value = (double) (value * 60);
+			break;
+
+			case "_hr": this.value = (double) (value * 3600);
+			break;
+	
 			case "_s": this.value = value;
 			break;
 
