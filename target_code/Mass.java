@@ -1,4 +1,4 @@
-public class Mass<T> extends PhysicsScalarType<Mass> {
+public class Mass extends PhysicsScalarType {
 
 	public Mass(double value){
 		this.value = value;
@@ -34,9 +34,9 @@ public class Mass<T> extends PhysicsScalarType<Mass> {
 		this.units = m.units;
 	}	
 
-	@Override
-	public Mass add(Mass rhs) {
-		return new Mass(value + rhs.value);
+	Mass add(Mass rhs) {
+		return (new Mass(this.value + rhs.value));
 	}
+
 
 }

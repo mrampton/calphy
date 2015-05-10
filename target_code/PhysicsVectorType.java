@@ -1,4 +1,4 @@
-public abstract class PhysicsVectorType<T> extends PhysicsType<T> {
+public abstract class PhysicsVectorType extends PhysicsType {
 	double x, y;
-	
+
 }
