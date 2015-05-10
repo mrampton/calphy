@@ -202,7 +202,13 @@ public class MyListener extends CalphyBaseListener{
 	   
 	   if (isPhysicsType(type)) {
 			 if (op.equals("+="))
-				 expression = new String(var + " " + " = " + "_ADD(" + var + ", " + expression + ")");
+				 expression = new String(var + " " + " = " + "_ADD(" + var + ", " + expression + ")"); 
+			 else if(op.equals("-="))
+				 expression = new String(var + " " + " = " + "_SUB(" + var + ", " + expression + ")"); 
+			 else if (op.equals("*="))
+				 expression = new String(var + " " + " = " + "_MULT(" + var + ", " + expression + ")"); 
+			 else if (op.equals("/="))
+				 expression = new String(var + " " + " = " + "_DIV(" + var + ", " + expression + ")"); 
 			 else
 				 expression = new String(var + " " + " = new " + type + "(" + expression + ")");
 			 treeProperty.get(ctx).value = expression;
