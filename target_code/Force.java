@@ -21,6 +21,7 @@ class Force {
 				this.x = x;
 				this.y = y;
 				break;
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 		}
 		this.units = "_N";
 	}

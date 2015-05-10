@@ -23,7 +23,9 @@ public class Mass {
 			break;			
 			
 			case "_kg": this.value = value;
-			break;			
+			break;		
+
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);	
 								
 		}
 		this.units = "_kg";
