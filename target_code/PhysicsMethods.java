@@ -260,5 +260,65 @@ public class PhysicsMethods {
 		Displacement answer = new Displacement(dispx, dispy);
 		return answer;
 	}
+
+	public static double degreesToRadians(double degrees) {
+		return degrees*(Math.PI/180);
+	}
+
+	public static double radiansToDegrees(double radians) {
+		return radians*(180/Math.PI);
+	}	
+
+	public static double sin(double degrees) {
+		return Math.sin(degrees);
+	}
 	
+	public static double cos(double degrees) {
+		return Math.cos(degrees);
+	}
+
+	public static double tan(double degrees) {
+		return Math.tan(degrees);
+	}
+
+	public static double arcsin(double value) {
+		return Math.asin(value);
+	}
+	
+	public static double arccos(double value) {
+		return Math.acos(value);
+	}
+
+	public static double arctan(double value) {
+		return Math.atan(value);
+	}
+
+	public static void toComponent(Velocity v, double degrees, double magnitude) {
+		v.x = magnitude*Math.cos(degrees);
+		v.y = magnitude*Math.sin(degrees);
+		v.units = "m/s";
+	}
+	
+	public static void toComponent(Acceleration v, double degrees, double magnitude) {
+		v.x = magnitude*Math.cos(degrees);
+		v.y = magnitude*Math.sin(degrees);
+		v.units = "m/s^2";
+	}
+
+	public static void toComponent(Force v, double degrees, double magnitude) {
+		v.x = magnitude*Math.cos(degrees);
+		v.y = magnitude*Math.sin(degrees);
+		v.units = "N";
+	}
+
+	public static void toComponent(Displacement v, double degrees, double magnitude) {
+		v.x = magnitude*Math.cos(degrees);
+		v.y = magnitude*Math.sin(degrees);
+		v.units = "m";
+	}
+	
+	public static Energy calcElastic(double k, displacement d){
+		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
+		energy = 0.5 * k * disp * disp;
+	}
 }
