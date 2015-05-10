@@ -1,8 +1,5 @@
+public class Energy extends PhysicsScalarType {
 
-public class Energy {
-	public double value;
-	public String units;
-	
 	public Energy(double value){
 		this.value = value;
 		this.units = "_J";
