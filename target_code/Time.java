@@ -36,7 +36,4 @@ public class Time extends PhysicsScalarType {
 		this.units = t.units;
 	}
 
-	public display() {
-                System.out.println(this.value+" "+this.units);
-        }
 }
