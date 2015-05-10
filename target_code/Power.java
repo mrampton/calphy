@@ -38,8 +38,4 @@ public class Power extends PhysicsScalarType {
 		this.units = p.units;
 	}
 
-	public display() {
-                System.out.println(this.value+" "+this.units);
-        }
-	
 }
