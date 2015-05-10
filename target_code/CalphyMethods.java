@@ -1,5 +1,11 @@
 public class CalphyMethods extends PhysicsMethods {
 
+	//// ScalarTypes
+
+	public static PhysicsScalarType _SUB(PhysicsScalarType lhs, PhysicsScalarType rhs) {
+		return _ADD(lhs, rhs.value * -1);
+	}
+	
 	public static PhysicsScalarType _ADD(PhysicsScalarType lhs, PhysicsScalarType rhs) {
 		if (lhs instanceof Mass) {
 			return new Mass(lhs.value + rhs.value);
@@ -41,7 +47,7 @@ public class CalphyMethods extends PhysicsMethods {
 		return _ADD(rhs, units, lhs);
 	}
 	
-	///// vector types
+	//// vector types
 
 	public static PhysicsVectorType _ADD(PhysicsVectorType lhs, PhysicsVectorType rhs) {
 		if (lhs instanceof Acceleration) {

@@ -63,13 +63,5 @@ class Acceleration extends PhysicsVectorType {
 		this.y = a.y;
 		this.units = a.units;
 	}
-
-	@Override
-	public Acceleration add(Acceleration rhs) {
-		return new Acceleration(x + rhs.x, y + rhs.y);
-	}
 	
-	public void display() {
-		System.out.println("<"+this.x+","+this.y+"> "+this.units);
-	}
 }
