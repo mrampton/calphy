@@ -29,9 +29,9 @@ public class MyListener extends CalphyBaseListener{
 	public boolean vec;
 
 	public Symbol(String n, String t, boolean b) {
-      	type = t;
-      	name = n; 
-		vec = b;
+      type = t;
+      name = n; 
+	  vec = b;
 	}
 	
 	@Override
@@ -40,12 +40,12 @@ public class MyListener extends CalphyBaseListener{
 	}
   }
  
-	public Boolean isPhysicsType(String type) {
-		type = type == null ? "" : type;
-		Pattern p = Pattern.compile("(Mass|Acceleration|Velocity|Force|Energy|Power|Displacement)");
-		Matcher m = p.matcher(type);
-		return m.find();
-	}
+  public Boolean isPhysicsType(String type) {
+    type = type == null ? "" : type;
+	Pattern p = Pattern.compile("(Mass|Acceleration|Velocity|Force|Energy|Power|Displacement)");
+	Matcher m = p.matcher(type);
+	return m.find();
+  }
  
   public String getSymbolType(String _name) {
 	for (int i = 0; i < symbolTB.size(); i++) {
@@ -91,15 +91,21 @@ public class MyListener extends CalphyBaseListener{
 	for (int i = 0; i < childCount; i++) {
 	  String childVal = getChildValue(ctx, i);
 	  sb.append(childVal);
-	  if (i < childCount-1) {
-		sb.append(" ");
-	  }
 	}
 	return sb.toString();
   }
   
   public boolean checkValidOp(String op, String a, String b) {
 		return false;
+  }
+  
+  public void throwCompileException(String info) {
+    try {
+      System.out.println("Calphy Compile Exception: " + info);
+	  throw new Exception();
+	} catch (Exception e) {
+	  System.exit(0);
+	}
   }
   
 	@Override public void enterProgram(CalphyParser.ProgramContext ctx) { 
@@ -161,9 +167,9 @@ public class MyListener extends CalphyBaseListener{
 		}
 	  }
 	  // block statement
-	  if (getChildValue(ctx, 0).equals("{") && getChildValue(ctx, 2).equals("}")) {
-		String _Java_str = "{\n" + getChildValue(ctx,1) + "}";
-		treeProperty.get(ctx).value = _Java_str;
+	  if (getChildValue(ctx, 0).equals("{") && getChildValue(ctx, ctx.getChildCount()-1).equals("}")) {
+		treeProperty.get(ctx.getChild(0)).value = "{\n"; 
+		treeProperty.get(ctx).value = concatAllChildren(ctx);
 	  } else if (getChildValue(ctx, ctx.getChildCount()-1).equals(";")){
 	    treeProperty.get(ctx).value = concatAllChildren(ctx) + "\n";
 	  } else {
@@ -176,12 +182,11 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterIterationStatement(CalphyParser.IterationStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIterationStatement(CalphyParser.IterationStatementContext ctx) { }
+	
+	@Override public void exitIterationStatement(CalphyParser.IterationStatementContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+	  treeProperty.get(ctx).value = _Java_str + "\n";
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -199,23 +204,22 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterAssignStatement(CalphyParser.AssignStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAssignStatement(CalphyParser.AssignStatementContext ctx) { 
+
+	@Override public void exitAssignStatement(CalphyParser.AssignStatementContext ctx){ 
 	   String var = getChildValue(ctx,0);
 	   String op = getChildValue(ctx, 1);
 	   String expression = getChildValue(ctx,2);
 	   
 	   String type = getSymbolType(var);
+	   if (type == null) {
+	     throwCompileException (var + " not declared");
+	   }
 	   
 	   if (isPhysicsType(type)) {
 			 if (op.equals("+="))
-				 expression = new String(var + " " + " = " + "_ADD(" + var + ", " + expression + ")");
+				 expression = new String(var + " = " + "_ADD(" + var + ", " + expression + ")");
 			 else
-				 expression = new String(var + " " + " = new " + type + "(" + expression + ")");
+				 expression = new String(var + " = new " + type + "(" + expression + ")");
 			 treeProperty.get(ctx).value = expression;
 			 return;
 	   }
@@ -227,12 +231,11 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterReturnStatement(CalphyParser.ReturnStatementContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitReturnStatement(CalphyParser.ReturnStatementContext ctx) { }
+
+	@Override public void exitReturnStatement(CalphyParser.ReturnStatementContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+	  treeProperty.get(ctx).value = _Java_str + "\n";
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -305,6 +308,19 @@ public class MyListener extends CalphyBaseListener{
         return;
         }
 	  }
+	  // Process unary operation
+      if (ctx.getChild(0) instanceof CalphyParser.UnaryOperatorContext) {
+    	ParserRuleContext expression = (ParserRuleContext)ctx.getChild(1);
+        if (expression.getChild(0) instanceof CalphyParser.PhysicsQuantityContext) {
+          throwCompileException("unary operator can't be applied to PhysicsQuantity");
+        } else {
+          String var = getChildValue(expression, 0);
+          String type = getSymbolType(var);
+          if (type!=null && isPhysicsType(type)) {
+            throwCompileException("unary operator can't be applied to PhysicsQuantity");
+          }
+        }
+      }
 	  // otherwise, simply pass everything up 
 	  treeProperty.get(ctx).value = concatAllChildren(ctx);
 	}
@@ -388,12 +404,11 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterUnaryOperator(CalphyParser.UnaryOperatorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnaryOperator(CalphyParser.UnaryOperatorContext ctx) { }
+
+	@Override public void exitUnaryOperator(CalphyParser.UnaryOperatorContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+	  treeProperty.get(ctx).value = _Java_str;	
+	}
 	/**
 	 * {@inheritDoc}
 	 *
