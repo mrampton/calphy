@@ -1,10 +1,5 @@
-import java.util.*;
-import java.io.*;
-class Velocity {
-	  double x;
-	  double y;
-	  String units;
-	 
+class Velocity extends PhysicsVectorType {
+
 	  Velocity(double x, double y) {
 	  	this.x = x;
 	  	this.y = y;
