@@ -38,7 +38,4 @@ public class Energy extends PhysicsScalarType {
 		this.units = e.units;
 	}
 
-	public display() {
-		System.out.println(this.value+" "+this.units);
-	}
 }

@@ -317,8 +317,8 @@ public class PhysicsMethods {
 		v.units = "m";
 	}
 	
-	public static Energy calcElastic(double k, displacement d){
+	public static Energy calcElastic(double k, Displacement d){
 		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
-		energy = 0.5 * k * disp * disp;
+		return new Energy(0.5 * k * disp * disp);
 	}
 }
