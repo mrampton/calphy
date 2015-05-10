@@ -5,6 +5,7 @@ velocity	Velocity
 force	Force
 energy	Energy
 power	Power
+time	Time
 displacement	Displacement
 print	System.out.println
 main	main

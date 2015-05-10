@@ -396,23 +396,25 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	@Override public void exitPhysicsQuantity(CalphyParser.PhysicsQuantityContext ctx) { 
 	try {
-	  String _Java_str = getChildValue(ctx, 0) + "," + getChildValue(ctx, 2);
+	  String _Java_str;
+	  if (getChildValue(ctx,2).equals(""))
+		_Java_str = getChildValue(ctx, 0);
+	  else
+	  	_Java_str = getChildValue(ctx, 0) + "," + getChildValue(ctx, 2);
+	  
           treeProperty.get(ctx).value = _Java_str;	
 	} catch (Exception e) {
                 System.out.println("Physics Quantity Error: "+e);
         }
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+	
 	@Override public void enterVector(CalphyParser.VectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+
 	@Override public void exitVector(CalphyParser.VectorContext ctx) { 
 	try {
 	  String _Java_str = ctx.getChild(1).getText() + ctx.getChild(2).getText() + ctx.getChild(3).getText();
@@ -421,13 +423,8 @@ public class MyListener extends CalphyBaseListener{
                 System.out.println("Vector Error: "+e);
         }
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPhysicsUnit(CalphyParser.PhysicsUnitContext ctx) { 
-	  	}
+
+	@Override public void enterPhysicsUnit(CalphyParser.PhysicsUnitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
