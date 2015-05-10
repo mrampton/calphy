@@ -1,9 +1,4 @@
-import java.util.*;
-class Force {
-
-	double x;
-	double y;
-	String units;
+class Force extends PhysicsVectorType {
 
 	public Force(double x, double y) {
 		this.x = x;

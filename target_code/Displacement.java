@@ -1,7 +1,4 @@
-public class Displacement {
-	public double x;
-	public double y;
-	public String units;
+public class Displacement extends PhysicsVectorType {
 	
 	public Displacement(double x, double y){
 	  	this.x = x;
