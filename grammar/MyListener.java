@@ -127,7 +127,7 @@ public class MyListener extends CalphyBaseListener{
 		symbolTB.remove(symbolTB.size() - 1);
 	  }
 	} catch (Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Function Definition Error: "+e);
 	}
 	}
 
@@ -138,10 +138,18 @@ public class MyListener extends CalphyBaseListener{
 	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
 	try {
 	  treeProperty.get(ctx.getChild(0)).value = transTable.transList.get(ctx.getChild(0).getText());
+	  if (ctx.getChild(0).getText().equals("print")) {
+		String var = getChildValue(ctx,2);
+           	String type = getSymbolType(var);
+
+           	if (isPhysicsType(type)) {	//print physicsType
+			treeProperty.get(ctx.getChild(2)).value = var + ".display()";	
+		}
+	  }
 	  String _Java_str = concatAllChildren(ctx) + "\n";
 	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Function Declarator Error: "+e);
 	}
 	}
 	/**
@@ -161,7 +169,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx) + "\n";
 	  treeProperty.get(ctx).value = _Java_str;
 	} catch(Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Statement Error: "+e);
 	}
 	}
 	/**
@@ -180,7 +188,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
           treeProperty.get(ctx).value = _Java_str;
 	} catch(Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Iteration Statement Error: "+e);
 	}
 	}
 	/**
@@ -199,7 +207,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
           treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Selection Statement Error: "+e);
 	}
 	}
 	/**
@@ -237,7 +245,7 @@ public class MyListener extends CalphyBaseListener{
 	   }
 	   treeProperty.get(ctx).value = concatAllChildren(ctx);
 	} catch (Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Assign Statement Error: "+e);
 	}
 	}
 	/**
@@ -268,7 +276,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-		System.out.println("Error: "+e);
+		System.out.println("Parameter List Error: "+e);
 	}
 	}
 	/**
@@ -287,7 +295,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
       	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Parameter Error: "+e);
         }
 	}
 	/**
@@ -315,7 +323,7 @@ public class MyListener extends CalphyBaseListener{
 	  }
 	  putSymbol(var, type, false);
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Declaration Error: "+e);
         }
 	}
 
@@ -330,9 +338,7 @@ public class MyListener extends CalphyBaseListener{
 	try {
 	  // Process binary operation
 	  if (!getChildValue(ctx,1).isEmpty()) {
-	System.out.println("hello");
         String op = getChildValue(ctx,1);
-	System.out.println(op);
         if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUB")) {
           String _Java_str = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
           checkValidOp(op, getChildValue(ctx,0), getChildValue(ctx,2));
@@ -346,7 +352,7 @@ public class MyListener extends CalphyBaseListener{
 	  // otherwise, simply pass everything up 
 	  treeProperty.get(ctx).value = concatAllChildren(ctx);
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Expression Error: "+e);
         }
 	}
 	
@@ -393,7 +399,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = getChildValue(ctx, 0) + "," + getChildValue(ctx, 2);
           treeProperty.get(ctx).value = _Java_str;	
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Physics Quantity Error: "+e);
         }
 	}
 	/**
@@ -412,7 +418,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = ctx.getChild(1).getText() + ctx.getChild(2).getText() + ctx.getChild(3).getText();
       	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Vector Error: "+e);
         }
 	}
 	/**
@@ -432,7 +438,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = "\""+concatAllChildren(ctx)+"\"";
  	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Physics unit Error: "+e);
         }
 	}
 	/**
@@ -451,7 +457,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
           treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Unary Operator Error: "+e);
         }
 	}
 	/**
@@ -465,7 +471,14 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCompareOperator(CalphyParser.CompareOperatorContext ctx) { }
+	@Override public void exitCompareOperator(CalphyParser.CompareOperatorContext ctx) { 
+	try {
+          String _Java_str = concatAllChildren(ctx);
+          treeProperty.get(ctx).value = _Java_str;
+        } catch (Exception e) {
+                System.out.println("Assignment operator Error: "+e);
+        }
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -494,7 +507,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
           treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Assignment operator Error: "+e);
         }
 	}
 	/**
@@ -515,7 +528,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Type Error: "+e);
         }
 	}
 	
@@ -528,7 +541,7 @@ public class MyListener extends CalphyBaseListener{
 	  String _Java_str = transTable.transList.get(ctx.getChild(0).getText());
 	  treeProperty.get(ctx).value = _Java_str;
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("Physics Type Error: "+e);
         }
 	}
 	/**
@@ -551,7 +564,7 @@ public class MyListener extends CalphyBaseListener{
 	  np.symbolTBPointer = oldPointer;
 	  treeProperty.put(ctx, np);
 	} catch (Exception e) {
-                System.out.println("Error: "+e);
+                System.out.println("EnterEveryRule Error: "+e);
         }
 	}
 
