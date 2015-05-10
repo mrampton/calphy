@@ -412,13 +412,7 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPhysicsUnit(CalphyParser.PhysicsUnitContext ctx) { 
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+	
 	@Override public void exitPhysicsUnit(CalphyParser.PhysicsUnitContext ctx) { 
 	  String _Java_str = "\""+concatAllChildren(ctx)+"\"";
  	  treeProperty.get(ctx).value = _Java_str;
