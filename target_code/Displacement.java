@@ -30,5 +30,9 @@ public class Displacement {
 		}
 		return value; //else return value [m]
 	}
+
+	public void display() {
+                System.out.println("<"+this.x+","+this.y+"> "+this.units);
+        }
 }
 

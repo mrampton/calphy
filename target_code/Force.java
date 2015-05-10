@@ -31,4 +31,9 @@ class Force {
 		this.y = f.y;
 		this.units = f.units;
 	}
+	
+	public void display() {
+                System.out.println("<"+this.x+","+this.y+"> "+this.units);
+        }
+
 }

@@ -38,4 +38,8 @@ public class Time {
 		this.value = t.value;
 		this.units = t.units;
 	}
+
+	public display() {
+                System.out.println(this.value+" "+this.units);
+        }
 }

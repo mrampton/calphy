@@ -40,4 +40,8 @@ public class Energy {
 		this.value = e.value;
 		this.units = e.units;
 	}
+
+	public display() {
+		System.out.println(this.value+" "+this.units);
+	}
 }

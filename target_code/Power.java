@@ -40,5 +40,10 @@ public class Power {
 	public Power(Power p) {
 		this.value = p.value;
 		this.units = p.units;
-	}	
+	}
+
+	public display() {
+                System.out.println(this.value+" "+this.units);
+        }
+	
 }

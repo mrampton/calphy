@@ -69,5 +69,7 @@ class Acceleration<T> extends PhysicsVectorType<Acceleration>  {
 		return new Acceleration(x + rhs.x, y + rhs.y);
 	}
 	
-
+	public void display() {
+		System.out.println("<"+this.x+","+this.y+"> "+this.units);
+	}
 }

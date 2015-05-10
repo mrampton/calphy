@@ -67,4 +67,9 @@ class Velocity {
 		this.y = v.y;
 		this.units = v.units;
 	}
+
+	public void display() {
+                System.out.println("<"+this.x+","+this.y+"> "+this.units);
+        }
+
 }
