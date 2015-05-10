@@ -25,7 +25,7 @@ statement
 iterationStatement
     :   'while' '(' expression ')' statement
     |   'do' statement 'while' '(' expression ')' ';'
-    |   'for' '(' expression? ';' expression? ';' expression? ')' statement
+    |   'for' '(' assignStatement ';' expression ';' expression ')' statement
     |   'for' '(' declaration expression? ';' expression? ')' statement
     ;
 
@@ -75,7 +75,7 @@ expression
     ;
 	
 multDivMod
-    :   '*' | '/' | '%'
+    :   '*' | '/' | '%' | '^'
     ;
     
 plusMinus
