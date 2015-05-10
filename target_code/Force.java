@@ -9,8 +9,8 @@ class Force extends PhysicsVectorType {
 	public Force(double x, double y, String units) {
 		switch(units) {
 			case "_kN": 
-				this.x = x/1000;
-				this.y = y/1000;
+				this.x = x*1000;
+				this.y = y*1000;
 				break;
 			case "_N":
 				this.x = x;
@@ -27,8 +27,4 @@ class Force extends PhysicsVectorType {
 		this.units = f.units;
 	}
 	
-	public void display() {
-                System.out.println("<"+this.x+","+this.y+"> "+this.units);
-        }
-
 }

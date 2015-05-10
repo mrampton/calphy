@@ -1,4 +1,4 @@
-public class Displacement extends PhysicsVectorType {
+class Displacement extends PhysicsVectorType {
 	
 	public Displacement(double x, double y){
 	  	this.x = x;
@@ -28,8 +28,5 @@ public class Displacement extends PhysicsVectorType {
 		return value; //else return value [m]
 	}
 
-	public void display() {
-                System.out.println("<"+this.x+","+this.y+"> "+this.units);
-        }
 }
 
