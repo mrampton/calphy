@@ -35,8 +35,8 @@ class Velocity {
 	  			this.x = x*1000;
 	  			this.y = y*1000;
 	  			break;
-	  		default:
-	  			System.out.println("error\n");
+
+	  		default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 	  	}
 	 
 	  	switch(unitlist[1]) {
@@ -55,8 +55,8 @@ class Velocity {
 	  			this.x = x/(60);
 	  			this.y = y/(60);
 	  			break;
-	  		default:
-	  			System.out.println("error\n");
+
+	  		default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 	  	}
 	 
 	  	this.units = "_m/s";

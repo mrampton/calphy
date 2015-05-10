@@ -30,6 +30,8 @@ public class Energy {
 			
 			case "_GJ": this.value = (double) (value * Math.pow(10, 9));
 			break;
+
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 		}
 		this.units = "_J";
 	}

@@ -1,7 +1,5 @@
-public class Mass {
-	public double value;
-	public String units;
-	
+public class Mass<T> extends PhysicsScalarType<Mass> {
+
 	public Mass(double value){
 		this.value = value;
 		this.units = "_kg";
@@ -23,7 +21,9 @@ public class Mass {
 			break;			
 			
 			case "_kg": this.value = value;
-			break;			
+			break;		
+
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);	
 								
 		}
 		this.units = "_kg";
@@ -33,4 +33,10 @@ public class Mass {
 		this.value = m.value;
 		this.units = m.units;
 	}	
+
+	@Override
+	public Mass add(Mass rhs) {
+		return new Mass(value + rhs.value);
+	}
+
 }

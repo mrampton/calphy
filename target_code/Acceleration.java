@@ -1,11 +1,5 @@
-import java.util.*;
-import java.io.*;
-import java.lang.*;
-class Acceleration {
-	  double x;
-	  double y;
-	  String units;
-	 
+class Acceleration<T> extends PhysicsVectorType<Acceleration>  {
+
 	  Acceleration(double x, double y) {
 	  	this.x = x;
 	  	this.y = y;
@@ -36,8 +30,8 @@ class Acceleration {
 	  			this.x = x*1000;
 	  			this.y = y*1000;
 	  			break;
-	  		default:
-	  			System.out.println("error\n");
+
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 	  	}
 	 
 	  	unitlist[1] = unitlist[1].substring(0, unitlist[1].length() - 2);		 //trim trailing '^2'
@@ -58,10 +52,9 @@ class Acceleration {
 	  			this.x = x/(60*60);
 	  			this.y = y/(60*60);
 	  			break;
-	  		default:
-	  			System.out.println("error\n");
-	  	}
-	 
+
+			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
+		}
 	  	this.units = "_m/s^2";
 	}
 
@@ -70,4 +63,11 @@ class Acceleration {
 		this.y = a.y;
 		this.units = a.units;
 	}
+
+	@Override
+	public Acceleration add(Acceleration rhs) {
+		return new Acceleration(x + rhs.x, y + rhs.y);
+	}
+	
+
 }
