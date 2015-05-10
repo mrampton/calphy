@@ -70,6 +70,8 @@ expression
     |   expression compareOperator expression
     |   expression logicOperator expression
     |   '(' expression ')'
+    |   Break
+    |   Continue
     ;
 	
 multDivMod
