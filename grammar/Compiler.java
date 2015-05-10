@@ -3,24 +3,24 @@ import org.antlr.v4.runtime.tree.*;
 import java.io.PrintWriter;
 
 public class Compiler {
-    public static void main(String[] args) throws Exception {
-	if (args.length == 1) {
-		CalphyLexer lexer = new CalphyLexer( new ANTLRFileStream(args[0]));
+	public static void main(String[] args) throws Exception {
+		if (args.length == 1) {
+			CalphyLexer lexer = new CalphyLexer( new ANTLRFileStream(args[0]));
 	    CommonTokenStream tokens = new CommonTokenStream(lexer);
 	    CalphyParser parser = new CalphyParser(tokens);
 		
-		CalphyParser.ProgramContext calphyContext = parser.program();
-		ParseTreeWalker walker = new ParseTreeWalker();
-		MyListener listener = new MyListener();
-		walker.walk(listener, calphyContext);
+			CalphyParser.ProgramContext calphyContext = parser.program();
+			ParseTreeWalker walker = new ParseTreeWalker();
+			MyListener listener = new MyListener();
+			walker.walk(listener, calphyContext);
 			
-		PrintWriter writer = new PrintWriter("CalphyClass.java", "UTF-8");
-		writer.print(listener.treeProperty.get(calphyContext).value);
-		writer.close();
+			PrintWriter writer = new PrintWriter("CalphyClass.java", "UTF-8");
+			writer.print(listener.treeProperty.get(calphyContext).value);
+			writer.close();
 			
-	} else {
-		System.out.println("usage: java Compiler source-code.calphy");
-		System.exit(1);
-	}	
-    }
+		} else {
+			System.out.println("usage: java Compiler source-code.calphy");
+			System.exit(1);
+		}	
+  }
 }

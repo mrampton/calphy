@@ -1,5 +1,5 @@
 public class Displacement {
-	public double x
+	public double x;
 	public double y;
 	public String units;
 	
