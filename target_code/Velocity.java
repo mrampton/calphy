@@ -62,5 +62,8 @@ class Velocity extends PhysicsVectorType {
 		this.y = v.y;
 		this.units = v.units;
 	}
+	public String toString(){
+		return "<" +Double.toString(x) + ","+Double.toString(y)+"> " + units;
+	}
 
 }

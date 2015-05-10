@@ -27,6 +27,9 @@ class Displacement extends PhysicsVectorType {
 		}
 		return value; //else return value [m]
 	}
+	public String toString(){
+		return "<" +Double.toString(x) + ","+Double.toString(y)+"> " + units;
+	}
 
 }
 
