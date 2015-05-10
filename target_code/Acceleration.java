@@ -1,4 +1,4 @@
-class Acceleration<T> extends PhysicsVectorType<Acceleration>  {
+class Acceleration extends PhysicsVectorType {
 
 	  Acceleration(double x, double y) {
 	  	this.x = x;
