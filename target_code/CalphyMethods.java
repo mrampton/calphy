@@ -1,17 +1,29 @@
 public class CalphyMethods extends PhysicsMethods {
 
 	public static PhysicsScalarType _ADD(PhysicsScalarType lhs, PhysicsScalarType rhs) {
-		String cls = lhs.getClass().toString();
-		switch(cls) {
-			case "Mass": System.out.println("CLASS MASS");
+		if (lhs instanceof Mass) {
+			return new Mass(lhs.value + rhs.value);
+		} else if (lhs instanceof Power) {
+			return new Power(lhs.value + rhs.value);
+		} else if (lhs instanceof Time) {
+			return new Time(lhs.value + rhs.value);
 		}
-		return Mass.class.cast(lhs);
+		return null;
 	}
-	// public static Mass _ADD(double lhs, Mass rhs) {
-	// 	return (_ADD(new Mass(lhs), rhs));
+	
+	// public static PhysicsScalarType _ADD(PhysicsScalarType lhs, double rhs) {
+	// 	if (lhs instanceof Mass) {
+	// 		return _ADD(lhs, new Mass(rhs));
+	// 	} else if (lhs instanceof Power) {
+	// 		return _ADD(lhs, new Power(rhs));
+	// 	} else if (lhs instanceof Time) {
+	// 		return _ADD(lhs, new Time(rhs));
+	// 	}
+	// 	return null;
 	// }
-	// public static Mass _ADD(Mass lhs, double rhs) {
-	// 	return (_ADD(lhs, new Mass(rhs)));
+	//
+	// public static PhysicsScalarType _ADD(double lhs, PhysicsScalarType rhs) {
+	// 	return _ADD(rhs, lhs);
 	// }
 	
 }
