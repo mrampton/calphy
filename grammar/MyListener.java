@@ -163,7 +163,10 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIterationStatement(CalphyParser.IterationStatementContext ctx) { }
+	@Override public void exitIterationStatement(CalphyParser.IterationStatementContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+          treeProperty.get(ctx).value = _Java_str;
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -175,7 +178,10 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelectionStatement(CalphyParser.SelectionStatementContext ctx) { }
+	@Override public void exitSelectionStatement(CalphyParser.SelectionStatementContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+          treeProperty.get(ctx).value = _Java_str;
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -281,13 +287,18 @@ public class MyListener extends CalphyBaseListener{
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
 	  // Process binary operation
 	  if (!getChildValue(ctx,1).isEmpty()) {
+	System.out.println("hello");
         String op = getChildValue(ctx,1);
+	System.out.println(op);
         if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUB")) {
           String _Java_str = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
           checkValidOp(op, getChildValue(ctx,0), getChildValue(ctx,2));
           treeProperty.get(ctx).value = _Java_str;
         return;
         }
+	else {
+		treeProperty.get(ctx).value = concatAllChildren(ctx);
+	}
 	  }
 	  // otherwise, simply pass everything up 
 	  treeProperty.get(ctx).value = concatAllChildren(ctx);
@@ -413,7 +424,10 @@ public class MyListener extends CalphyBaseListener{
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignmentOperator(CalphyParser.AssignmentOperatorContext ctx) { }
+	@Override public void exitAssignmentOperator(CalphyParser.AssignmentOperatorContext ctx) { 
+	  String _Java_str = concatAllChildren(ctx);
+          treeProperty.get(ctx).value = _Java_str;
+	}
 	/**
 	 * {@inheritDoc}
 	 *

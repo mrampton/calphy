@@ -34,8 +34,8 @@ selectionStatement
     ;
 
 assignStatement
-    :   Identifier '=' expression
-	|	Identifier '+=' expression
+    :   Identifier assignmentOperator expression
+	|	Identifier assignmentOperator expression
     ;
 
 returnStatement
