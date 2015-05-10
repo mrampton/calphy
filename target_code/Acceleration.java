@@ -1,4 +1,4 @@
-class Acceleration<T> extends PhysicsVectorType<Acceleration>  {
+class Acceleration extends PhysicsVectorType {
 
 	  Acceleration(double x, double y) {
 	  	this.x = x;
@@ -63,11 +63,5 @@ class Acceleration<T> extends PhysicsVectorType<Acceleration>  {
 		this.y = a.y;
 		this.units = a.units;
 	}
-
-	@Override
-	public Acceleration add(Acceleration rhs) {
-		return new Acceleration(x + rhs.x, y + rhs.y);
-	}
-	
 
 }

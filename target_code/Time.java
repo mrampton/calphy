@@ -1,8 +1,5 @@
+public class Time extends PhysicsScalarType {
 
-public class Time {
-	public double value;
-	public String units;
-	
 	public Time(double value){
 		this.value = value;
 		this.units = "_s";

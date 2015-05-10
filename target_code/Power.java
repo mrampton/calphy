@@ -1,8 +1,4 @@
-
-public class Power {
-	private double value;
-	private String units;
-	
+public class Power extends PhysicsScalarType {
 	public Power(double value){
 		this.value = value;
 		this.units = "_W";
