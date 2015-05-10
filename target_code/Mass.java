@@ -1,7 +1,5 @@
-public class Mass<T> extends PhysicsType<Mass> {
-	public double value;
-	public String units;
-	
+public class Mass<T> extends PhysicsScalarType<Mass> {
+
 	public Mass(double value){
 		this.value = value;
 		this.units = "_kg";
