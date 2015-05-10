@@ -316,4 +316,9 @@ public class PhysicsMethods {
 		v.y = magnitude*Math.sin(degrees);
 		v.units = "m";
 	}
+	
+	public static Energy calcElastic(double k, displacement d){
+		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
+		energy = 0.5 * k * disp * disp;
+	}
 }

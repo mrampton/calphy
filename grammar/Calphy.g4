@@ -83,7 +83,7 @@ plusMinus
     ;
 	
 physicsQuantity
-    :   (Number | vector) ('[' physicsUnit ']')?  
+    :   (Number | vector) ('[' physicsUnit ']')?
     ;
 
 vector
