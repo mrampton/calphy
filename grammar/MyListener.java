@@ -98,7 +98,7 @@ public class MyListener extends CalphyBaseListener{
   }
   
   public boolean checkValidOp(String op, String a, String b) {
-	return false;
+		return false;
   }
   
 	@Override public void enterProgram(CalphyParser.ProgramContext ctx) { 
@@ -282,12 +282,11 @@ public class MyListener extends CalphyBaseListener{
 	  // Process binary operation
 	  if (!getChildValue(ctx,1).isEmpty()) {
         String op = getChildValue(ctx,1);
-        if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUBSTRACT")) {
-          String _Java_str = getChildValue(ctx, 1) + "(" +
-          getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
-          checkValidOp(getChildValue(ctx,1), getChildValue(ctx,0), getChildValue(ctx,2));
+        if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUB")) {
+          String _Java_str = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
+          checkValidOp(op, getChildValue(ctx,0), getChildValue(ctx,2));
           treeProperty.get(ctx).value = _Java_str;
-          return;
+        return;
         }
 	  }
 	  // otherwise, simply pass everything up 
@@ -315,7 +314,7 @@ public class MyListener extends CalphyBaseListener{
 	  if (child.equals("+")) {
 		op = "_ADD";
 	  } else if (child.equals("-")) {
-		op = "_SUBSTRACT";
+		op = "_SUB";
 	  } else {
 		;  // should not get here
 	  }
