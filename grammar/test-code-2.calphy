@@ -4,4 +4,10 @@ void main() {
 	mass m2 = 9;
 	m = m1;
 	m = m1 + m2;
+   
+    if (m < m1) {
+      mass m3 = 10;
+    } else {
+      mass m4 = 9;
+    }
 }
