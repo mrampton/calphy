@@ -1,4 +1,4 @@
-public abstract class PhysicsScalarType<T> extends PhysicsType<T> {
+public class PhysicsScalarType extends PhysicsType {
 	double value;
 	
 }

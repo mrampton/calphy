@@ -251,5 +251,14 @@ public class PhysicsMethods {
 		return answer;
 		
 	}
+	public static Displacement getDisp(Velocity v, Time t){
+		double vel = v.x;
+		double time = t.value;
+		double dispx = vel * time;
+		vel = v.y;
+		double dispy = vel * time;
+		Displacement answer = new Displacement(dispx, dispy);
+		return answer;
+	}
 	
 }
