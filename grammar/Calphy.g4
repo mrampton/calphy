@@ -35,6 +35,7 @@ selectionStatement
 
 assignStatement
     :   Identifier '=' expression
+	|	Identifier '+=' expression
     ;
 
 returnStatement

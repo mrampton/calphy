@@ -1,4 +1,4 @@
-public class Mass {
+public class Mass<T> extends PhysicsType<Mass> {
 	public double value;
 	public String units;
 	
@@ -35,4 +35,10 @@ public class Mass {
 		this.value = m.value;
 		this.units = m.units;
 	}	
+
+	@Override
+	public Mass add(Mass rhs) {
+		return new Mass(value + rhs.value);
+	}
+
 }
