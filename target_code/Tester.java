@@ -19,24 +19,17 @@ public class Tester extends CalphyMethods {
 		printScalar(m5);
 		printScalar(m6);
 		printScalar(m7);
-		// printScalar((_ADD(m1,100, "_g")));
-		// printScalar((_ADD(100, "_g", m1)));
-		// (_SUB(m2,m1)).display();
-		// (_SUB(m1,m2)).display();
-		// System.out.println("WTF");
-		// m2.display();
-		// (_SUB(5,"_kg",m2)).display();
-		// System.out.println("WTF");
-		// m2.display();
-		// (_SUB(m2,5.0,"_kg")).display();
-		// m2.value = -5;
+		System.out.println("+++++ Scalar Mult +++++");
+		Mass m8 = (Mass)_MULT(m2, m3);
+		printScalar(m8);
 
-		System.out.println("+++++ Velocity +++++");
+		System.out.println("+++++ Vector +++++");
 		Velocity v1 = new Velocity(0, 5);
 		Velocity v2 = new Velocity(5, 10);
 		printVector(v1);
 		printVector(v2);
 		printVector(_ADD(v1,v2));
+		Velocity v3 = (Velocity)_SUB(v2, v1);
 	}
 	
 	public static void printScalar(PhysicsScalarType s) {
