@@ -11,11 +11,13 @@ public class MyListener extends CalphyBaseListener{
   ParseTreeProperty<NodeProperty> treeProperty;
   ArrayList<Symbol> symbolTB;
   ReadTranslateTable transTable;
+  ArrayList<Function> functionTB;
 
   public MyListener() {
 	transTable = new ReadTranslateTable();
 	treeProperty = new ParseTreeProperty<NodeProperty>();
 	symbolTB = new ArrayList<Symbol>();
+	functionTB = new ArrayList<Function>();
   }
 
   public class NodeProperty {
@@ -38,6 +40,25 @@ public class MyListener extends CalphyBaseListener{
 	public String toString() {
 	  return name + " " + type + " " + Boolean.toString(vec);
 	}
+  }
+  
+  public class Function {
+	public String name;
+	public String returnType;
+	
+	public Function(String n, String retT){
+	  name = n;
+	  returnType = retT;
+	}
+  }
+  
+  public boolean checkIfFuncExist(String n, String retT) {
+    for (Function f : functionTB){
+      if (f.name.equals(n) && f.returnType.equals(retT)) {
+        return true;
+      }
+    }
+    return false;
   }
  
   public Boolean isPhysicsType(String type) {
@@ -131,8 +152,12 @@ public class MyListener extends CalphyBaseListener{
 	}
 
 	@Override public void exitFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) {
-	  String _Java_str = "public static " + concatAllChildren(ctx);
+	  String _Java_str = "\n public static " + concatAllChildren(ctx) + "\n";
 	  treeProperty.get(ctx).value = _Java_str;
+	  String funcName = ctx.getChild(1).getChild(0).getText();
+	  String retType = getChildValue(ctx, 0);
+	  functionTB.add(new Function(funcName, retType));
+	  
 	  int oldPointer = treeProperty.get(ctx).symbolTBPointer;
 	  // pop the variables that are out of scope
 	  while (symbolTB.size() > oldPointer) {
@@ -145,8 +170,14 @@ public class MyListener extends CalphyBaseListener{
 	}
 
 	@Override public void exitFunctionDeclarator(CalphyParser.FunctionDeclaratorContext ctx) {
-	  treeProperty.get(ctx.getChild(0)).value = transTable.transList.get(ctx.getChild(0).getText());
-	  String _Java_str = concatAllChildren(ctx) + "\n";
+	  if (getChildValue(ctx, 0).equals("main")){
+		treeProperty.get(ctx.getChild(2)).value = "String[] args";
+	  }
+	  String transFuncName = transTable.transList.get(ctx.getChild(0).getText());
+	  if (transFuncName != null) {
+	    treeProperty.get(ctx.getChild(0)).value = transFuncName; 
+	  } 
+	  String _Java_str = concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	/**
@@ -166,7 +197,8 @@ public class MyListener extends CalphyBaseListener{
 		}
 	  }
 	  // block statement
-	  if (getChildValue(ctx, ctx.getChildCount()-1).equals(";")){
+	  if (getChildValue(ctx, ctx.getChildCount()-1).equals(";") ||
+		  getChildValue(ctx, ctx.getChildCount()-1).equals("}")){
 	    treeProperty.get(ctx).value = concatAllChildren(ctx) + "\n";
 	  } else {
 		treeProperty.get(ctx).value = concatAllChildren(ctx); 
@@ -221,14 +253,15 @@ public class MyListener extends CalphyBaseListener{
 	  }
 	   
 	  if (isPhysicsType(type)) {
+		String castType = "(" + type + ")";
 	    if (op.equals("+="))
-		  expression = new String(var + " = " + "_ADD(" + var + ", " + expression + ")");
+		  expression = new String(var + " = " + castType + "_ADD(" + var + ", " + expression + ")");
 		else if(op.equals("-="))
-		  expression = new String(var + " = " + "_SUB(" + var + ", " + expression + ")"); 
+		  expression = new String(var + " = " + castType + "_SUB(" + var + ", " + expression + ")"); 
 		else if (op.equals("*="))
-		  expression = new String(var + " = " + "_MULT(" + var + ", " + expression + ")"); 
+		  expression = new String(var + " = " + castType + "_MULT(" + var + ", " + expression + ")"); 
 		else if (op.equals("/="))
-		  expression = new String(var + " = " + "_DIV(" + var + ", " + expression + ")"); 
+		  expression = new String(var + " = " + castType + "_DIV(" + var + ", " + expression + ")"); 
 		else
 		  expression = new String(var + " = new " + type + "(" + expression + ")");
 		treeProperty.get(ctx).value = expression;
@@ -292,10 +325,24 @@ public class MyListener extends CalphyBaseListener{
 	  String type = getChildValue(ctx,0);
 	  String var = getChildValue(ctx,1);
 	  String expression = getChildValue(ctx,3);
+	  
+	  if (ctx.getChild(ctx.getChildCount()-1).getChild(0) 
+			  instanceof CalphyParser.FunctionDeclaratorContext) { // check if is calling a function
+        ParserRuleContext funcDecCtx = (ParserRuleContext)ctx.getChild(ctx.getChildCount()-1).getChild(0);
+        String fname = getChildValue(funcDecCtx, 0);
+        String returnType = getChildValue(ctx, 0);
+        
+        if (checkIfFuncExist(fname, returnType)) {
+          System.out.println("function exist" + fname + " " + returnType);        
+        } else {
+          System.out.println("function not exist" + fname + " " + returnType);
+          // TODO handle this
+        }
+	  } 
+	  
 	  if (isPhysicsType(type)) {
 	    expression = "new " + type + "(" + expression + ")";
 	    treeProperty.get(ctx).value = type + " " + var + " = " + expression;
-	    
 	  } else {
 	    treeProperty.get(ctx).value = concatAllChildren(ctx);
 	  }
@@ -314,7 +361,8 @@ public class MyListener extends CalphyBaseListener{
 	  System.out.println("DEBUG: exitExpression: " + concatAllChildren(ctx));
 	  if (!getChildValue(ctx,1).isEmpty()) {
         String op = getChildValue(ctx,1);
-        if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || op.equals("_ADD") || op.equals("_SUB")) {
+        if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || 
+        		op.equals("_ADD") || op.equals("_SUB") || op.equals("_EXP")) {
           String _Java_str = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
           checkValidOp(op, getChildValue(ctx,0), getChildValue(ctx,2));
           treeProperty.get(ctx).value = _Java_str;
@@ -349,6 +397,8 @@ public class MyListener extends CalphyBaseListener{
 		op = "_DIV";
 	  } else if (child.equals("%")) {
 		op = "_MOD";
+	  } else if (child.equals("^")) {
+		op = "_EXP";
 	  } else {
 		;  // should not get here
 	  }
@@ -390,8 +440,6 @@ public class MyListener extends CalphyBaseListener{
 	} catch (Exception e) {
                 System.out.println("Physics Quantity Error: "+e);
         }
-	  String _Java_str = getChildValue(ctx, 0) + "," + getChildValue(ctx, 2);
-      	  treeProperty.get(ctx).value = _Java_str;
 	}
 	
 	@Override public void enterVector(CalphyParser.VectorContext ctx) { }
@@ -485,6 +533,7 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	@Override public void exitType(CalphyParser.TypeContext ctx) { 
 	  String _Java_str = concatAllChildren(ctx);
+	  System.out.println(_Java_str);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	
