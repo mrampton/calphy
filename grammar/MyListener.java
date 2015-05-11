@@ -23,6 +23,7 @@ public class MyListener extends CalphyBaseListener{
   public class NodeProperty {
 	public int symbolTBPointer; 
 	public String value;
+	public String type;
   }
   
   public class Symbol {
@@ -50,6 +51,14 @@ public class MyListener extends CalphyBaseListener{
 	  name = n;
 	  returnType = retT;
 	}
+  }
+  public String getFuncRetType(String n) {
+	for (Function f : functionTB) {
+	  if (f.name.equals(n)){
+		return f.returnType;
+	  }
+	}
+	return null;
   }
   
   public boolean checkIfFuncExist(String n, String retT) {
@@ -99,10 +108,17 @@ public class MyListener extends CalphyBaseListener{
   }
   
   public String getChildValue(ParserRuleContext ctx, int id) {
-	  if (ctx.getChild(id) == null || treeProperty.get(ctx.getChild(id)) == null) {
-		return "";
-	  }
-	  return treeProperty.get(ctx.getChild(id)).value;
+    if (ctx.getChild(id) == null || treeProperty.get(ctx.getChild(id)) == null) {
+	  return "";
+	}
+	return treeProperty.get(ctx.getChild(id)).value;
+  }
+  
+  public String getChildType(ParserRuleContext ctx, int id) {  
+	 if (ctx.getChild(id) == null || treeProperty.get(ctx.getChild(id)) == null) {
+		return null;
+	 }
+	 return treeProperty.get(ctx.getChild(id)).type;
   }
   
   public String concatAllChildren(ParserRuleContext ctx) {
@@ -121,8 +137,15 @@ public class MyListener extends CalphyBaseListener{
 	return sb.toString();
   }
   
-  public boolean checkValidOp(String op, String a, String b) {
-	return false;
+  public String getNodeType(String op, String t1, String t2) {
+	System.out.println("getNodeType: " + op + " " + t1 + " " + t2);
+	if (t1!=null) {
+	  return t1;
+	} else if (t2!=null) {
+	  return t2;
+	} else {
+	  return null;
+	}
   }
   
   public void throwCompileException(String info) {
@@ -139,7 +162,7 @@ public class MyListener extends CalphyBaseListener{
 	}
 	
 	@Override public void exitProgram(CalphyParser.ProgramContext ctx) {
-	  String _Java_Program = "public class CalphyClass { \n" + 
+	  String _Java_Program = "public class CalphyClass extends CalphyMethods { \n" + 
 			  			 concatAllChildren(ctx) + 
 			  			 "\n}";
 	  String _Java_str = concatAllChildren(ctx);
@@ -161,6 +184,7 @@ public class MyListener extends CalphyBaseListener{
 	  int oldPointer = treeProperty.get(ctx).symbolTBPointer;
 	  // pop the variables that are out of scope
 	  while (symbolTB.size() > oldPointer) {
+		System.out.println("pop symbol table");
 		symbolTB.remove(symbolTB.size() - 1);
 	  }
 	}
@@ -173,12 +197,16 @@ public class MyListener extends CalphyBaseListener{
 	  if (getChildValue(ctx, 0).equals("main")){
 		treeProperty.get(ctx.getChild(2)).value = "String[] args";
 	  }
+	  String retType = null;
 	  String transFuncName = transTable.transList.get(ctx.getChild(0).getText());
 	  if (transFuncName != null) {
 	    treeProperty.get(ctx.getChild(0)).value = transFuncName; 
-	  } 
-	  String _Java_str = concatAllChildren(ctx);
-	  treeProperty.get(ctx).value = _Java_str;
+	    retType = getFuncRetType(transFuncName);
+	  } else {
+	    retType = getFuncRetType(getChildValue(ctx,0));
+	  }
+	  treeProperty.get(ctx).type = retType;
+	  treeProperty.get(ctx).value = concatAllChildren(ctx);
 	}
 	/**
 	 * {@inheritDoc}
@@ -307,6 +335,12 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitParameter(CalphyParser.ParameterContext ctx) { 
+	  if (ctx.getChildCount() == 2) {  // type and var name
+		String type = getChildValue(ctx, 0);
+		String name = getChildValue(ctx, 1);
+		System.out.println("putSymbol " + name + " " + type);
+		putSymbol(name, type, false);  //TODO handle vector
+	  }
 	  String _Java_str = concatAllChildren(ctx);
       treeProperty.get(ctx).value = _Java_str;
 	}
@@ -359,20 +393,45 @@ public class MyListener extends CalphyBaseListener{
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
 	  // Process binary operation
 	  System.out.println("DEBUG: exitExpression: " + concatAllChildren(ctx));
-	  if (!getChildValue(ctx,1).isEmpty()) {
+	  String expType = null;
+	  String expValue = "";
+	  
+	  // expression is a variable or const
+	  if (ctx.getChildCount() == 1) { 
+		expType = getChildType(ctx, 0);
+	    expValue = concatAllChildren(ctx);
+	    System.out.println("Single value expression " + expValue + " " + expType);
+	    treeProperty.get(ctx).value = expValue;
+	    treeProperty.get(ctx).type = expType;
+	    return;
+	  } 
+	  
+	  // if expression is a binary op
+	  if (!getChildValue(ctx,1).isEmpty()) { 
         String op = getChildValue(ctx,1);
         if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || 
         		op.equals("_ADD") || op.equals("_SUB") || op.equals("_EXP")) {
-          String _Java_str = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
-          checkValidOp(op, getChildValue(ctx,0), getChildValue(ctx,2));
-          treeProperty.get(ctx).value = _Java_str;
-          return;
-        } else {
-		  treeProperty.get(ctx).value = concatAllChildren(ctx);
+          expType = getNodeType(op, getChildType(ctx,0), getChildType(ctx,2));
+          System.out.println("Exit b-op expression : type " + expType);
+          if (expType != null) {
+            expValue = "("+ expType + ")" + op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
+          } else {
+        	expValue = op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
+          }
+          treeProperty.get(ctx).value = expValue;
+  	      treeProperty.get(ctx).type = expType;
+  	      return;
 	    }
 	  }
-	  // Process unary operation
-      if (ctx.getChild(0) instanceof CalphyParser.UnaryOperatorContext) {
+	  
+	  if (getChildValue(ctx,0).equals("(")){  // ( expression )
+		treeProperty.get(ctx).type = getChildType(ctx, 1);
+		treeProperty.get(ctx).value = concatAllChildren(ctx);
+		return;
+	  }
+	  
+	  if (ctx.getChild(0) instanceof CalphyParser.UnaryOperatorContext) {
+		// check not applied on physics quantity
     	ParserRuleContext expression = (ParserRuleContext)ctx.getChild(1);
         if (expression.getChild(0) instanceof CalphyParser.PhysicsQuantityContext) {
           throwCompileException("unary operator can't be applied to PhysicsQuantity");
@@ -384,8 +443,10 @@ public class MyListener extends CalphyBaseListener{
           }
         }
       }
+	  
 	  // otherwise, simply pass everything up 
 	  treeProperty.get(ctx).value = concatAllChildren(ctx);
+	  treeProperty.get(ctx).type = expType;
 	}
 	
 	@Override public void exitMultDivMod(CalphyParser.MultDivModContext ctx) { 
@@ -579,6 +640,8 @@ public class MyListener extends CalphyBaseListener{
 	@Override public void visitTerminal(TerminalNode node) {
 	  NodeProperty np = new NodeProperty();
 	  np.value = node.getSymbol().getText();
+	  np.type = getSymbolType(np.value);
+	  System.out.println("terminal name: " + np.value + " " + np.type);
 	  treeProperty.put(node, np);
 	}
 	
