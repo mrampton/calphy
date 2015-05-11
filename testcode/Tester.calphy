@@ -1,6 +1,5 @@
 void main() {
-	// int scount = 1;
-	// int vcount = 1;
+	int count = 1;
 
 	println("+++++ Force +++++");
 	force f1 = <10,1>;
@@ -17,6 +16,7 @@ void main() {
 	println(f5);
 	println(f6);
 	println(f7);
+	count = 1;
 	
 	println("\n+++++ Velocity +++++");
 	velocity v1 = <10,1>;
@@ -33,7 +33,6 @@ void main() {
 	println(v5);
 	println(v6);
 	println(v7);
-	// reset();
 
 	println("\n+++++ Displacement +++++");
 	displacement d1 = <10, 1>;
@@ -50,7 +49,6 @@ void main() {
 	println(d5);
 	println(d6);
 	println(d7);
-	// reset();
 
 	println("\n+++++ Acceleration +++++");
 	acceleration a1 = <10,1>;
@@ -67,7 +65,6 @@ void main() {
 	println(a5);
 	println(a6);
 	println(a7);
-	// reset();
 
 	println("\n============== Scalar Types ==============");
 
@@ -86,7 +83,6 @@ void main() {
 	println(e5);
 	println(e6);
 	println(e7);
-	// reset();
 
 	println("\n+++++ Mass +++++");
 	mass m1 = 10;
@@ -103,8 +99,7 @@ void main() {
 	println(m5);
 	println(m6);
 	println(m7);
-	// reset();
-	//
+
 	println("\n+++++ Power +++++");
 	power p1 = 10;
 	power p2 = 100 [_mW];
@@ -120,7 +115,6 @@ void main() {
 	println(p5);
 	println(p6);
 	println(p7);
-	// reset();
 
 	println("\n+++++ Time +++++");
 	time t1 = 10;
@@ -137,18 +131,5 @@ void main() {
 	println(t5);
 	println(t6);
 	println(t7);
-	// reset();
 }
-
-// void printVal(String s) {
-// 	print(1);
-// 	print(": ");
-// 	println(s);
-// }
-
-// void reset() {
-// 	vcount = 1;
-// 	scount = 1;
-// }
-
 
