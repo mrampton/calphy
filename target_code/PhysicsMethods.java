@@ -1,6 +1,6 @@
 public class PhysicsMethods {
 	
-	public Displacement getDisp(Acceleration a, Time t, Velocity v){
+	public static Displacement getDisp(Acceleration a, Time t, Velocity v){
 		double time = t.value;
 		double accel = a.x;
 		double vel = v.x;
@@ -15,7 +15,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Displacement getDisp(Velocity vi, Velocity vf, Acceleration a){
+	public static Displacement getDisp(Velocity vi, Velocity vf, Acceleration a){
 		double veli = vi.x;
 		double velf = vf.x;
 		double accel = a.x;
@@ -30,7 +30,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Displacement getDisp(Time t, Velocity vi, Velocity vf){
+	public static Displacement getDisp(Time t, Velocity vi, Velocity vf){
 		double veli = vi.x;
 		double velf = vf.x;
 		double time = t.value;
@@ -43,7 +43,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Acceleration getAccel(Displacement d, Velocity v, Time t){
+	public static cceleration getAccel(Displacement d, Velocity v, Time t){
 		double disp = d.x;
 		double vel = v.x;
 		double time = t.value;
@@ -56,7 +56,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 
-	public Acceleration getAccel(Velocity vi, Velocity vf, Displacement d){
+	public static Acceleration getAccel(Velocity vi, Velocity vf, Displacement d){
 		double disp = d.x;
 		double veli = vi.x;
 		double velf = vf.x;
@@ -70,7 +70,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Acceleration getAccel(Velocity vi, Velocity vf, Time t){
+	public static Acceleration getAccel(Velocity vi, Velocity vf, Time t){
 		double time = t.value;
 		double veli = vi.x;
 		double velf = vf.x;
@@ -83,7 +83,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Time getTime(Velocity vi, Velocity vf, Acceleration a){
+	public static Time getTime(Velocity vi, Velocity vf, Acceleration a){
 		double veli = Math.sqrt((vi.x * vi.x) + (vi.y * vi.y));
 		double velf = Math.sqrt((vf.x * vf.x) + (vf.y * vf.y));
 		double accel = Math.sqrt((a.x * a.x) + (a.y * a.y));
@@ -92,7 +92,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Time getTime(Displacement d, Velocity vi, Velocity vf){
+	public static Time getTime(Displacement d, Velocity vi, Velocity vf){
 		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
 		double veli = Math.sqrt((vi.x * vi.x) + (vi.y * vi.y));
 		double velf = Math.sqrt((vf.x * vf.x) + (vf.y * vf.y));
@@ -101,7 +101,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Velocity getinitVel(Displacement d, Acceleration a, Time t){
+	public static Velocity getinitVel(Displacement d, Acceleration a, Time t){
 		double disp = d.x;
 		double accel = a.x;
 		double time = t.value;
@@ -115,7 +115,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Velocity getinitVel(Velocity v, Acceleration a, Displacement d){
+	public static Velocity getinitVel(Velocity v, Acceleration a, Displacement d){
 		double accel = a.x;
 		double vel = v.x;
 		double disp = d.x;
@@ -130,7 +130,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Velocity getinitVel(Velocity v, Acceleration a, Time t){
+	public static Velocity getinitVel(Velocity v, Acceleration a, Time t){
 		double vel = v.x;
 		double accel = a.x;
 		double time = t.value;
@@ -143,7 +143,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Velocity getinitVel(Velocity v, Displacement d, Time t){
+	public static Velocity getinitVel(Velocity v, Displacement d, Time t){
 		double vel = v.x;
 		double disp = d.x;
 		double time = t.value;
@@ -157,7 +157,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Velocity getfinalVel(Velocity v, Acceleration a, Displacement d){
+	public static Velocity getfinalVel(Velocity v, Acceleration a, Displacement d){
 		double vel = v.x;
 		double accel = a.x;
 		double disp = d.x;
@@ -172,7 +172,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Velocity getfinalVel(Velocity v, Acceleration a, Time t){
+	public static Velocity getfinalVel(Velocity v, Acceleration a, Time t){
 		double vel = v.x;
 		double accel = a.x;
 		double time = t.value;
@@ -185,7 +185,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public Velocity getfinalVel(Velocity v, Displacement d, Time t){
+	public static Velocity getfinalVel(Velocity v, Displacement d, Time t){
 		double vel = v.x;
 		double disp = d.x;
 		double time = t.value;
@@ -199,7 +199,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Force getForce(Mass m, Acceleration a){
+	public static Force getForce(Mass m, Acceleration a){
 		double mass = m.value;
 		double accel = a.x;
 		double forcex = mass * accel;
@@ -210,7 +210,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Velocity getVel(Displacement d, Time t){
+	public static Velocity getVel(Displacement d, Time t){
 		double disp = d.x;
 		double time = t.value;
 		double vx = disp / time;
@@ -221,7 +221,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 
-	public Acceleration getAccel(Velocity v, Time t){
+	public static Acceleration getAccel(Velocity v, Time t){
 		double vel = v.x;
 		double time = t.value;
 		double accelx = vel / time;
@@ -232,7 +232,7 @@ public class PhysicsMethods {
 		
 	}
 	
-	public Acceleration getAccel(Force f, Mass m){
+	public static Acceleration getAccel(Force f, Mass m){
 		double force = f.x;
 		double mass = m.value;
 		double accelx = force / mass;
