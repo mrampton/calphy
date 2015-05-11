@@ -19,7 +19,7 @@ public class Energy extends PhysicsScalarType {
 			case "_J": this.value = value;
 			break;			
 			
-			case "_KJ": this.value = (double) (value * Math.pow(10, 3));
+			case "_kJ": this.value = (double) (value * Math.pow(10, 3));
 			break;			
 			
 			case "_MJ": this.value = (double) (value * Math.pow(10, 6));
@@ -37,11 +37,5 @@ public class Energy extends PhysicsScalarType {
 		this.value = e.value;
 		this.units = e.units;
 	}
-
-	public  String toString(){
-		return Double.toString(value) + " " + units;
-	}
-
-
 
 }

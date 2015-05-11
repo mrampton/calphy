@@ -38,6 +38,7 @@ test: all
 
 .PHONY: targetcode
 targetcode:
+	rm -rf {.,../target_code}/CalphyClass*
 	javac $(TARGETCODE)/*.java
 
 .PHONY: tester

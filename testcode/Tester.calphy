@@ -1,168 +1,154 @@
 void main() {
-	int scount = 1;
-	int vcount = 1;
+	// int scount = 1;
+	// int vcount = 1;
 
-	print("+++++ Force +++++");
+	println("+++++ Force +++++");
 	force f1 = <10,1>;
-	// Force f2 = new Force(0.01, 0.1, "_kN");
-	// Force f3 = (Force)_ADD(f1, f2);
-	// Force f4 = (Force)_SUB(f3, f2);
-	// Force f5 = (Force)_MULT(f3, 5);
-	// Force f6 = (Force)_MULT(5, f3);
-	// Force f7 = (Force)_DIV(f6, 5);
-	print(f1);
+	force f2 = <0.01, 0.1> [_kN];
+	force f3 = f1 + f2;
+	force f4 = f3 - f2;
+	force f5 = f3 * 5;
+	force f6 = 5 * f3;
+	force f7 = f6 / 5;
+	println(f1);
+	println(f2);
+	println(f3);
+	println(f4);
+	println(f5);
+	println(f6);
+	println(f7);
 	
-	// printVector(f1);
-	// printVector(f2);
-	// printVector(f3);
-	// printVector(f4);
-	// printVector(f5);
-	// printVector(f6);
-	// printVector(f7);
+	println("\n+++++ Velocity +++++");
+	velocity v1 = <10,1>;
+	velocity v2 = <0.1, 0.1> [_m/s];
+	velocity v3 = v1 + v2;
+	velocity v4 = v3 - v2;
+	velocity v5 = v3 * 5;
+	velocity v6 = 5 * v3;
+	velocity v7 = v6 / 5;
+	println(v1);
+	println(v2);
+	println(v3);
+	println(v4);
+	println(v5);
+	println(v6);
+	println(v7);
+	// reset();
+
+	println("\n+++++ Displacement +++++");
+	displacement d1 = <10, 1>;
+	displacement d2 = <0.01, 0.1> [_km];
+	displacement d3 = d1 + d2;
+	displacement d4 = d3 - d2;
+	displacement d5 = d3 * 5;
+	displacement d6 = 5 * d3;
+	displacement d7 = d6 / 5;
+	println(d1);
+	println(d2);
+	println(d3);
+	println(d4);
+	println(d5);
+	println(d6);
+	println(d7);
+	// reset();
+
+	println("\n+++++ Acceleration +++++");
+	acceleration a1 = <10,1>;
+	acceleration a2 = <0.1, 0.1> [_m/s^2];
+	acceleration a3 = a1 + a2;
+	acceleration a4 = a3 - a2;
+	acceleration a5 = a3 * 5;
+	acceleration a6 = 5 * a3;
+	acceleration a7 = a6 / 5;
+	println(a1);
+	println(a2);
+	println(a3);
+	println(a4);
+	println(a5);
+	println(a6);
+	println(a7);
+	// reset();
+
+	println("\n============== Scalar Types ==============");
+
+	println("\n+++++ Energy +++++");
+	energy e1 = 10; 
+	energy e2 = 0.01 [_kJ];
+	energy e3 = e1 + e2;
+	energy e4 = e3 - e2;
+	energy e5 = e3 * 5;
+	energy e6 = 5 * e3;
+	energy e7 = e6 / 5;
+	println(e1);
+	println(e2);
+	println(e3);
+	println(e4);
+	println(e5);
+	println(e6);
+	println(e7);
+	// reset();
+
+	println("\n+++++ Mass +++++");
+	mass m1 = 10;
+	mass m2 = 100 [_g];
+	mass m3 = m1 + m2;
+	mass m4 = m3 - m2;
+	mass m5 = m3 * 5;
+	mass m6 = 5 * m3;
+	mass m7 = m6 / 5;
+	println(m1);
+	println(m2);
+	println(m3);
+	println(m4);
+	println(m5);
+	println(m6);
+	println(m7);
 	// reset();
 	//
-	// print("\n+++++ Velocity +++++");
-	// Velocity v1 = new Velocity(10,1);
-	// Velocity v2 = new Velocity(0.01, 0.1, "_km/s");
-	// Velocity v3 = (Velocity)_ADD(v1, v2);
-	// Velocity v4 = (Velocity)_SUB(v3, v2);
-	// Velocity v5 = (Velocity)_MULT(v3, 5);
-	// Velocity v6 = (Velocity)_MULT(5, v3);
-	// Velocity v7 = (Velocity)_DIV(v6, 5);
-	// printVector(v1);
-	// printVector(v2);
-	// printVector(v3);
-	// printVector(v4);
-	// printVector(v5);
-	// printVector(v6);
-	// printVector(v7);
+	println("\n+++++ Power +++++");
+	power p1 = 10;
+	power p2 = 100 [_mW];
+	power p3 = p1 + p2;
+	power p4 = p3 - p2;
+	power p5 = p3 * 5;
+	power p6 = 5 * p3;
+	power p7 = p6 / 5;
+	println(p1);
+	println(p2);
+	println(p3);
+	println(p4);
+	println(p5);
+	println(p6);
+	println(p7);
 	// reset();
-	//
-	// print("\n+++++ Displacement +++++");
-	// Displacement d1 = new Displacement(10,1);
-	// Displacement d2 = new Displacement(0.01, 0.1, "_km");
-	// Displacement d3 = (Displacement)_ADD(d1, d2);
-	// Displacement d4 = (Displacement)_SUB(d3, d2);
-	// Displacement d5 = (Displacement)_MULT(d3, 5);
-	// Displacement d6 = (Displacement)_MULT(5, d3);
-	// Displacement d7 = (Displacement)_DIV(d6, 5);
-	// printVector(d1);
-	// printVector(d2);
-	// printVector(d3);
-	// printVector(d4);
-	// printVector(d5);
-	// printVector(d6);
-	// printVector(d7);
-	// reset();
-	//
-	// print("\n+++++ Acceleration +++++");
-	// Acceleration a1 = new Acceleration(10,1);
-	// Acceleration a2 = new Acceleration(0.01, 0.1, "_km/s^2");
-	// Acceleration a3 = (Acceleration)_ADD(a1, a2);
-	// Acceleration a4 = (Acceleration)_SUB(a3, a2);
-	// Acceleration a5 = (Acceleration)_MULT(a3, 5);
-	// Acceleration a6 = (Acceleration)_MULT(5, a3);
-	// Acceleration a7 = (Acceleration)_DIV(a6, 5);
-	// printVector(a1);
-	// printVector(a2);
-	// printVector(a3);
-	// printVector(a4);
-	// printVector(a5);
-	// printVector(a6);
-	// printVector(a7);
-	// reset();
-	//
-	//
-	// print("\n============== Scalar Types ==============");
-	//
-	// print("\n+++++ Energy +++++");
-	// Energy e1 = new Energy(10);
-	// Energy e2 = new Energy(0.01, "_KJ");
-	// Energy e3 = (Energy)_ADD(e1, e2);
-	// Energy e4 = (Energy)_SUB(e3, e2);
-	// Energy e5 = (Energy)_MULT(e3, 5);
-	// Energy e6 = (Energy)_MULT(5, e3);
-	// Energy e7 = (Energy)_DIV(e6, 5);
-	// printScalar(e1);
-	// printScalar(e2);
-	// printScalar(e3);
-	// printScalar(e4);
-	// printScalar(e5);
-	// printScalar(e6);
-	// printScalar(e7);
-	// reset();
-	//
-	// print("\n+++++ Mass +++++");
-	// Mass m1 = new Mass(10);
-	// Mass m2 = new Mass(100, "_g");
-	// Mass m3 = (Mass)_ADD(m1, m2);
-	// Mass m4 = (Mass)_SUB(m3, m2);
-	// Mass m5 = (Mass)_MULT(m3, 5);
-	// Mass m6 = (Mass)_MULT(5, m3);
-	// Mass m7 = (Mass)_DIV(m6, 5);
-	// printScalar(m1);
-	// printScalar(m2);
-	// printScalar(m3);
-	// printScalar(m4);
-	// printScalar(m5);
-	// printScalar(m6);
-	// printScalar(m7);
-	// reset();
-	//
-	// print("\n+++++ Power +++++");
-	// Power p1 = new Power(10);
-	// Power p2 = new Power(100, "_mW");
-	// Power p3 = (Power)_ADD(p1, p2);
-	// Power p4 = (Power)_SUB(p3, p2);
-	// Power p5 = (Power)_MULT(p3, 5);
-	// Power p6 = (Power)_MULT(5, p3);
-	// Power p7 = (Power)_DIV(p6, 5);
-	// printScalar(p1);
-	// printScalar(p2);
-	// printScalar(p3);
-	// printScalar(p4);
-	// printScalar(p5);
-	// printScalar(p6);
-	// printScalar(p7);
-	// reset();
-	//
-	// print("\n+++++ Time +++++");
-	// Time t1 = new Time(10);
-	// Time t2 = new Time(100, "_ms");
-	// Time t3 = (Time)_ADD(t1, t2);
-	// Time t4 = (Time)_SUB(t3, t2);
-	// Time t5 = (Time)_MULT(t3, 5);
-	// Time t6 = (Time)_MULT(5, t3);
-	// Time t7 = (Time)_DIV(t6, 5);
-	// printScalar(t1);
-	// printScalar(t2);
-	// printScalar(t3);
-	// printScalar(t4);
-	// printScalar(t5);
-	// printScalar(t6);
-	// printScalar(t7);
+
+	println("\n+++++ Time +++++");
+	time t1 = 10;
+	time t2 = 100 [_ms];
+	time t3 = t1 + t2;
+	time t4 = t3 - t2;
+	time t5 = t3 * 5;
+	time t6 = 5 * t3;
+	time t7 = t6 / 5;
+	println(t1);
+	println(t2);
+	println(t3);
+	println(t4);
+	println(t5);
+	println(t6);
+	println(t7);
 	// reset();
 }
 
-// void printScalar(PhysicsScalarType s) {
-// 	System.out.print("s" + scount + ": ");
-// 	s.display();
-// 	scount++;
-// }
-//
-// void printForce(force f) {
-// 	print(f);
+// void printVal(String s) {
+// 	print(1);
+// 	print(": ");
+// 	println(s);
 // }
 
-// void printVector(PhysicsVectorType v) {
-// 	System.out.print("v" + vcount + ": ");
-// 	v.display();
-// 	vcount++;
-// }
-//
 // void reset() {
 // 	vcount = 1;
 // 	scount = 1;
 // }
-//
-//
+
+

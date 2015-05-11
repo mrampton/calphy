@@ -35,9 +35,5 @@ public class Time extends PhysicsScalarType {
 		this.value = t.value;
 		this.units = t.units;
 	}
-	public  String toString(){
-		return Double.toString(value) + " " + units;
-	}
-
 
 }

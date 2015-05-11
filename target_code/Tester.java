@@ -21,7 +21,7 @@ public class Tester extends CalphyMethods {
 
 		System.out.println("\n+++++ Velocity +++++");
 		Velocity v1 = new Velocity(10,1);
-		Velocity v2 = new Velocity(0.01, 0.1, "_km/s");
+		Velocity v2 = new Velocity(0.1, 0.1, "_m/s");
 		Velocity v3 = (Velocity)_ADD(v1, v2);
 		Velocity v4 = (Velocity)_SUB(v3, v2);
 		Velocity v5 = (Velocity)_MULT(v3, 5);
@@ -55,7 +55,7 @@ public class Tester extends CalphyMethods {
 
 		System.out.println("\n+++++ Acceleration +++++");
 		Acceleration a1 = new Acceleration(10,1);
-		Acceleration a2 = new Acceleration(0.01, 0.1, "_km/s^2");
+		Acceleration a2 = new Acceleration(0.1, 0.1, "_m/s^2");
 		Acceleration a3 = (Acceleration)_ADD(a1, a2);
 		Acceleration a4 = (Acceleration)_SUB(a3, a2);
 		Acceleration a5 = (Acceleration)_MULT(a3, 5);
@@ -75,7 +75,7 @@ public class Tester extends CalphyMethods {
 			
 		System.out.println("\n+++++ Energy +++++");
 		Energy e1 = new Energy(10);
-		Energy e2 = new Energy(0.01, "_KJ");
+		Energy e2 = new Energy(0.01, "_kJ");
 		Energy e3 = (Energy)_ADD(e1, e2);
 		Energy e4 = (Energy)_SUB(e3, e2);
 		Energy e5 = (Energy)_MULT(e3, 5);
