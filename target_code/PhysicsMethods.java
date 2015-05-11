@@ -43,7 +43,7 @@ public class PhysicsMethods {
 		return answer;
 	}
 	
-	public static cceleration getAccel(Displacement d, Velocity v, Time t){
+	public static Acceleration getAccel(Displacement d, Velocity v, Time t){
 		double disp = d.x;
 		double vel = v.x;
 		double time = t.value;
