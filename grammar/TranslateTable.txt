@@ -6,7 +6,7 @@ time	Time
 force	Force
 energy	Energy
 power	Power
-time	Time
 displacement	Displacement
-print	System.out.println
+print	System.out.print
+println	System.out.println
 main	main

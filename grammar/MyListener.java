@@ -72,7 +72,7 @@ public class MyListener extends CalphyBaseListener{
  
   public Boolean isPhysicsType(String type) {
     type = type == null ? "" : type;
-	Pattern p = Pattern.compile("(Mass|Acceleration|Velocity|Force|Energy|Power|Displacement)");
+	Pattern p = Pattern.compile("(Mass|Acceleration|Velocity|Force|Energy|Power|Displacement|Time)");
 	Matcher m = p.matcher(type);
 	return m.find();
   }
