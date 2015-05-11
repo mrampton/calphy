@@ -1,8 +1,8 @@
 public class PhysicsScalarType extends PhysicsType {
 	double value;
 
-	public void display() {
-    System.out.println(this.value + " " + this.units.replaceAll("_",""));
+	public String toString() {
+    return this.value + " " + this.units.replaceAll("_","");
 	}
 
 	

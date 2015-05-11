@@ -143,14 +143,12 @@ public class Tester extends CalphyMethods {
 	}
 	
 	public static void printScalar(PhysicsScalarType s) {
-		System.out.print("s" + scount + ": ");
-		s.display();
+		System.out.println("s" + scount + ": " + s);
 		scount++;
 	}
 
 	public static void printVector(PhysicsVectorType v) {
-		System.out.print("v" + vcount + ": ");
-		v.display();
+		System.out.println("v" + vcount + ": " + v);
 		vcount++;
 	}
 

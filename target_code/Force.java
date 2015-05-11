@@ -26,7 +26,4 @@ class Force extends PhysicsVectorType {
 		this.y = f.y;
 		this.units = f.units;
 	}
-	public String toString(){
-		return "<" +Double.toString(x) + ","+Double.toString(y)+"> " + units;
-	}
 }
