@@ -7,7 +7,7 @@ public class PhysicsMethods {
 		double distancex = vel * time + (.5 * accel * (time*time));
 		
 		accel = a.y;
-		vel = a.y;
+		vel = v.y;
 		double distancey = vel * time + (.5 * accel * (time*time));
 		
 		
@@ -19,12 +19,22 @@ public class PhysicsMethods {
 		double veli = vi.x;
 		double velf = vf.x;
 		double accel = a.x;
-		double distancex = (velf * velf + veli * veli) / (2 * accel);
-		
+		double distancex;
+		if (accel != 0.0) {
+		  distancex = (velf * velf - veli * veli) / (2 * accel);
+		} else {
+	      distancex = 0.0;
+		}
 		veli = vi.y;
-		velf = vi.y;
+		velf = vf.y;
 		accel = a.y;
-		double distancey = (velf * velf + veli * veli) / (2 * accel);
+		double distancey;
+		if (accel != 0.0) {
+		  distancey = (velf * velf - veli * veli) / (2 * accel);
+		  //System.out.println(velf + " " + veli + " " + accel + distancey);
+		} else {
+		  distancey = 0.0;
+		}
 		Displacement answer = new Displacement(distancex, distancey);
 		return answer;
 		

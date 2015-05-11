@@ -51,8 +51,8 @@ class Velocity extends PhysicsVectorType {
 	  			this.y = y;
 	  			break;
 	  		case "h":
-	  			this.x = x/(60);
-	  			this.y = y/(60);
+	  			this.x = x/(3600);
+	  			this.y = y/(3600);
 	  			break;
 
 	  		default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
