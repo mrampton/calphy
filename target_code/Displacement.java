@@ -1,5 +1,7 @@
 class Displacement extends PhysicsVectorType {
 	
+	public Displacement(){
+	}
 	public Displacement(double x, double y){
 	  	this.x = x;
 	  	this.y = y;
