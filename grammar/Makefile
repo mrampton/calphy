@@ -32,21 +32,25 @@ compiler:
 calphyc.jar: Calphy.g4 MyListener.java
 	jar cfm calphyc.jar MANIFEST.MF *.class TranslateTable.txt
 
-.PHONY: test
-test: all
-	ls $(TESTDIR)/test1*.calphy | xargs -I file java Compiler $(TESTDIR)/file
-
 .PHONY: targetcode
 targetcode:
 	rm -rf {.,../target_code}/CalphyClass*
 	javac $(TARGETCODE)/*.java
 
+.PHONY: test
+test: all
+	ls $(TESTDIR)/test1*.calphy | xargs -I file java Compiler $(TESTDIR)/file
+
 .PHONY: tester
 tester: antlr $(classes) targetcode
+	-rm $(TARGETCODE)/{Calphy,Java}.out
 	java Compiler $(TESTDIR)/Tester.calphy
 	mv CalphyClass.java $(TARGETCODE)/
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.java
-	cd $(TARGETCODE); java CalphyClass
+	cd $(TARGETCODE); java CalphyClass > Calphy.out; java Tester > Java.out
+	echo "Diff Results:"
+	@echo "<<< Java output  |  Calphy output >>>"
+	@diff $(TARGETCODE)/{Java,Calphy}.out 
 
 .PHONY: clean
 clean :
