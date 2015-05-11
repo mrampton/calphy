@@ -63,5 +63,9 @@ class Acceleration extends PhysicsVectorType {
 		this.y = a.y;
 		this.units = a.units;
 	}
+
+	public String toString(){
+		return "<" +Double.toString(x) + ","+Double.toString(y)+"> " + units;
+	}
 	
 }

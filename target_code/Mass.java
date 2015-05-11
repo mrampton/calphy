@@ -38,4 +38,8 @@ public class Mass extends PhysicsScalarType {
 		return (new Mass(this.value + rhs.value));
 	}
 
+	public  String toString(){
+		return Double.toString(value) + " " + units;
+	}
+
 }

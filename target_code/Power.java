@@ -37,5 +37,9 @@ public class Power extends PhysicsScalarType {
 		this.value = p.value;
 		this.units = p.units;
 	}
+	public  String toString(){
+		return Double.toString(value) + " " + units;
+	}
+
 
 }

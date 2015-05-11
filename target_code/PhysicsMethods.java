@@ -321,4 +321,9 @@ public class PhysicsMethods {
 		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
 		return new Energy(0.5 * k * disp * disp);
 	}
+	public static Velocity getVel(Energy e, Mass m){
+		double answer =  Math.sqrt(2*e.value/m.value);
+		Velocity v = new Velocity(answer,0);
+		return v;
+	}
 }
