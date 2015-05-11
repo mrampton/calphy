@@ -122,7 +122,8 @@ type
     |   'int'
     |   'float'
     |   'double'
-    |   'boolean')
+    |   'boolean'
+    |   'String')
     |   physicsType
     ;
 
