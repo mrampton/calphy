@@ -34,7 +34,18 @@ calphyc.jar: Calphy.g4 MyListener.java
 
 .PHONY: test
 test: all
-	ls $(TESTDIR)/test1* | xargs -I file java Compiler $(TESTDIR)/file
+	ls $(TESTDIR)/test1*.calphy | xargs -I file java Compiler $(TESTDIR)/file
+
+.PHONY: targetcode
+targetcode:
+	javac $(TARGETCODE)/*.java
+
+.PHONY: tester
+tester: antlr $(classes) targetcode
+	java Compiler $(TESTDIR)/Tester.calphy
+	mv CalphyClass.java $(TARGETCODE)/
+	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.java
+	cd $(TARGETCODE); java CalphyClass
 
 .PHONY: clean
 clean :
