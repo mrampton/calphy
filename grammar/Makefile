@@ -36,18 +36,27 @@ calphyc.jar: Calphy.g4 MyListener.java
 .PHONY: targetcode
 targetcode:
 	rm -rf {.,../target_code}/CalphyClass*.$(TARGETEXT)
+	rm -rf {.,../target_code}/test*.$(TARGETEXT)
 	javac $(TARGETCODE)/*.java
 
 .PHONY: test
 test: all
-	ls $(TESTDIR)/test1*.calphy | xargs -I file java Compiler $(TESTDIR)/file
+	ls $(TESTDIR)/test*.calphy | xargs -I file java Compiler $(TESTDIR)/file
 
 .PHONY: test1 test2 test3 test4 test5 test6 testsetup
 testsetup: antlr $(classes)
-	java Compiler $(TESTDIR)/test*.calphy
+
+test1:
+	java Compiler $(TESTDIR)/test1_success.calphy
 	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
 	
+test7:
+	java Compiler $(TESTDIR)/test7*.calphy
+	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
+	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
+	java CalphyClass
+
 
 .PHONY: tester
 tester: antlr $(classes) targetcode
@@ -62,6 +71,7 @@ tester: antlr $(classes) targetcode
 
 .PHONY: clean
 clean :
+	rm -rf {.,../target_code}/test*.$(TARGETEXT)
 	rm -f *.class $(grammar)*.java *.tokens
 
 %.class : %.java
