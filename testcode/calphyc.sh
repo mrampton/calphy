@@ -17,7 +17,6 @@ then
 	exit 0
 fi
 
-echo "$2.java"
 javac -cp $CLASSPATH $2.java
 rm $2.java
 

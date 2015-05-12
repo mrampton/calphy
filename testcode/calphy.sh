@@ -9,5 +9,5 @@ fi
 
 cp $1.class $CLASSPATH
 cd $CLASSPATH; java $1
-rm $1.java
+
 exit 0
