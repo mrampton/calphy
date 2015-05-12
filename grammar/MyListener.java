@@ -666,7 +666,7 @@ public class MyListener extends CalphyBaseListener{
       functionTB.add(new Function("getVel", "Velocity"));
       functionTB.add(new Function("getMass", "Mass"));
       // return double
-      functionTB.add(new Function("degreeToRadians", "double"));
+      functionTB.add(new Function("degreesToRadians", "double"));
       functionTB.add(new Function("radiansToDegrees", "double"));
       functionTB.add(new Function("sin", "double"));
       functionTB.add(new Function("cos", "double"));
