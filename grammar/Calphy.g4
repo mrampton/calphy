@@ -34,8 +34,7 @@ selectionStatement
     ;
 
 assignStatement
-    :   Identifier assignmentOperator expression
-	|	Identifier assignmentOperator expression
+    :   expression assignmentOperator expression
     ;
 
 returnStatement
@@ -66,7 +65,7 @@ expression
     |   expression unaryOperator
     |   unaryOperator expression
     |   expression multDivMod expression
-	|	expression plusMinus expression
+    |	expression plusMinus expression
     |   expression compareOperator expression
     |   expression logicOperator expression
     |   '(' expression ')'

@@ -270,14 +270,31 @@ public class MyListener extends CalphyBaseListener{
 	  String var = getChildValue(ctx,0);
 	  String op = getChildValue(ctx, 1);
 	  String expression = getChildValue(ctx,2);
-	   
-	  String type = getSymbolType(var);
-	  if (type == null) {
-	    throwCompileException (var + " not declared");
+	  String ltype = getSymbolType(var);
+	  
+	  // if simple var
+	  if (ctx.getChild(0) instanceof TerminalNode) {
+		if (ltype == null) { // not declared
+	      throwCompileException (var + " not declared");
+		}
+	  } else {  // V.x
+		ltype = "double";
 	  }
-	   
-	  if (isPhysicsType(type)) {
-		String castType = "(" + type + ")";
+	  
+	  if (ctx.getChild(ctx.getChildCount()-1).getChild(0) 
+			  instanceof CalphyParser.FunctionDeclaratorContext) { // check if is calling a function
+        ParserRuleContext funcDecCtx = (ParserRuleContext)ctx.getChild(ctx.getChildCount()-1).getChild(0);
+        String fname = getChildValue(funcDecCtx, 0);
+        if (checkIfFuncExist(fname, ltype)) {
+          System.out.println("function exist" + fname + " " + ltype);        
+        } else {
+          System.out.println("function not exist" + fname + " " + ltype);
+          throwCompileException("Function " + ltype + " " + fname + " was not declared.");
+        }
+	  } 
+      
+	  if (isPhysicsType(ltype)) {
+		String castType = "(" + ltype + ")";
 	    if (op.equals("+="))
 		  expression = new String(var + " = " + castType + "_ADD(" + var + ", " + expression + ")");
 		else if(op.equals("-="))
@@ -287,7 +304,7 @@ public class MyListener extends CalphyBaseListener{
 		else if (op.equals("/="))
 		  expression = new String(var + " = " + castType + "_DIV(" + var + ", " + expression + ")"); 
 		else
-		  expression = new String(var + " = new " + type + "(" + expression + ")");
+		  expression = new String(var + " = new " + ltype + "(" + expression + ")");
 		treeProperty.get(ctx).value = expression;
 		return;
 	  }
@@ -365,7 +382,7 @@ public class MyListener extends CalphyBaseListener{
           System.out.println("function exist" + fname + " " + returnType);        
         } else {
           System.out.println("function not exist" + fname + " " + returnType);
-          // TODO handle this
+          throwCompileException("Function " + fname + " was not declared.");
         }
 	  } 
 	  
