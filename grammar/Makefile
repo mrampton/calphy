@@ -10,7 +10,7 @@ grun=java org.antlr.v4.runtime.misc.TestRig
 grammar=Calphy
 
 .PHONY: all
-all: antlr $(classes) compiler
+all: antlr $(classes) calphyc.jar
 
 Calphy.g4: Calphy.tokens
 	$(antlr4) $(grammar).g4
