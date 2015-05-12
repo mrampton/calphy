@@ -6,8 +6,8 @@ void partB(velocity v, displacement h, time t){
 
 
 void main(){
-    acceleration a = <0, -9.81>;
-    displacement h = <0,0>;
+    acceleration a = <0, -9.81>[m/s^2];
+    displacement h = <0,0>[m];
     velocity v = <42 *cos(degreesToRadians(60)) ,42 * sin(degreesToRadians(60)) >;
     time t = 5.5;
     h = getDisp(a, t, v);
