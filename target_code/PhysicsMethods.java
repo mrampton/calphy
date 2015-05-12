@@ -329,6 +329,7 @@ public class PhysicsMethods {
 	
 	public static Energy calcElastic(double k, Displacement d){
 		double disp = Math.sqrt((d.x * d.x) + (d.y * d.y));
+		System.out.println(disp);
 		return new Energy(0.5 * k * disp * disp);
 	}
 	public static Velocity getVel(Energy e, Mass m){
