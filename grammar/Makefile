@@ -40,20 +40,16 @@ targetcode:
 	javac $(TARGETCODE)/*.java
 
 .PHONY: test
-test: all
-	ls $(TESTDIR)/test*.calphy | xargs -I file java Compiler $(TESTDIR)/file
-
-.PHONY: test1 test2 test3 test4 test5 test6 test7 testsetup
-testsetup: clean all
-
-test1: testsetup
-	java Compiler $(TESTDIR)/test1_success.calphy
+test: testsetup
+	java Compiler $(TESTDIR)/$(test)_*.calphy 
 	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
+	cd $(TARGETCODE); java CalphyClass
 	
+.PHONY: test1 test7 testsetup
+testsetup: clean all
+
 test7: testsetup
-	TEST=`find $(TESTDIR) -name 'test1*'`
-	echo $TEST
 	java Compiler $(TESTDIR)/test7*.calphy 
 	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
