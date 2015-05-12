@@ -1,16 +1,12 @@
 
 
-
-
 void main(){
     energy e = 4 [_J];
     displacement d = <10,0> [_cm];
-    println(e);
-    double v = calcConst(e, d);
-    println(v);
-    energy elastic = calcElastic(v,d);
-    println(elastic);
+    displacement diff = <20,0> [_cm];
+    double kval = calcConst(e, d);
+    energy elastic = calcElastic(kval,diff);
     energy work = elastic - e;
-    println(work);
+    printf("Extra work being done is: %f $s", work.value, work.units);
 
 }
