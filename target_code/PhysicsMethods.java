@@ -336,4 +336,52 @@ public class PhysicsMethods {
 		Velocity v = new Velocity(answer,0);
 		return v;
 	}
+
+	public static void printAccel(Acceleration a, String u) {
+		if (u.equals("km/s^2"))
+			System.out.println("<"+a.x/1000+","+a.y/1000+"> "+u);
+	}
+
+	public static void printMass(Mass a, String u) {
+		if (u.equals("g"))
+			System.out.println(a.value*1000+" "+u);
+		if (u.equals("mg"))
+			System.out.println(a.value*1000000+" "+u);
+	}
+
+	public static void printEnergy(Energy a, String u) {
+		if (u.equals("KJ"))
+			System.out.println(a.value/1000+" "+u);
+		if (u.equals("MJ"))
+			System.out.println(a.value/1000000+" "+u);
+		if (u.equals("mJ"))
+			System.out.println(a.value*1000+" "+u);
+	}
+
+	public static void printVel(Velocity a, String u) {
+		if (u.equals("km/h"))
+			System.out.println("<"+a.x/(1000*3600)+","+a.y/(1000*3600)+"> "+u);
+		if (u.equals("km/s"))
+			System.out.println("<"+a.x/1000+","+a.y/1000+"> "+u);
+		if (u.equals("m/h"))
+			System.out.println("<"+a.x/3600+","+a.y/3600+"> "+u);
+	}
+
+	public static void printForce(Force a, String u) {
+		if (u.equals("kN")
+			System.out.println("<"+a.x/1000+","+a.y/1000+"> "+u);
+		if (u.equals("MN")
+			System.out.println("<"+a.x/1000000+","+a.y/1000000+"> "+u);
+		if (u.equals("mN")
+			System.out.println("<"+a.x*1000+","+a.y*1000+"> "+u);
+	}
+
+	public static void printTime(Time a, String u) {
+		if (u.equals("ms")
+			System.out.println(a.value*1000+" "+u);
+		if (u.equals("us")
+			System.out.println(a.value*1000000+" "+u);
+		if (u.equals("ns")
+			System.out.println(a.value*Math.pow(10,9)+" "+u);
+	}
 }
