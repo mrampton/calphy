@@ -2,6 +2,22 @@ public class CalphyMethods extends PhysicsMethods {
 
 	//// ScalarTypes
 	//
+	public static double _ADD(double a, double b) {
+	  return a+b;
+	}
+	
+	public static double _SUB(double a, double b) {
+		  return a-b;
+	}
+	
+	public static double _MULT(double a, double b) {
+		  return a*b;
+	}
+	
+	public static double _DIV(double a, double b) {
+		  return a/b;
+	}
+	
 	
 	public static PhysicsScalarType _DIV(PhysicsScalarType lhs, PhysicsScalarType rhs) {
 		if (rhs.value == 0) {
