@@ -13,11 +13,12 @@ java -jar calphyc.jar $1 $2
 if [ "$#" -ne 2 ]
 then
 	javac -cp $CLASSPATH CalphyClass.java
-	# rm CalphyClass.java
+	rm CalphyClass.java
 	exit 0
 fi
 
+echo "$2.java"
 javac -cp $CLASSPATH $2.java
-# rm $2.java
+rm $2.java
 
 exit 0

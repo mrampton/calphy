@@ -7,6 +7,7 @@ then
         exit 1
 fi
 
-java -cp $CLASSPATH $1
+cp $1.class $CLASSPATH
+cd $CLASSPATH; java $1
 rm $1.java
 exit 0
