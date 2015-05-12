@@ -27,12 +27,14 @@ gui: antlr all
 	$(grun) $(grammar) program test-code.calphy -gui
 
 compiler:
-	java Compiler test-code.calphy
-	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
+	java Compiler test-code.calphy $(out)
+	-mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
+	-mv $(out).$(TARGETEXT) $(TARGETCODE)/
 
 calphyc.jar: Calphy.g4 MyListener.java
 	jar cfm calphyc.jar MANIFEST.MF *.class TranslateTable.txt
-
+	mv calphyc.jar $(TESTDIR)
+	
 .PHONY: targetcode
 targetcode:
 	rm -rf {.,../target_code}/CalphyClass*.$(TARGETEXT)
