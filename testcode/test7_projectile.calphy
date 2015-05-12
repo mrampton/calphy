@@ -1,14 +1,14 @@
 void partB(velocity v, displacement h, time t){
-    velocity final = getfinalVel(v, g, t);
-    print (final);
+    velocity vfinal = getfinalVel(v, g, t);
+    print (vfinal);
 }
 
 
 void main(){
     displacement h = <0,0>;
-    velocity v = <42 *cos(60) ,42 * sin(60) >;
+    velocity v = <42 *cos(degreeToRadians(60)) ,42 * sin(degreeToRadians(60)) >;
     time t = 5.5;
-    displacement h = getDisp(v, t);
+    h = getDisp(v, t);
     print (h);
     partB(v,h,t);
 
