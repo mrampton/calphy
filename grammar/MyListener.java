@@ -166,7 +166,6 @@ public class MyListener extends CalphyBaseListener{
 			  			 "\n}";
 	  String _Java_str = concatAllChildren(ctx);
 	  treeProperty.get(ctx).value = _Java_Program;
-	  System.out.println(_Java_Program);
 	}
 
 	@Override public void enterFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) { 
