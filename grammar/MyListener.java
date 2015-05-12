@@ -674,7 +674,7 @@ public class MyListener extends CalphyBaseListener{
       functionTB.add(new Function("arccos", "double"));
       functionTB.add(new Function("arctan", "double"));
       functionTB.add(new Function("toComponent", "double"));
-      functionTB.add(new Function("calcElastic", "double"));
+      functionTB.add(new Function("calcElastic", "Energy"));
       functionTB.add(new Function("norm", "double"));
       functionTB.add(new Function("printDisp", null));
       functionTB.add(new Function("printAccel", null));
@@ -683,5 +683,6 @@ public class MyListener extends CalphyBaseListener{
       functionTB.add(new Function("printEnergy", null));
       functionTB.add(new Function("printForce", null));
       functionTB.add(new Function("printPower", null));
+      functionTB.add(new Function("calcConst", "double"));
     }
 }
