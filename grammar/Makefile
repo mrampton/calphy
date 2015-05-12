@@ -39,6 +39,9 @@ targetcode:
 	rm -rf {.,../target_code}/test*.$(TARGETEXT)
 	javac $(TARGETCODE)/*.java
 
+.PHONY: testsetup
+testsetup: clean all
+
 .PHONY: test
 test: testsetup
 	java Compiler $(TESTDIR)/$(test)_*.calphy 
@@ -46,16 +49,6 @@ test: testsetup
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
 	cd $(TARGETCODE); java CalphyClass
 	
-.PHONY: test1 test7 testsetup
-testsetup: clean all
-
-test7: testsetup
-	java Compiler $(TESTDIR)/test7*.calphy 
-	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
-	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
-	cd $(TARGETCODE); java CalphyClass
-
-
 .PHONY: tester
 tester: antlr $(classes) targetcode
 	-rm $(TARGETCODE)/{Calphy,Java}.out
