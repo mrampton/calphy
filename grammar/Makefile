@@ -52,7 +52,8 @@ test1: testsetup
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
 	
 test7: testsetup
-	
+	TEST=`find $(TESTDIR) -name 'test1*'`
+	echo $TEST
 	java Compiler $(TESTDIR)/test7*.calphy 
 	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
 	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
