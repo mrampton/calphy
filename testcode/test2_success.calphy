@@ -1,0 +1,35 @@
+void main() {
+	// given variables
+	String s = "hello world";
+	print(s);
+    acceleration gravity_acc = <0, -9.8>;
+    
+	velocity v_i;
+	toComponent(v_i, degreesToRadians(60), 42.0);
+	println(v_i);
+	time t_f = 5.5 [_s];
+	mass m = 5.5 [_kg];
+
+	// find
+	displacement d_apex;
+	displacement d_final;
+	velocity v_f;
+
+	// first arg is v_f which is zero because
+	v_f = <0,0> [_m/s];
+	d_apex = getDisp(v_i, v_f, gravity_acc);
+	println("Maximum height is ");
+	println(d_apex.y);
+
+	d_final = getDisp(gravity_acc, t_f, v_i);
+	println ("Final height is");
+	println(d_final.y);
+
+	v_f = getfinalVel(v_i, gravity_acc, t_f);
+	println("Final velocity is ");
+	println( v_f);
+}
+// Output:
+// Maximum height is: 67.50 m 
+// Final height is: 51.82m
+// Final Velocity is: <21.000000000000004, -17.52693304105358> m/s
