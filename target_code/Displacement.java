@@ -24,6 +24,7 @@ class Displacement extends PhysicsVectorType {
 			case "_nm": return (double) (value * Math.pow(10, -9));
 			case "_um": return (double) (value * Math.pow(10, -6));
 			case "_mm": return (double) (value * Math.pow(10, -3));
+			case "_cm": return (double) (value * Math.pow(10, -2));
 			case "_km": return (double) (value * Math.pow(10, 3));
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 		}

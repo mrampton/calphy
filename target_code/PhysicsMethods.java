@@ -336,4 +336,10 @@ public class PhysicsMethods {
 		Velocity v = new Velocity(answer,0);
 		return v;
 	}
+
+	public static double calcConst(Energy e, Displacement d){
+		double c = e.value/(d.x*d.x + d.y*d.y);
+		return c;
+
+	}
 }

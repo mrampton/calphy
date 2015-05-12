@@ -1,0 +1,13 @@
+
+
+
+
+void main(){
+    energy e = 4 [_J];
+    displacement d = <10,0> [_cm];
+    double v = calcConst(e, d);
+    energy elastic = calcElastic(v,d);
+    energy work = elastic - e;
+    print (work);
+
+}
