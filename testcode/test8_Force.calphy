@@ -1,20 +1,29 @@
-void part2(mass m,g){
-    
-    force newf = getForce(m,g);
-    toComp(newf, 
+double part2(mass m, acceleration g, double degrees){
+    force f = getForce(m,g);
+    f.y = f.y/sin(degrees);
+    print("Force is: ");
+    println(f.y);
+    return f.y;
 }
 
 
+void part3(force f, mass m, double degrees){
+    acceleration a = getAccel(f,m);
+    print("Acceleration is: ");
+    println(a.x);
+}
 
 
 void main(){
-    acceleration g = <0,9.81>;
+    acceleration g = <0,9.8>;
     mass m = 5 [_kg];
-    force f = <12 * cos(25) , 12 * sin(25)>;
+    double degrees = degreesToRadians(25);
+    force f = <12 * cos(degrees) , 12 * sin(degrees)>;
     acceleration a = getAccel(f,m);
     print ("Acceleration is: ");
-    println(a);
-    part2(m,g);
-    part3();
+    println(a.x);
+    double newf = part2(m,g,degrees);
+    f = <newf * cos(degrees), newf * sin(degrees)>;
+    part3(f,m,degrees);
 
 }
