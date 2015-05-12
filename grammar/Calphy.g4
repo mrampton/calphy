@@ -91,7 +91,7 @@ vector
 
 physicsUnit
     : '_g' | '_kg' | '_mg' | '_ug' | '_ng'
-    | '_km' | '_m' | '_mm' | '_um' | '_nm'
+    | '_km' | '_m' | '_mm' | '_um' | '_nm' | '_cm'
     | '_nN' | '_uN' | '_mW' | '_N' | '_kN' | '_MN' | '_GN'
     | '_nW' | '_uW' | '_mW' | '_W' | '_kW' | '_MW' | '_GW'
     | '_nJ' | '_uJ' | '_mJ' | '_J' | '_kJ' | '_MJ' | '_GJ'
