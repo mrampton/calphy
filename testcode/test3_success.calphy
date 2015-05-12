@@ -1,0 +1,10 @@
+velocity doubleVel(velocity v) {
+  return 2*v;
+}
+
+void main() {
+  velocity v = <3,4> [_m/hr];
+  velocity v2 = doubleVel(v);
+  print(v2);
+}
+
