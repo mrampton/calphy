@@ -163,6 +163,7 @@ public class MyListener extends CalphyBaseListener{
 	
 	@Override public void exitProgram(CalphyParser.ProgramContext ctx) {
 	  String _Java_Program = "public class CalphyClass extends CalphyMethods { \n" + 
+			  				
 			  			 concatAllChildren(ctx) + 
 			  			 "\n}";
 	  String _Java_str = concatAllChildren(ctx);
@@ -288,9 +289,9 @@ public class MyListener extends CalphyBaseListener{
         ParserRuleContext funcDecCtx = (ParserRuleContext)ctx.getChild(ctx.getChildCount()-1).getChild(0);
         String fname = getChildValue(funcDecCtx, 0);
         if (checkIfFuncExist(fname, ltype)) {
-          System.out.println("function exist" + fname + " " + ltype);        
+          //System.out.println("function exist" + fname + " " + ltype);        
         } else {
-          System.out.println("function not exist" + fname + " " + ltype);
+          //System.out.println("function not exist" + fname + " " + ltype);
           throwCompileException("Function " + ltype + " " + fname + " was not declared.");
         }
 	  }
@@ -381,9 +382,9 @@ public class MyListener extends CalphyBaseListener{
         String returnType = getChildValue(ctx, 0);
         
         if (checkIfFuncExist(fname, returnType)) {
-          System.out.println("function exist" + fname + " " + returnType);        
+          //System.out.println("function exist" + fname + " " + returnType);        
         } else {
-          System.out.println("function not exist" + fname + " " + returnType);
+          //System.out.println("function not exist" + fname + " " + returnType);
           throwCompileException("Function " + fname + " was not declared.");
         }
 	  } 
@@ -501,17 +502,16 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPhysicsQuantity(CalphyParser.PhysicsQuantityContext ctx) { 
-	try {
-	  String _Java_str;
-	  if (getChildValue(ctx,2).equals(""))
-		_Java_str = getChildValue(ctx, 0);
-	  else
+	  try {
+	    String _Java_str;
+	    if (getChildValue(ctx,2).equals(""))
+		  _Java_str = getChildValue(ctx, 0);
+	    else
 	  	_Java_str = getChildValue(ctx, 0) + "," + getChildValue(ctx, 2);
-	  
-          treeProperty.get(ctx).value = _Java_str;	
-	} catch (Exception e) {
-                System.out.println("Physics Quantity Error: "+e);
-        }
+	    treeProperty.get(ctx).value = _Java_str;	
+	  } catch (Exception e) {
+        System.out.println("Physics Quantity Error: "+e);
+      }
 	}
 	
 	@Override public void enterVector(CalphyParser.VectorContext ctx) { }
@@ -676,5 +676,6 @@ public class MyListener extends CalphyBaseListener{
       functionTB.add(new Function("toComponent", "double"));
       functionTB.add(new Function("calcElastic", "double"));
       functionTB.add(new Function("norm", "double"));
+      functionTB.add(new Function("printDisp", null));
     }
 }
