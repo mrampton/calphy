@@ -336,4 +336,18 @@ public class PhysicsMethods {
 		Velocity v = new Velocity(answer,0);
 		return v;
 	}
+	
+	public static void printDisp(Displacement d, String u) {
+	  if (u.equals("km")) {
+		System.out.println("<" + d.x/1000 + "," + d.y/1000 + "> " + u);
+	  } else if (u.equals("mm")) {
+		System.out.println("<" + d.x*1000 + "," + d.y*1000 + "> " + u);
+	  } else if (u.equals("um")) {
+		System.out.println("<" + d.x*1000000 + "," + d.y*1000000 + "> " + u);
+	  } else if (u.equals("nm")) {
+		System.out.println("<" + d.x*1000000000 + "," + d.y*1000000000 + "> " + u);
+	  } else {
+		System.out.println("<" + d.x + "," + d.y + "> " + u);
+	  }
+	}
 }
