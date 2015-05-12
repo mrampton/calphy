@@ -5,9 +5,12 @@
 void main(){
     energy e = 4 [_J];
     displacement d = <10,0> [_cm];
+    println(e);
     double v = calcConst(e, d);
+    println(v);
     energy elastic = calcElastic(v,d);
+    println(elastic);
     energy work = elastic - e;
-    print (work);
+    println(work);
 
 }

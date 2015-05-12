@@ -336,13 +336,12 @@ public class PhysicsMethods {
 		Velocity v = new Velocity(answer,0);
 		return v;
 	}
+        public static double calcConst(Energy e, Displacement d){
+		double value = 2*e.value/ (d.x * d.x);
+		return value;
+	}
 
-<<<<<<< HEAD
-	public static double calcConst(Energy e, Displacement d){
-		double c = e.value/(d.x*d.x + d.y*d.y);
-		return c;
 
-=======
 	public static void printAccel(Acceleration a, String u) {
 		if (u.equals("km/s^2"))
 			System.out.println("<"+a.x/1000+","+a.y/1000+"> "+u);
@@ -430,6 +429,5 @@ public class PhysicsMethods {
 	  } else if (u.equals("m")) {
 		System.out.println("<" + d.x + "," + d.y + "> " + u);
 	  }
->>>>>>> 1706e248dcbd743e2eb651df58ab79a46c89ca5a
 	}
 }
