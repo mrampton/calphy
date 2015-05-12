@@ -1,7 +1,7 @@
 public class Power extends PhysicsScalarType {
 	public Power(double value){
 		this.value = value;
-		this.units = "_W";
+		this.units = "W";
 	}
 	
 	public Power(double value, String units){
@@ -30,7 +30,7 @@ public class Power extends PhysicsScalarType {
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 
 		}
-		this.units = "_W";
+		this.units = "W";
 	}
 	
 	public Power(Power p) {

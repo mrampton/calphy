@@ -5,11 +5,11 @@ class Displacement extends PhysicsVectorType {
 	public Displacement(double x, double y){
 	  	this.x = x;
 	  	this.y = y;
-		this.units = "_m";
+		this.units = "m";
 	}
 	
 	public Displacement(double x, double y, String units){
-		this.units = "_m";
+		this.units = "m";
 		this.x = toSI(x, units);
 		this.y = toSI(y, units);
 	}
