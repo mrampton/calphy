@@ -1,16 +1,17 @@
-void main() {
-  mass m = 7 [kg];
-  acceleration a = <10,10> [m/s^2];
-  force f = 0;
-  print("Hello world");
-  while(f <= 100) {
-    f = calc_force(m, a);
-    m = m*2;
-  }
-}
 
 // test comment
-force calc_force(mass m, acceleration a) {
-  return m*a;
+double calc_force(mass m, acceleration a) {
+  return getForce(m,a).x;
+}
+
+void main() {
+  mass m = 7 [_kg];
+  acceleration a = <10,10> [_m/s^2];
+  force f = <0,0>;
+  print("Hello world");
+  while(f.x <= 100) {
+    f.x = calc_force(m, a);
+    m = m*2;
+  }
 }
 
