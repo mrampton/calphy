@@ -7,10 +7,11 @@ void partB(velocity v, displacement h, time t){
 
 
 void main(){
+    acceleration a = <0, -9.81>;
     displacement h = <0,0>;
     velocity v = <42 *cos(degreesToRadians(60)) ,42 * sin(degreesToRadians(60)) >;
     time t = 5.5;
-    h = getDisp(v, t);
+    h = getDisp(a, t, v);
     print ("Height is ");
     println(h.y);
     partB(v,h,t);
