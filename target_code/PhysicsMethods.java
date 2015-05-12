@@ -358,6 +358,15 @@ public class PhysicsMethods {
 			System.out.println(a.value*1000+" "+u);
 	}
 
+	public static void printPower(Power a, String u) {
+		if (u.equals("KW"))
+			System.out.println(a.value/1000+" "+u);
+		if (u.equals("MW"))
+			System.out.println(a.value/1000000+" "+u);
+		if (u.equals("mW"))
+			System.out.println(a.value*1000+" "+u);
+	}
+
 	public static void printVel(Velocity a, String u) {
 		if (u.equals("km/h"))
 			System.out.println("<"+a.x/(1000*3600)+","+a.y/(1000*3600)+"> "+u);
