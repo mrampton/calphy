@@ -18,6 +18,7 @@ public class MyListener extends CalphyBaseListener{
 	treeProperty = new ParseTreeProperty<NodeProperty>();
 	symbolTB = new ArrayList<Symbol>();
 	functionTB = new ArrayList<Function>();
+	loadLibFunc();
   }
 
   public class NodeProperty {
@@ -174,7 +175,7 @@ public class MyListener extends CalphyBaseListener{
 	}
 
 	@Override public void exitFunctionDefinition(CalphyParser.FunctionDefinitionContext ctx) {
-	  String _Java_str = "\n public static " + concatAllChildren(ctx) + "\n";
+	  String _Java_str = "\n public static " + concatAllChildren(ctx) + "\n" + " ";
 	  treeProperty.get(ctx).value = _Java_str;
 	  String funcName = ctx.getChild(1).getChild(0).getText();
 	  String retType = getChildValue(ctx, 0);
@@ -274,7 +275,7 @@ public class MyListener extends CalphyBaseListener{
 	  String ltype = getSymbolType(var);
 	  
 	  // if simple var
-	  if (ctx.getChild(0) instanceof TerminalNode) {
+	  if (ctx.getChild(0).getChild(0) instanceof TerminalNode) {
 		if (ltype == null) { // not declared
 	      throwCompileException (var + " not declared");
 		}
@@ -282,6 +283,7 @@ public class MyListener extends CalphyBaseListener{
 		ltype = "double";
 	  }
 	  
+	  // if rhs is a function, check type match
 	  if (ctx.getChild(ctx.getChildCount()-1).getChild(0) 
 			  instanceof CalphyParser.FunctionDeclaratorContext) { // check if is calling a function
         ParserRuleContext funcDecCtx = (ParserRuleContext)ctx.getChild(ctx.getChildCount()-1).getChild(0);
@@ -292,7 +294,7 @@ public class MyListener extends CalphyBaseListener{
           System.out.println("function not exist" + fname + " " + ltype);
           throwCompileException("Function " + ltype + " " + fname + " was not declared.");
         }
-	  } 
+	  }
       
 	  if (isPhysicsType(ltype)) {
 		String castType = "(" + ltype + ")";
@@ -653,4 +655,26 @@ public class MyListener extends CalphyBaseListener{
 	}
 	
 	@Override public void visitErrorNode(ErrorNode node) { }
+	
+    public void loadLibFunc() {
+      functionTB.add(new Function("getDisp", "Displacement"));
+      functionTB.add(new Function("getAccel", "Acceleration"));
+      functionTB.add(new Function("getTime", "Velocity"));
+      functionTB.add(new Function("getinitVel", "Velocity"));
+      functionTB.add(new Function("getfinalVel", "Velocity"));
+      functionTB.add(new Function("getForce", "Force"));
+      functionTB.add(new Function("getVel", "Velocity"));
+      functionTB.add(new Function("getMass", "Mass"));
+      // return double
+      functionTB.add(new Function("degreeToRadians", "double"));
+      functionTB.add(new Function("radiansToDegrees", "double"));
+      functionTB.add(new Function("sin", "double"));
+      functionTB.add(new Function("cos", "double"));
+      functionTB.add(new Function("tan", "double"));
+      functionTB.add(new Function("arcsin", "double"));
+      functionTB.add(new Function("arccos", "double"));
+      functionTB.add(new Function("arctan", "double"));
+      functionTB.add(new Function("toComponent", "double"));
+      functionTB.add(new Function("calcElastic", "double"));
+    }
 }
