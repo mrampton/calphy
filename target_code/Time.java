@@ -2,7 +2,7 @@ public class Time extends PhysicsScalarType {
 
 	public Time(double value){
 		this.value = value;
-		this.units = "_s";
+		this.units = "s";
 	}
 	
 	public Time(double value, String units){
@@ -28,7 +28,7 @@ public class Time extends PhysicsScalarType {
 
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);	
 		}
-		this.units = "_s";
+		this.units = "s";
 	}
 	
 	public Time(Time t) {

@@ -9,4 +9,5 @@ power	Power
 displacement	Displacement
 print	System.out.print
 println	System.out.println
+printf	System.out.printf
 main	main

@@ -40,14 +40,14 @@ targetcode:
 	javac $(TARGETCODE)/*.java
 
 .PHONY: testsetup
-testsetup: clean all
+testsetup: all
 
 .PHONY: test
-test: testsetup
-	java Compiler $(TESTDIR)/$(test)_*.calphy 
-	mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
-	javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
-	cd $(TARGETCODE); java CalphyClass
+test: 
+	@java Compiler $(TESTDIR)/$(test)_*.calphy 
+	@mv CalphyClass.$(TARGETEXT) $(TARGETCODE)/
+	@javac -cp $(TARGETCODE) $(TARGETCODE)/CalphyClass.$(TARGETEXT)
+	@cd $(TARGETCODE); java CalphyClass
 	
 .PHONY: tester
 tester: antlr $(classes) targetcode
