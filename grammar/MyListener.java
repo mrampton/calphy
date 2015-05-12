@@ -138,7 +138,6 @@ public class MyListener extends CalphyBaseListener{
   }
   
   public String getNodeType(String op, String t1, String t2) {
-	System.out.println("getNodeType: " + op + " " + t1 + " " + t2);
 	if (t1!=null) {
 	  return t1;
 	} else if (t2!=null) {
@@ -184,7 +183,6 @@ public class MyListener extends CalphyBaseListener{
 	  int oldPointer = treeProperty.get(ctx).symbolTBPointer;
 	  // pop the variables that are out of scope
 	  while (symbolTB.size() > oldPointer) {
-		System.out.println("pop symbol table");
 		symbolTB.remove(symbolTB.size() - 1);
 	  }
 	}
@@ -270,7 +268,6 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignStatement(CalphyParser.AssignStatementContext ctx) { 
-	  System.out.println("DEBUG: exitAssignStatement: " + concatAllChildren(ctx));
 	  String var = getChildValue(ctx,0);
 	  String op = getChildValue(ctx, 1);
 	  String expression = getChildValue(ctx,2);
@@ -338,7 +335,6 @@ public class MyListener extends CalphyBaseListener{
 	  if (ctx.getChildCount() == 2) {  // type and var name
 		String type = getChildValue(ctx, 0);
 		String name = getChildValue(ctx, 1);
-		System.out.println("putSymbol " + name + " " + type);
 		putSymbol(name, type, false);  //TODO handle vector
 	  }
 	  String _Java_str = concatAllChildren(ctx);
@@ -392,7 +388,6 @@ public class MyListener extends CalphyBaseListener{
 	
 	@Override public void exitExpression(CalphyParser.ExpressionContext ctx) {
 	  // Process binary operation
-	  System.out.println("DEBUG: exitExpression: " + concatAllChildren(ctx));
 	  String expType = null;
 	  String expValue = "";
 	  
@@ -400,7 +395,6 @@ public class MyListener extends CalphyBaseListener{
 	  if (ctx.getChildCount() == 1) { 
 		expType = getChildType(ctx, 0);
 	    expValue = concatAllChildren(ctx);
-	    System.out.println("Single value expression " + expValue + " " + expType);
 	    treeProperty.get(ctx).value = expValue;
 	    treeProperty.get(ctx).type = expType;
 	    return;
@@ -412,7 +406,6 @@ public class MyListener extends CalphyBaseListener{
         if (op.equals("_MULT") || op.equals("_DIV") || op.equals("_MOD") || 
         		op.equals("_ADD") || op.equals("_SUB") || op.equals("_EXP")) {
           expType = getNodeType(op, getChildType(ctx,0), getChildType(ctx,2));
-          System.out.println("Exit b-op expression : type " + expType);
           if (expType != null) {
             expValue = "("+ expType + ")" + op + "(" + getChildValue(ctx,0) + "," + getChildValue(ctx, 2) + ")";
           } else {
@@ -577,7 +570,6 @@ public class MyListener extends CalphyBaseListener{
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignmentOperator(CalphyParser.AssignmentOperatorContext ctx) { 
-	  System.out.println("DEBUG: exitAssignmentOperator: " + concatAllChildren(ctx));
 	  String _Java_str = concatAllChildren(ctx);
       treeProperty.get(ctx).value = _Java_str;
 	} 
@@ -594,7 +586,6 @@ public class MyListener extends CalphyBaseListener{
 	 */
 	@Override public void exitType(CalphyParser.TypeContext ctx) { 
 	  String _Java_str = concatAllChildren(ctx);
-	  System.out.println(_Java_str);
 	  treeProperty.get(ctx).value = _Java_str;
 	}
 	
@@ -641,7 +632,6 @@ public class MyListener extends CalphyBaseListener{
 	  NodeProperty np = new NodeProperty();
 	  np.value = node.getSymbol().getText();
 	  np.type = getSymbolType(np.value);
-	  System.out.println("terminal name: " + np.value + " " + np.type);
 	  treeProperty.put(node, np);
 	}
 	
