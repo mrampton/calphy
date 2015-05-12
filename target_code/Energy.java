@@ -2,7 +2,7 @@ public class Energy extends PhysicsScalarType {
 
 	public Energy(double value){
 		this.value = value;
-		this.units = "_J";
+		this.units = "J";
 	}
 	
 	public Energy(double value, String units){
@@ -30,7 +30,7 @@ public class Energy extends PhysicsScalarType {
 
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 		}
-		this.units = "_J";
+		this.units = "J";
 	}
 	
 	public Energy(Energy e) {

@@ -2,7 +2,7 @@ public class Mass extends PhysicsScalarType {
 
 	public Mass(double value){
 		this.value = value;
-		this.units = "_kg";
+		this.units = "kg";
 	}
 	
 	public Mass(double value, String units){
@@ -26,7 +26,7 @@ public class Mass extends PhysicsScalarType {
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);	
 								
 		}
-		this.units = "_kg";
+		this.units = "kg";
 	}
 
 	public Mass(Mass m) {

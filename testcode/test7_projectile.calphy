@@ -1,8 +1,7 @@
 void partB(velocity v, displacement h, time t){
     velocity vfinal = getfinalVel(v, h, t);
     double speed = norm(vfinal);
-    print ("Speed of the stone: ");
-    println(speed);
+    printf("Speed of the stone: %f %s\n", speed, vfinal.units);
 }
 
 
@@ -12,8 +11,7 @@ void main(){
     velocity v = <42 *cos(degreesToRadians(60)) ,42 * sin(degreesToRadians(60)) >;
     time t = 5.5;
     h = getDisp(a, t, v);
-    print ("Height is ");
-    println(h.y);
+    printf("Height is %f %s\n", h.y, h.units);
     partB(v,h,t);
 
 }

@@ -3,7 +3,7 @@ class Acceleration extends PhysicsVectorType {
 	  Acceleration(double x, double y) {
 	  	this.x = x;
 	  	this.y = y;
-	  	this.units = "_m/s^2";
+	  	this.units = "m/s^2";
 	  }
 	 
 	  Acceleration(double x, double y, String units) {
@@ -55,7 +55,7 @@ class Acceleration extends PhysicsVectorType {
 
 			default: System.out.println("Error. Invalid unit. Exiting."); System.exit(0);
 		}
-	  	this.units = "_m/s^2";
+	  	this.units = "m/s^2";
 	}
 
 	public Acceleration(Acceleration a) {
