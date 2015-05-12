@@ -1,17 +1,16 @@
+velocity doubleVel(velocity v) {
+  return 2*v;
+}
 
-// test comment
-double calc_force(mass m, acceleration a) {
-  return getForce(m,a).x;
+double return5() {
+  return 5.0;
 }
 
 void main() {
-  mass m = 7 [_kg];
-  acceleration a = <10,10> [_m/s^2];
-  force f = <0,0>;
-  print("Hello world");
-  while(f.x <= 100) {
-    f.x = calc_force(m, a);
-    m = m*2;
-  }
+  velocity v = <3,4> [_m/h];
+  velocity v2 = doubleVel(v);
+  print(v2);
+  v.x = 2;
+  v.x = return5();
 }
 
