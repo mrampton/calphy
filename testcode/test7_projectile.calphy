@@ -1,6 +1,8 @@
 void partB(velocity v, displacement h, time t){
     velocity vfinal = getfinalVel(v, h, t);
-    print (vfinal);
+    double speed = norm(vfinal);
+    print ("Speed of the stone: ");
+    println(speed);
 }
 
 
@@ -9,7 +11,8 @@ void main(){
     velocity v = <42 *cos(degreesToRadians(60)) ,42 * sin(degreesToRadians(60)) >;
     time t = 5.5;
     h = getDisp(v, t);
-    print (h);
+    print ("Height is ");
+    println(h.y);
     partB(v,h,t);
 
 }

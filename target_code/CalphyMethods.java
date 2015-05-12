@@ -269,5 +269,8 @@ public class CalphyMethods extends PhysicsMethods {
 		
 	}
 
-	
+       public static double norm(PhysicsVectorType a){
+	       return Math.sqrt(a.x^2 + a.y^2);
+
+       }	
 }
