@@ -677,5 +677,11 @@ public class MyListener extends CalphyBaseListener{
       functionTB.add(new Function("calcElastic", "double"));
       functionTB.add(new Function("norm", "double"));
       functionTB.add(new Function("printDisp", null));
+      functionTB.add(new Function("printAccel", null));
+      functionTB.add(new Function("printVel", null));
+      functionTB.add(new Function("printTime", null));
+      functionTB.add(new Function("printEnergy", null));
+      functionTB.add(new Function("printForce", null));
+      functionTB.add(new Function("printPower", null));
     }
 }
