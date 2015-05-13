@@ -5,6 +5,6 @@ void main(){
     double kval = calcConst(e, d);
     energy elastic = calcElastic(kval,diff);
     energy work = elastic - e;
-    printf("Extra work being done is: %f $s\n", work.value, work.units);
+    printf("Extra work being done is: %f %s\n", work.value, work.units);
 
 }
