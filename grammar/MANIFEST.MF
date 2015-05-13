@@ -1,2 +1,2 @@
 Main-Class: Compiler
-Class-Path: /usr/local/lib/antlr-4.5-complete.jar
+Class-Path: ../lib/antlr-4.5-complete.jar
